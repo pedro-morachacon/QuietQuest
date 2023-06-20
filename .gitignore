@@ -13,7 +13,6 @@ info.py
 .next
 
 # dependencies
-/node_modules
 /.pnp
 .pnp.js
 
