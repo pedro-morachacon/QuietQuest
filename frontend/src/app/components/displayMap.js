@@ -8,6 +8,17 @@ import 'leaflet/dist/leaflet.css';
 const DisplayMap = () => {
   const [optimalDirections, setOptimalDirections] = useState(null);
   const [avoidanceDirections, setAvoidanceDirections] = useState(null);
+
+  /* on load send a GET request to the backend to get the coordinates data and the noise/busyness value
+  from the model for each coordinate*/
+  axios.get('http://localhost:8000/')
+      .then((res) => {
+          // code to render the heatmap goes here
+          console.log(res);
+      }).catch((error) => {
+          console.error('Error:', error)
+  })
+
   // onclick, POST operation to backend django for api call
   const handleClick = () => {
     axios
