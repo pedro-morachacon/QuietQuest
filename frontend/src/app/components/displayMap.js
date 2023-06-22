@@ -10,7 +10,7 @@ const DisplayMap = () => {
   const [avoidanceDirections, setAvoidanceDirections] = useState(null);
 
   /* on load send a GET request to the backend to get the coordinates data and the noise/busyness value
-  from the model for each coordinate*/
+  from the model for each coordinate */
   axios.get('http://localhost:8000/')
       .then((res) => {
           // code to render the heatmap goes here

@@ -138,13 +138,17 @@ def locations_view(request):
     # gets the value of all objects in the database
     location_data = Locations.objects.all().values()
 
-    # a queryset is returned, this has to be serialized to then be converted to JSON
-    serialized_data = LocationsSerializer(location_data, many=True)
-    coordinates = serialized_data.data
+    serialized_data = []
+    # a queryset is returned, this has to be serialized to a dictionary to then be converted to JSON
+    for location in location_data:
+        serializer = LocationsSerializer(location)
+        serialized_data.append(serializer.data)
 
-    response_data = ""
-    for coordinate in coordinates:
-        response_data = {key: value for key, value in coordinate.items()}
-        response_data["count"] = random.randint(0, 4)
+    # for each value of lat and lng, a random value is generated and added to the dictionary as 'count', this will be
+    # the noise/busyness index value but is currently a random value
+    response_data = []
+    for data in serialized_data:
+        data["count"] = random.randint(0, 4)
+        response_data.append(data)
 
-    return JsonResponse(response_data)
+    return JsonResponse(response_data, safe=False)
