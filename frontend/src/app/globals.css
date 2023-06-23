@@ -414,3 +414,9 @@ form .pet {
 .mini .loader {
   font-size: 34px;
 }
+
+#datepicker {
+  position: relative;
+  top: 25px;
+  left: 10px;
+}

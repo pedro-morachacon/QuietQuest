@@ -7,8 +7,8 @@ import 'leaflet-geosearch/assets/css/leaflet.css';
 
 // Define your own marker icon if needed
 const icon = L.icon({
-  iconUrl: "/images/marker.svg", // path to the icon
-  iconSize: [25, 41], // size of the icon
+  url: "https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png",
+  size: {width: 26, height: 32},
 });
 
 const RoutePlanner = () => {
