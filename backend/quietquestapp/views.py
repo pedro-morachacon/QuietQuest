@@ -11,6 +11,11 @@ from django_nextjs.render import render_nextjs_page_sync
 # separate file with api keys
 from . import info
 
+from .models import Locations
+from .serializers import LocationsSerializer
+import random
+from rest_framework.renderers import JSONRenderer
+
 
 # Not sure if this is needed, returns the homepage of the site
 def index(request):
@@ -124,3 +129,26 @@ def directions_view(request):
         'optimal_directions': optimal_directions,
         'avoidance_directions': avoidance_route
     })
+
+
+# on load of home page, a GET request returns all the coordinates in the database for the noise data
+# and the associated noise/busyness index value respectively
+@api_view(['GET'])
+def locations_view(request):
+    # gets the value of all objects in the database
+    location_data = Locations.objects.all().values()
+
+    serialized_data = []
+    # a queryset is returned, this has to be serialized to a dictionary to then be converted to JSON
+    for location in location_data:
+        serializer = LocationsSerializer(location)
+        serialized_data.append(serializer.data)
+
+    # for each value of lat and lng, a random value is generated and added to the dictionary as 'count', this will be
+    # the noise/busyness index value but is currently a random value
+    response_data = []
+    for data in serialized_data:
+        data["count"] = random.randint(0, 4)
+        response_data.append(data)
+
+    return JsonResponse(response_data, safe=False)
