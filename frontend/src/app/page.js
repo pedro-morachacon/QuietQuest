@@ -15,9 +15,9 @@ const SearchParamsWithNoSSR = dynamic(() => import('./components/SearchParams'),
 export default function App() {
   return (
     <div className="App">
-      <div className="search-params-container">
-        <SearchParamsWithNoSSR />
-      </div>
+      {/*<div className="search-params-container">*/}
+      {/*  <SearchParamsWithNoSSR />*/}
+      {/*</div>*/}
       <div className="map-container">
         <MapWithNoSSR />
       </div>

@@ -1,9 +1,40 @@
-// map component for the site
-import React, { useState } from 'react';
-import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { MapContainer, GeoJSON, TileLayer, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import LocateControl from 'leaflet.locatecontrol';
 import tileLayer from './tileLayer';
 import axios from 'axios';
-import 'leaflet/dist/leaflet.css';
+// import GeoSearch from './Geosearch';
+import RoutePlanner from './RoutePlanner'; // Import RoutePlanner
+
+const LocateUserControl = () => {
+  const map = useMap();
+  const [locateControl, setLocateControl] = useState(null);
+
+  const handleLocate = () => {
+    if (locateControl) {
+      locateControl.start();
+    }
+  };
+
+  useEffect(() => {
+    const lc = new LocateControl().addTo(map);
+    setLocateControl(lc);
+
+    return () => {
+      lc.stop();
+      map.removeControl(lc);
+    };
+  }, [map]);
+
+  return (
+    <button type="button" onClick={handleLocate}>
+      Locate Me
+    </button>
+  );
+};
 
 const DisplayMap = () => {
   const [optimalDirections, setOptimalDirections] = useState(null);
@@ -29,7 +60,9 @@ const DisplayMap = () => {
       <div id="map">
         <MapContainer center={[52.136096, 11.635208]} zoom={14}>
           <TileLayer {...tileLayer} />
-            {/* displays optimal route */}
+          <RoutePlanner />
+          <LocateUserControl />
+          {/* displays optimal route */}
           {optimalDirections && (
             <GeoJSON
               data={optimalDirections}
@@ -37,9 +70,9 @@ const DisplayMap = () => {
               fillColor="green"
               weight={2}
             />)}
-            {/* displays route avoiding polygons*/}
-            {avoidanceDirections && (
-              <GeoJSON
+          {/* displays route avoiding polygons*/}
+          {avoidanceDirections && (
+            <GeoJSON
               data={avoidanceDirections}
               strokeColor="blue"
               fillColor="yellow"
