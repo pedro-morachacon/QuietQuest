@@ -6,21 +6,18 @@ from openrouteservice import client
 from shapely.geometry import Polygon, mapping, MultiPolygon, LineString, Point
 from shapely.ops import cascaded_union
 import pyproj
-from django_nextjs.render import render_nextjs_page_sync
 
 # separate file with api keys
 from . import info
 
 from .models import Locations
 from .serializers import LocationsSerializer
-import random
-from rest_framework.renderers import JSONRenderer
-
-
-# Not sure if this is needed, returns the homepage of the site
-def index(request):
-    return render_nextjs_page_sync(request)
-
+import sklearn
+from datetime import datetime
+import pickle
+import pandas as pd
+import numpy as np
+import time
 
 # Expects POST operation from react front end
 @api_view(['POST'])
@@ -133,10 +130,35 @@ def directions_view(request):
 
 # on load of home page, a GET request returns all the coordinates in the database for the noise data
 # and the associated noise/busyness index value respectively
+
 @api_view(['GET'])
 def locations_view(request):
+    start = time.time()
     # gets the value of all objects in the database
     location_data = Locations.objects.all().values()
+
+    # Pickle file input: ['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend']
+    # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
+    x_vars = []
+
+    # current date and time
+    now = datetime.now()
+    now_hour = now.strftime("%H")
+
+    # append current time
+    x_vars.append(int(now_hour))
+
+    # get the day of the week and assign binary value for weekend/weekday
+    dt = now.strftime("%Y-%m-%d")
+    date_format = "%Y-%m-%d"
+    now_date_dt = now.strptime(dt, date_format)
+    day_of_week = now_date_dt.weekday()
+
+    # Monday - 0, Sunday - 6
+    if 0 <= day_of_week <= 4:
+        x_vars.extend([1, 0])
+    else:
+        x_vars.extend([0, 1])
 
     serialized_data = []
     # a queryset is returned, this has to be serialized to a dictionary to then be converted to JSON
@@ -146,9 +168,22 @@ def locations_view(request):
 
     # for each value of lat and lng, a random value is generated and added to the dictionary as 'count', this will be
     # the noise/busyness index value but is currently a random value
+
+    with open("./quietquestapp/test_noise_model.pkl", "rb") as file:
+        noise_model = pickle.load(file)
+
     response_data = []
     for data in serialized_data:
-        data["count"] = random.randint(0, 4)
+        coordinates = list(data.values())
+        coordinates.extend(x_vars)
+        coordinates_reshaped = np.array(coordinates).reshape(1, -1)
+        x = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
+        prediction = noise_model.predict(x)
+        pred_float = prediction.item()
+        data["count"] = int(round(pred_float))
         response_data.append(data)
+        print(data)
 
+    end = time.time()
+    print("Time elapsed: " + str(end - start))
     return JsonResponse(response_data, safe=False)

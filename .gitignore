@@ -43,6 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-data/test_noise_model.pkl
-data/RF_Accurate_Noise_Test.ipynb
-data/Noise Analysis.ipynb
+backend/quietquestapp/test_noise_model.pkl
+backend/data/RF_Accurate_Noise_Test.ipynb
+backend/data/Noise Analysis.ipynb
