@@ -13,7 +13,7 @@ const DisplayMap = () => {
   from the model for each coordinate */
   axios.get('http://localhost:8000/')
       .then((res) => {
-          // code to render the heatmap goes here
+          // code to render the heatmap on load goes here
           console.log(res);
       }).catch((error) => {
           console.error('Error:', error)
@@ -23,6 +23,7 @@ const DisplayMap = () => {
   const handleClick = () => {
     axios
       .post('http://localhost:8000/directions/', [
+          // add inputs for start and destination for routing
         [11.653361, 52.144116],
         [11.62847, 52.1303],
       ])
