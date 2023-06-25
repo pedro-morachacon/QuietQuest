@@ -4,11 +4,13 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import tileLayer from './tileLayer';
 import axios from 'axios';
-import RoutePlanner from './RoutePlanner'; // Import RoutePlanner
 import Datetimepicker from './Datepicker';
 import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
 import L from 'leaflet';
+import RoutingMachine from "@/app/components/RoutingMachine";
+import HeatmapMap from "@/app/components/Heatmap";
+
 
 const myIcon = L.icon({
     iconUrl: 'https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png',
@@ -39,19 +41,21 @@ const DisplayMap = () => {
 
     return (
         <div>
+            <div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>
             <div id='datepicker'>
                 <Datetimepicker/>
             </div>
             <div id="map">
                 <MapContainer center={[52.136096, 11.635208]} zoom={14}>
                     <TileLayer {...tileLayer} />
-                    <Geosearch />
+                    <Geosearch/>
                     <LocateUserControl/>
-                    <Marker position={[52.136096, 11.635208]} icon={myIcon}>
-                        <Popup>
-                          52.136096, 11.635208
-                        </Popup>
-                    </Marker>
+                    <RoutingMachine/>
+                    {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
+                    {/*    <Popup>*/}
+                    {/*      52.136096, 11.635208*/}
+                    {/*    </Popup>*/}
+                    {/*</Marker>*/}
                     {/* displays optimal route */}
                     {optimalDirections && (
                         <GeoJSON
