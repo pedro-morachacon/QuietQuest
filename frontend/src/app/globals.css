@@ -420,3 +420,13 @@ form .pet {
   top: 25px;
   left: 10px;
 }
+
+#button-heatmap {
+  background-color: green;
+  font-size: 20px;
+  color: white;
+  position: relative;
+  top: 25px;
+  left: 10px;
+  padding: 10px;
+}

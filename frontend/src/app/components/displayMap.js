@@ -9,7 +9,7 @@ import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
 import L from 'leaflet';
 import RoutingMachine from "@/app/components/RoutingMachine";
-import HeatmapMap from "@/app/components/Heatmap";
+import HeatMap from "@/app/components/HeatMap";
 
 
 const myIcon = L.icon({
@@ -41,6 +41,9 @@ const DisplayMap = () => {
 
     return (
         <div>
+            <div>
+                <HeatMap/>
+            </div>
             <div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>
             <div id='datepicker'>
                 <Datetimepicker/>
