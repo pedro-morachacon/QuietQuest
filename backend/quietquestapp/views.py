@@ -129,7 +129,7 @@ def directions_view(request):
 def locations_view(request):
     start = time.time()
     # gets the value of all objects in the database
-    location_data = Locations.objects.all()[:5]
+    location_data = Locations.objects.all()[:1000]
 
     # Pickle file input: ['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend']
     # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
@@ -182,13 +182,18 @@ def locations_view(request):
     print("Time elapsed: " + str(end - start))
     return JsonResponse(response_data, safe=False)
 
+# pandas map & convert the whole file to a dataframe rather than each row
+# multiprocessing & threading, chunk size
+# mapping in Python
+# convert to an iterator amd runs through each value
+
 
 # temporarily uses current time and date, will change this to take in the parameters passed from the front end
 # such as date and time which will be used as inputs into the model
 def predicted_locations():
     start = time.time()
     # gets the value of all objects in the database
-    location_data = Locations.objects.all()[:5]
+    location_data = Locations.objects.all()[:1000]
 
     # Pickle file input: ['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend']
     # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]

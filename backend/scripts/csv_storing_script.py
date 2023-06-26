@@ -18,7 +18,7 @@ def run():
                 next(reader)
             else:
                 # store the coordinates
-                coordinates = Locations.objects.create(lat=row[1], long=row[2])
+                coordinates = Locations.objects.create(long=row[1], lat=row[2])
 
             # save the coordinates to the database
             coordinates.save()
