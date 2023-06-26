@@ -43,6 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-test_noise_model.pkl
-RF_Accurate_Noise_Test.ipynb
-Noise Analysis.ipynb
+
+output.txt
+test_response.py
