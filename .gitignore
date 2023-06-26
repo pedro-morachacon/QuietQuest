@@ -6,7 +6,6 @@ __pycache__/
 *.key
 *.env
 *.log
-*.sqlite3
 *.db
 node_modules/
 info.py
@@ -44,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+data/test_noise_model.pkl
+data/RF_Accurate_Noise_Test.ipynb
+data/Noise Analysis.ipynb
