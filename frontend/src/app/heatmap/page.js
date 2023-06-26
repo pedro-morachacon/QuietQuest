@@ -1,20 +1,17 @@
-/* homepage */
-
 "use client"
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-const MapWithNoSSR = dynamic(() => import('./components/displayMap'), {
-  ssr: false,
-});
-
-const SearchParamsWithNoSSR = dynamic(() => import('./components/SearchParams'), {
+const MapWithNoSSR = dynamic(() => import('../components/DisplayHeatMap'), {
   ssr: false,
 });
 
 export default function App() {
   return (
       <main>
+        <div>
+            <button id="button-heatmap">HeatMap</button>
+        </div>
     <div className="App">
       {/*<div className="search-params-container">*/}
       {/*  <SearchParamsWithNoSSR />*/}

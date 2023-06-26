@@ -414,3 +414,19 @@ form .pet {
 .mini .loader {
   font-size: 34px;
 }
+
+#datepicker {
+  position: relative;
+  top: 25px;
+  left: 10px;
+}
+
+#button-heatmap {
+  background-color: green;
+  font-size: 20px;
+  color: white;
+  position: relative;
+  top: 25px;
+  left: 10px;
+  padding: 10px;
+}
