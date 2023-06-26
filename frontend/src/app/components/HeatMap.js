@@ -23,5 +23,5 @@ export default function HeatMap() {
         L.heatLayer(points).addTo(map);
     }, []);
 
-    return <div id="map" style={{height: "50vh"}}></div>;
+    return <div id="map" style={{height: "80vh"}}></div>;
 }

@@ -15,9 +15,6 @@ const SearchParamsWithNoSSR = dynamic(() => import('./components/SearchParams'),
 export default function App() {
   return (
       <main>
-        <div>
-            <button id="button-heatmap">HeatMap</button>
-        </div>
     <div className="App">
       {/*<div className="search-params-container">*/}
       {/*  <SearchParamsWithNoSSR />*/}
