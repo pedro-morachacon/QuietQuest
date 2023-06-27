@@ -7,6 +7,7 @@ const Datepicker = () => {
 
     const handleDateChange = (selectedDate) => {
         setDate(selectedDate);
+        console.log(selectedDate)
     }
 
     return (

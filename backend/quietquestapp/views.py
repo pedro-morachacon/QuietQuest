@@ -149,15 +149,22 @@ def locations_view(request):
     # initialises response data
     response_data = []
 
+    # adds hour and weekday/weekend value to list and then converts to an array
     all_coordinates = list(location_data)
     all_x_vars = [[data['long'], data['lat']] + x_vars for data in all_coordinates]
     coordinates_reshaped = np.array(all_x_vars)
 
     # Pickle file input: [Longitude', 'Latitude, 'Hour', 'Weekday', 'Weekend']
     # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
-    x = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
-    predictions = noise_model.predict(x)
+    df = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
 
+    # takes x as input, returns an array-like object of predicted values for each row in df x
+    predictions = noise_model.predict(df)
+
+    # iterates over the all_coordinates list, it gets both the index i and the corresponding data dictionary
+    # in each iteration, it  retrieves the predicted value for the current iteration index i from
+    # the predictions array-like object and assigns it to pred_float
+    # .item() method extracts the scalar value from the array-like object
     for i, data in enumerate(all_coordinates):
         pred_float = predictions[i].item()
         data["count"] = int(round(pred_float))
@@ -200,9 +207,15 @@ def predicted_locations():
 
     # Pickle file input: [Longitude', 'Latitude, 'Hour', 'Weekday', 'Weekend']
     # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
-    x = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
-    predictions = noise_model.predict(x)
+    df = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
 
+    # takes x as input, returns an array-like object of predicted values for each row in df x
+    predictions = noise_model.predict(df)
+
+    # iterates over the all_coordinates list, it gets both the index i and the corresponding data dictionary
+    # in each iteration, it  retrieves the predicted value for the current iteration index i from
+    # the predictions array-like object and assigns it to pred_float
+    # .item() method extracts the scalar value from the array-like object
     for i, data in enumerate(all_coordinates):
         pred_float = predictions[i].item()
         data["count"] = int(round(pred_float))
