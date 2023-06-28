@@ -6,6 +6,10 @@ from openrouteservice import client
 from shapely.geometry import Polygon, mapping, MultiPolygon, LineString, Point
 from shapely.ops import cascaded_union
 import pyproj
+from pyproj import Transformer
+from geopy import distance
+from functools import partial
+from shapely.ops import transform
 
 # separate file with api keys
 from . import info
@@ -22,24 +26,17 @@ import json
 # will be expanded to include date and time
 @api_view(['POST'])
 def directions_view(request):
-    # Creates a polygon around the inputted point, used to find if a route passes through a point
-    import pyproj
-    from shapely.geometry import Point, Polygon
 
     def create_buffer_polygon(point_in, resolution=2, radius=20):
-        sr_wgs = pyproj.CRS('EPSG:4326')  # WGS84, coordinate type
-        sr_utm = pyproj.CRS('EPSG:32632')  # UTM32N, coordinate type
-        transformer = pyproj.Transformer.from_crs(sr_wgs, sr_utm, always_xy=True)
-
-        # Transform the input point to UTM32N coordinates
-        point_in_proj = transformer.transform(point_in[0], point_in[1])
+        transformer_wgs84_to_utm32n = Transformer.from_crs("EPSG:4326", "EPSG:3857")
+        transformer_utm32n_to_wgs84 = Transformer.from_crs("EPSG:3857", "EPSG:4326")
+        point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
         point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
 
-        # Iterate over all points in the buffer and build a polygon
+        # Iterate over all points in buffer and build polygon
         poly_wgs = []
         for point in point_buffer_proj.exterior.coords:
-            point_wgs = transformer.transform(point[0], point[1])
-            poly_wgs.append(point_wgs)  # Transform back to WGS84
+            poly_wgs.append(transformer_utm32n_to_wgs84.transform(*point))  # Transform back to WGS84
         return poly_wgs
 
     # Loads in the api key
@@ -57,7 +54,7 @@ def directions_view(request):
     # this temporarily uses the current time and date, will be updated for predictions later on by passing through
     # the data and time parameters
     all_locations = predicted_locations()
-    print(all_locations)
+
     for location in all_locations:
         # locations that have a count less than 4 are not 'noisy'/'busy'
         if location['count'] >= 4:
@@ -102,7 +99,7 @@ def directions_view(request):
 
     # Create buffer around route
     avoidance_directions = create_buffer(optimal_directions)
-    print(avoidance_directions)
+
     try:
         for site_poly in high_index_value_ls:
             poly = Polygon(site_poly)
