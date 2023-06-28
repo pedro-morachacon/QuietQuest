@@ -38,7 +38,10 @@ yarn-error.log*
 
 # local env files
 .env*.local
+
 venv/
+
+backend/venv/
 
 # vercel
 .vercel
@@ -49,3 +52,6 @@ next-env.d.ts
 data/test_noise_model.pkl
 data/RF_Accurate_Noise_Test.ipynb
 data/Noise Analysis.ipynb
+
+# VSCode IDE Settings Directory
+.vscode/ 
