@@ -11,7 +11,7 @@ def test_directions_view():
     # Create dummy data for Locations table
     Locations.objects.create(long=11.653227, lat=52.145416)
     Locations.objects.create(long=11.62847, lat=52.1303)
-    Locations.objects.create(long=11.635208, lat=52.136096),
+    Locations.objects.create(long=11.635499908155937, lat=52.13608947281918)
 
     # Create a request factory
     factory = RequestFactory()

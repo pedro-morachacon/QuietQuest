@@ -48,7 +48,6 @@ def directions_view(request):
     ors = client.Client(key=api_key)
     # Start and Destination of route from POST
     coordinates = request.data
-    print(coordinates)
 
     # Points that have a high index value
     high_index_value_ls = []
@@ -58,7 +57,7 @@ def directions_view(request):
     # this temporarily uses the current time and date, will be updated for predictions later on by passing through
     # the data and time parameters
     all_locations = predicted_locations()
-
+    print(all_locations)
     for location in all_locations:
         # locations that have a count less than 4 are not 'noisy'/'busy'
         if location['count'] >= 4:
@@ -76,7 +75,6 @@ def directions_view(request):
 
     # sends route request to api with start and destination coordinates and polygons to avoid
     def create_route(data, avoided_point_list, n=0):
-        print(data)
         route_request = {'coordinates': data,
                          'format': 'geojson',
                          'profile': 'driving-car',
@@ -104,10 +102,11 @@ def directions_view(request):
 
     # Create buffer around route
     avoidance_directions = create_buffer(optimal_directions)
-
+    print(avoidance_directions)
     try:
         for site_poly in high_index_value_ls:
             poly = Polygon(site_poly)
+            print(poly)
             if poly.within(avoidance_directions):
                 avoided_point_list.append(poly)
 
@@ -171,7 +170,6 @@ def locations_view(request):
         pred_float = predictions[i].item()
         data["count"] = int(round(pred_float))
         response_data.append(data)
-    print(response_data)
     return JsonResponse(response_data, safe=False)
 
 
@@ -180,7 +178,6 @@ def locations_view(request):
 def predicted_locations():
     # gets the value of all long and lat objects in the database
     location_data = Locations.objects.values('long', 'lat')[:100]
-    print(location_data)
 
     # gets the current time by hour
     now = datetime.now()
@@ -210,10 +207,8 @@ def predicted_locations():
 
     # Pickle file input: [Longitude', 'Latitude, 'Hour', 'Weekday', 'Weekend']
     # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
-    print("test1")
     x = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
     predictions = noise_model.predict(x)
-    print("test2")
 
     for i, data in enumerate(all_coordinates):
         pred_float = predictions[i].item()
