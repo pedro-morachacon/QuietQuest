@@ -4,8 +4,7 @@ from rest_framework.decorators import api_view
 
 from openrouteservice import client
 from shapely.geometry import Polygon, mapping, MultiPolygon, LineString, Point
-from shapely.ops import cascaded_union
-import pyproj
+from pyproj import Transformer
 
 # separate file with api keys
 from . import info
@@ -23,14 +22,15 @@ import numpy as np
 def directions_view(request):
     # Creates a polygon around the inputted point, used to find if a route passes through a point
     def create_buffer_polygon(point_in, resolution=2, radius=20):
-        sr_wgs = pyproj.Proj('epsg:4326')  # WGS84, coordinate type
-        sr_utm = pyproj.Proj('epsg:32632')  # UTM32N, coordinate type
-        point_in_proj = pyproj.transform(sr_wgs, sr_utm, *point_in)  # Unpack list to arguments
+        transformer_wgs84_to_utm32n = Transformer.from_crs("EPSG:4326", "EPSG:3857")
+        transformer_utm32n_to_wgs84 = Transformer.from_crs("EPSG:3857", "EPSG:4326")
+        point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
         point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
 
-        # Transform all points in buffer back to WGS84 in a single operation
-        poly_wgs = [pyproj.transform(sr_utm, sr_wgs, *point) for point in point_buffer_proj.exterior.coords]
-
+        # Iterate over all points in buffer and build polygon
+        poly_wgs = []
+        for point in point_buffer_proj.exterior.coords:
+            poly_wgs.append(transformer_utm32n_to_wgs84.transform(*point))  # Transform back to WGS84
         return poly_wgs
 
     # Loads in the api key
@@ -39,7 +39,6 @@ def directions_view(request):
     ors = client.Client(key=api_key)
     # Start and Destination of route from POST
     coordinates = request.data
-    print(coordinates)
 
     # Points that have a high index value
     high_index_value_ls = []
@@ -67,9 +66,8 @@ def directions_view(request):
 
     # sends route request to api with start and destination coordinates and polygons to avoid
     def create_route(data, avoided_point_list, n=0):
-        print(data)
         route_request = {'coordinates': data,
-                         'format_out': 'geojson',
+                         'format': 'geojson',
                          'profile': 'driving-car',
                          'preference': 'shortest',
                          'instructions': False,
@@ -125,7 +123,7 @@ def directions_view(request):
 @api_view(['GET'])
 def locations_view(request):
     # gets the value of all long and lat objects in the database
-    location_data = Locations.objects.values('long', 'lat')
+    location_data = Locations.objects.values('long', 'lat')[:100]
 
     # gets the current time by hour
     now = datetime.now()
@@ -168,7 +166,6 @@ def locations_view(request):
         pred_float = predictions[i].item()
         data["count"] = int(round(pred_float))
         response_data.append(data)
-
     return JsonResponse(response_data, safe=False)
 
 
@@ -176,7 +173,7 @@ def locations_view(request):
 # such as date and time which will be used as inputs into the model
 def predicted_locations():
     # gets the value of all long and lat objects in the database
-    location_data = Locations.objects.values('long', 'lat')[:10]
+    location_data = Locations.objects.values('long', 'lat')[:100]
 
     # gets the current time by hour
     now = datetime.now()
