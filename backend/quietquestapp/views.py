@@ -15,6 +15,7 @@ from datetime import datetime
 import pickle
 import pandas as pd
 import numpy as np
+import json
 
 
 # Expects POST operation from react front end, request contains the coordinates of the start and destination
@@ -22,16 +23,23 @@ import numpy as np
 @api_view(['POST'])
 def directions_view(request):
     # Creates a polygon around the inputted point, used to find if a route passes through a point
+    import pyproj
+    from shapely.geometry import Point, Polygon
+
     def create_buffer_polygon(point_in, resolution=2, radius=20):
-        sr_wgs = pyproj.Proj(init='epsg:4326')  # WGS84, coordinate type
-        sr_utm = pyproj.Proj(init='epsg:32632')  # UTM32N, coordinate type
-        point_in_proj = pyproj.transform(sr_wgs, sr_utm, *point_in)  # Unpack list to arguments
+        sr_wgs = pyproj.CRS('EPSG:4326')  # WGS84, coordinate type
+        sr_utm = pyproj.CRS('EPSG:32632')  # UTM32N, coordinate type
+        transformer = pyproj.Transformer.from_crs(sr_wgs, sr_utm, always_xy=True)
+
+        # Transform the input point to UTM32N coordinates
+        point_in_proj = transformer.transform(point_in[0], point_in[1])
         point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
 
-        # Iterate over all points in buffer and build polygon
+        # Iterate over all points in the buffer and build a polygon
         poly_wgs = []
         for point in point_buffer_proj.exterior.coords:
-            poly_wgs.append(pyproj.transform(sr_utm, sr_wgs, *point))  # Transform back to WGS84
+            point_wgs = transformer.transform(point[0], point[1])
+            poly_wgs.append(point_wgs)  # Transform back to WGS84
         return poly_wgs
 
     # Loads in the api key
@@ -40,6 +48,7 @@ def directions_view(request):
     ors = client.Client(key=api_key)
     # Start and Destination of route from POST
     coordinates = request.data
+    print(coordinates)
 
     # Points that have a high index value
     high_index_value_ls = []
@@ -63,13 +72,13 @@ def directions_view(request):
             # Create simplify geometry and merge overlapping buffer regions
             point_poly = Polygon(point_buffer)
             point_geometry.append(point_poly)
-    union_poly = mapping(cascaded_union(point_geometry))
+    #union_poly = mapping(cascaded_union(point_geometry))
 
     # sends route request to api with start and destination coordinates and polygons to avoid
     def create_route(data, avoided_point_list, n=0):
         print(data)
         route_request = {'coordinates': data,
-                         'format_out': 'geojson',
+                         'format': 'geojson',
                          'profile': 'driving-car',
                          'preference': 'shortest',
                          'instructions': False,
@@ -162,7 +171,7 @@ def locations_view(request):
         pred_float = predictions[i].item()
         data["count"] = int(round(pred_float))
         response_data.append(data)
-
+    print(response_data)
     return JsonResponse(response_data, safe=False)
 
 
@@ -171,6 +180,7 @@ def locations_view(request):
 def predicted_locations():
     # gets the value of all long and lat objects in the database
     location_data = Locations.objects.values('long', 'lat')[:100]
+    print(location_data)
 
     # gets the current time by hour
     now = datetime.now()
@@ -200,8 +210,10 @@ def predicted_locations():
 
     # Pickle file input: [Longitude', 'Latitude, 'Hour', 'Weekday', 'Weekend']
     # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
+    print("test1")
     x = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
     predictions = noise_model.predict(x)
+    print("test2")
 
     for i, data in enumerate(all_coordinates):
         pred_float = predictions[i].item()
