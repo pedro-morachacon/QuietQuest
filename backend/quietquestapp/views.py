@@ -4,12 +4,7 @@ from rest_framework.decorators import api_view
 
 from openrouteservice import client
 from shapely.geometry import Polygon, mapping, MultiPolygon, LineString, Point
-from shapely.ops import cascaded_union
-import pyproj
 from pyproj import Transformer
-from geopy import distance
-from functools import partial
-from shapely.ops import transform
 
 # separate file with api keys
 from . import info
@@ -19,14 +14,12 @@ from datetime import datetime
 import pickle
 import pandas as pd
 import numpy as np
-import json
 
 
 # Expects POST operation from react front end, request contains the coordinates of the start and destination
 # will be expanded to include date and time
 @api_view(['POST'])
 def directions_view(request):
-
     def create_buffer_polygon(point_in, resolution=2, radius=20):
         transformer_wgs84_to_utm32n = Transformer.from_crs("EPSG:4326", "EPSG:3857")
         transformer_utm32n_to_wgs84 = Transformer.from_crs("EPSG:3857", "EPSG:4326")
@@ -103,7 +96,6 @@ def directions_view(request):
     try:
         for site_poly in high_index_value_ls:
             poly = Polygon(site_poly)
-            print(poly)
             if poly.within(avoidance_directions):
                 avoided_point_list.append(poly)
 
