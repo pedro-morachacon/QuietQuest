@@ -11,13 +11,13 @@ def test_directions_view():
     # Create dummy data for Locations table
     Locations.objects.create(long=11.653227, lat=52.145416)
     Locations.objects.create(long=11.62847, lat=52.1303)
-    Locations.objects.create(long=11.653222, lat=52.144883)
+    Locations.objects.create(long=11.635208, lat=52.136096),
 
     # Create a request factory
     factory = RequestFactory()
 
     # Create a POST request with JSON payload
-    payload = [[11.653227, 52.145416], [11.62847, 52.1303]]
+    payload = [[11.653361, 52.144116], [11.62847, 52.1303]]
     request = factory.post('/directions/', data=payload, content_type='application/json')
 
     # Call the function being tested
