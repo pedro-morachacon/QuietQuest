@@ -126,7 +126,7 @@ def directions_view(request):
 @api_view(['GET'])
 def locations_view(request):
     # gets the value of all long and lat objects in the database
-    location_data = Locations.objects.values('long', 'lat')
+    location_data = Locations.objects.values('long', 'lat')[:100]
 
     # gets the current time by hour
     now = datetime.now()
@@ -170,7 +170,7 @@ def locations_view(request):
 # such as date and time which will be used as inputs into the model
 def predicted_locations():
     # gets the value of all long and lat objects in the database
-    location_data = Locations.objects.values('long', 'lat')
+    location_data = Locations.objects.values('long', 'lat')[:100]
 
     # gets the current time by hour
     now = datetime.now()
