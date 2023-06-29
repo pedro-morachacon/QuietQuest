@@ -40,8 +40,8 @@ const DisplayMap = () => {
     axios
       .post('http://localhost:8000/directions/', [
           // add inputs for start and destination for routing
-        [11.653361, 52.144116],
-        [11.62847, 52.1303],
+        [11.653361, 52.144116], // start coordinates
+        [11.62847, 52.1303], // destination coordinates
           // from Datepicker
           // time goes here e.g. "09:40:52"
           // date goes here e.g. "Wed Jun 28 2023"
