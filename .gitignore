@@ -49,9 +49,9 @@ backend/venv/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-data/test_noise_model.pkl
-data/RF_Accurate_Noise_Test.ipynb
-data/Noise Analysis.ipynb
+
+output.txt
+test_response.py
 
 # VSCode IDE Settings Directory
 .vscode/ 
