@@ -1,49 +1,27 @@
 import React, {useEffect} from "react";
-import {useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
+import {addressPoints} from "./addressPoints";
 
-const Heatmap = () => {
-    const map = useMap();
+
+export default function HeatMap() {
 
     useEffect(() => {
-        const testData = {
-            max: 8,
-            data: [
-                {lat: 40.7283, lng: -73.9942, count: 30},
-                {lat: 40.7583, lng: -73.9942, count: 10},
-                {lat: 40.7283, lng: -73.9842, count: 30},
+        var map = L.map("map").setView([-37.87, 175.475], 12);
 
-            ],
-        };
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-        const cfg = {
-            // radius: 2
-            // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-            // if scaleRadius is false it will be the constant radius used in pixels
-            radius: 20,
-            maxOpacity: 0.8,
-            // scales the radius based on map zoom
-            scaleRadius: true,
-            // if set to false the heatmap uses the global maximum for colorization
-             // if activated: uses the data maximum within the current map boundaries
-            //   (there will always be a red spot with useLocalExtremas true)
-            useLocalExtrema: true,
-            // which field name in your data represents the latitude - default "lat"
-            latField: "lat",
-            // which field name in your data represents the longitude - default "lng"
-            lngField: "lng",
-            // which field name in your data represents the data value - default "value"
-            valueField: "count",
-        };
+        const points = addressPoints
+            ? addressPoints.map((p) => {
+                return [p[0], p[1]];
+            })
+            : [];
 
-        const heatmapLayer = L.heatLayer(
-            testData.data.map((item) => [item.lat, item.lng, item.count]),
-            cfg
-        ).addTo(map);
-    }, [map]);
+        L.heatLayer(points).addTo(map);
+    }, []);
 
-    return null;
-};
-
-export default Heatmap;
+    return <div id="map" style={{height: "80vh"}}></div>;
+}
