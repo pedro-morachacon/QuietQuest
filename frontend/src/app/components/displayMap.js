@@ -25,18 +25,32 @@ const myIcon = L.icon({
 
 const DisplayMap = () => {
 
+
     const setColor = ({properties}) => {
         return {weight: 1};
     };
 
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
+  
+  /* on load send a GET request to the backend to get the coordinates data and the noise/busyness value
+  from the model for each coordinate */
+//     axios.get('http://localhost:8000/')
+//       .then((res) => {
+//           // code to render the heatmap on load goes here
+//           console.log(res);
+//       }).catch((error) => {
+//           console.error('Error:', error)
+//   })
     // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
             .post('http://localhost:8000/directions/', [
                 [11.653361, 52.144116],
                 [11.62847, 52.1303],
+          // from Datepicker
+          // time goes here e.g. "09:40:52"
+          // date goes here e.g. "Wed Jun 28 2023"
             ])
             .then((res) => {
                 setOptimalDirections(res.data.optimal_directions);
