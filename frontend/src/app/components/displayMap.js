@@ -7,8 +7,11 @@ import axios from 'axios';
 import Datetimepicker from './Datepicker';
 import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
-import L from 'leaflet';
-import RoutingMachine from "@/app/components/RoutingMachine";
+// import L from 'leaflet';
+// import RoutingMachine from "@/app/components/RoutingMachine";
+// import Routing from "./Routing";
+import CommunityDistricts from "./CommunityDistricts.json"
+import Heatmap from "@/app/components/HeatMap";
 
 
 
@@ -21,6 +24,11 @@ const myIcon = L.icon({
 
 
 const DisplayMap = () => {
+
+    const setColor = ({properties}) => {
+        return {weight: 1};
+    };
+
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
     // onclick, POST operation to backend django for api call
@@ -41,16 +49,28 @@ const DisplayMap = () => {
 
     return (
         <div>
-            <div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>
+            {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
             <div id='datepicker'>
                 <Datetimepicker/>
             </div>
+            <div>
+                {/* test button to check rest framework is working correctly */}
+                <button id="button-onclick" onClick={handleClick}>
+                    Click Me
+                </button>
+            </div>
             <div id="map">
-                <MapContainer center={[52.136096, 11.635208]} zoom={14}>
+                <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
+                    <GeoJSON
+                        data={CommunityDistricts}
+                        style={setColor}/>
+                    <Datetimepicker/>
                     <Geosearch/>
                     <LocateUserControl/>
-                    <RoutingMachine/>
+                    <Heatmap/>
+                    {/*<RoutingMachine/>*/}
+                    {/*<Routing />*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
@@ -74,12 +94,12 @@ const DisplayMap = () => {
                         />)}
                 </MapContainer>
             </div>
-            <div>
-                {/* test button to check rest framework is working correctly */}
-                <button type="button" onClick={handleClick}>
-                    Click Me
-                </button>
-            </div>
+            {/*<div>*/}
+            {/*    /!* test button to check rest framework is working correctly *!/*/}
+            {/*    <button type="button" onClick={handleClick}>*/}
+            {/*        Click Me*/}
+            {/*    </button>*/}
+            {/*</div>*/}
         </div>
     );
 };
