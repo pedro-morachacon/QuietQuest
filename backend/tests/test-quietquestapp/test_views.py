@@ -17,7 +17,11 @@ def test_directions_view():
     factory = RequestFactory()
 
     # Create a POST request with JSON payload
-    payload = [[11.653361, 52.144116], [11.62847, 52.1303]]
+    payload = {
+        "locations": [[11.653361, 52.144116], [11.62847, 52.1303]],
+        "time": "placeholder",
+        "date": "placeholder"
+    }
     request = factory.post('/directions/', data=payload, content_type='application/json')
 
     # Call the function being tested
