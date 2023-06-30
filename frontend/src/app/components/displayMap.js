@@ -9,7 +9,7 @@ import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
 // import L from 'leaflet';
 // import RoutingMachine from "@/app/components/RoutingMachine";
-// import Routing from "./Routing";
+import Routing from "./Routing";
 import CommunityDistricts from "./CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
 
@@ -31,6 +31,8 @@ const DisplayMap = () => {
 
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
+
+
     // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
@@ -62,6 +64,7 @@ const DisplayMap = () => {
             <div id="map">
                 <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
+                    {/*<Routing />*/}
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>

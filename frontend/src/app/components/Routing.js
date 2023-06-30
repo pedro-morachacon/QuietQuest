@@ -1,47 +1,105 @@
-// import { useEffect } from "react";
-// import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
-// import "leaflet-routing-machine";
-// import { useMap } from "react-leaflet";
-// import L from "leaflet";
+import React, { useEffect, useRef, useState } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+// import L from 'leaflet';
+import {useMap} from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import 'leaflet';
+import 'leaflet-routing-machine';
+import "leaflet-control-geocoder";
+
+
+// // L.Routing.control({
+// //   waypoints: [
+// //     L.latLng(57.74, 11.94),
+// //     L.latLng(57.6792, 11.949)
+// //   ]
+// // }).addTo(map);
 //
-// L.Marker.prototype.options.icon = L.icon({
-//   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-// });
-//
-// export default function Routing() {
+
+
+
+// function Routing({ from, to }) {
 //   const map = useMap();
 //
 //   useEffect(() => {
-//     if (!map) return;
-//
-//     const routingControl = L.Routing.control({
-//       waypoints: [
-//         L.latLng(-6.1253124, 106.7634999),
-//         L.latLng(-6.289363699721308, 107.06588745117188),
-//       ],
-//       routeWhileDragging: true,
-//     }).addTo(map);
-//
-//     return () => map.removeControl(routingControl);
-//   }, [map]);
-//
-//   function createButton(label, container) {
-//     var btn = L.DomUtil.create("button", "", container);
-//     btn.setAttribute("type", "button");
-//     btn.innerHTML = label;
-//     return btn;
-//   }
-//   map.on("click", function (e) {
-//     var container = L.DomUtil.create("div"),
-//       startBtn = createButton("Start from this location", container),
-//       destBtn = createButton("Go to this location", container);
-//     container.setAttribute("class", "leaflet-popup-btn-box");
-//     L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
-//     L.DomEvent.on(startBtn, "click", function () {
-//       this.control.spliceWaypoints(0, 1, e.latlng);
-//       map.closePopup();
-//     });
-//   });
+//     if (from && to) {
+//       L.Routing.control({
+//         waypoints: [
+//           L.latLng(from[0], from[1]),
+//           L.latLng(to[0], to[1])
+//         ],
+//         routeWhileDragging: true,
+//         geocoder: L.Control.Geocoder.nominatim(),
+//       }).addTo(map);
+//     }
+//   }, [from, to, map]);
 //
 //   return null;
 // }
+//
+// export default Routing;
+
+
+
+function Routing() {
+  const map = useMapEvents({
+    click: (e) => {
+      var container = L.DomUtil.create("div"),
+          startBtn = createButton("Start from this location", container),
+          destBtn = createButton("Go to this location", container);
+
+      L.popup()
+        // .setContent(container)
+        .setLatLng(e.latlng)
+        // .openOn(map);
+
+      L.DomEvent.on(startBtn, "click", function () {
+        control.spliceWaypoints(0, 1, e.latlng);
+        map.closePopup();
+      });
+
+      L.DomEvent.on(destBtn, "click", function () {
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+        map.closePopup();
+      });
+    },
+  });
+
+  const createButton = (label, container) => {
+    var btn = L.DomUtil.create("button", "", container);
+    btn.setAttribute("type", "button");
+    btn.innerHTML = label;
+    return btn;
+  };
+
+  useEffect(() => {
+    var ReversablePlan = L.Routing.Plan.extend({
+      createGeocoders: function () {
+        var container = L.Routing.Plan.prototype.createGeocoders.call(this),
+          reverseButton = createButton("↑↓", container);
+        return container;
+      },
+    });
+
+    var plan = new ReversablePlan(
+      [
+        L.latLng(40.7283, -73.9942),
+        L.latLng(40.7483, -73.9942),
+      ],
+      {
+        geocoder: L.Control.Geocoder.nominatim(),
+        routeWhileDragging: true,
+      }
+    );
+
+    window.control = L.Routing.control({
+      routeWhileDragging: true,
+      plan: plan,
+    }).addTo(map);
+  }, [map]);
+
+  return null;
+}
+
+export default Routing;
