@@ -8,7 +8,7 @@ import Datetimepicker from './Datepicker';
 import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
 import L from 'leaflet';
-import RoutingMachine from "@/app/components/RoutingMachine";
+//import RoutingMachine from "@/app/components/RoutingMachine";
 
 
 
@@ -21,39 +21,33 @@ const myIcon = L.icon({
 
 
 const DisplayMap = () => {
-  const [optimalDirections, setOptimalDirections] = useState(null);
-  const [avoidanceDirections, setAvoidanceDirections] = useState(null);
 
-  /* on load send a GET request to the backend to get the coordinates data and the noise/busyness value
-  from the model for each coordinate */
-  axios.get('http://localhost:8000/')
-      .then((res) => {
-          // code to render the heatmap on load goes here
-          console.log(res);
-      }).catch((error) => {
-          console.error('Error:', error)
-  })
 
-  // onclick, POST operation to backend django for api call
-  const handleClick = () => {
+    const setColor = ({properties}) => {
+        return {weight: 1};
+    };
 
-    axios
-      .post('http://localhost:8000/directions/', [
-          // add inputs for start and destination for routing
-        [11.653361, 52.144116], // start coordinates
-        [11.62847, 52.1303], // destination coordinates
-          // from Datepicker
-          // time goes here e.g. "09:40:52"
-          // date goes here e.g. "Wed Jun 28 2023"
-      ])
-      .then((res) => {
-          setOptimalDirections(res.data.optimal_directions);
-          setAvoidanceDirections(res.data.avoidance_directions);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
+    const [optimalDirections, setOptimalDirections] = useState(null);
+    const [avoidanceDirections, setAvoidanceDirections] = useState(null);
+
+
+      // onclick, POST operation to backend django for api call
+    const handleClick = () => {
+        axios
+            .post('http://localhost:8000/directions/', {
+                // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
+                "locations" : [[-73.941297, 40.818077], [-73.950334, 40.779839]],
+                "time" : "placeholder", // time goes here e.g. "09:40:52"
+                "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
+            })
+            .then((res) => {
+                setOptimalDirections(res.data.optimal_directions);
+                setAvoidanceDirections(res.data.avoidance_directions);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
 
     return (
         <div>
@@ -62,11 +56,11 @@ const DisplayMap = () => {
                 <Datetimepicker/>
             </div>
             <div id="map">
-                <MapContainer center={[52.136096, 11.635208]} zoom={14}>
+                <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
                     <Geosearch/>
                     <LocateUserControl/>
-                    <RoutingMachine/>
+                    {/*<RoutingMachine/>*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
@@ -76,17 +70,15 @@ const DisplayMap = () => {
                     {optimalDirections && (
                         <GeoJSON
                             data={optimalDirections}
-                            strokeColor="red"
-                            fillColor="green"
-                            weight={2}
+                            color="purple"
+                            weight={5}
                         />)}
                     {/* displays route avoiding polygons*/}
                     {avoidanceDirections && (
                         <GeoJSON
                             data={avoidanceDirections}
-                            strokeColor="blue"
-                            fillColor="yellow"
-                            weight={2}
+                            color="white"
+                            weight={5}
                         />)}
                 </MapContainer>
             </div>
