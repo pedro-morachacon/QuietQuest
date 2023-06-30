@@ -17,20 +17,20 @@ import numpy as np
 import time
 
 
-def create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, point_in, resolution=2, radius=20):
-    point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
-    point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
-
-    # Transform back to WGS84
-    poly_wgs = [transformer_utm32n_to_wgs84.transform(*point) for point in point_buffer_proj.exterior.coords]
-    return poly_wgs
-
-
 # Expects POST operation from react front end, request contains the coordinates of the start and destination
 # will be expanded to include date and time
 @api_view(['POST'])
 def directions_view(request):
     start = time.time()
+
+    def create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, point_in, resolution=2,
+                              radius=20):
+        point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
+        point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
+
+        # Transform back to WGS84
+        poly_wgs = [transformer_utm32n_to_wgs84.transform(*point) for point in point_buffer_proj.exterior.coords]
+        return poly_wgs
 
     # sends route request to api with start and destination coordinates and polygons to avoid
     def create_route(data, avoided_point_list, n=0):
