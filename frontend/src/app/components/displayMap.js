@@ -9,7 +9,7 @@ import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
 import L from 'leaflet';
 //import RoutingMachine from "@/app/components/RoutingMachine";
-
+import Heatmap from "@/app/components/HeatMap";
 
 
 const myIcon = L.icon({
@@ -60,6 +60,7 @@ const DisplayMap = () => {
                     <TileLayer {...tileLayer} />
                     <Geosearch/>
                     <LocateUserControl/>
+                    <Heatmap/>
                     {/*<RoutingMachine/>*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
