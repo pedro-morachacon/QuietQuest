@@ -12,7 +12,7 @@ import Geosearch from "@/app/components/Geosearch";
 import Routing from "./Routing";
 import CommunityDistricts from "./CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
-
+import Routing2 from "@/app/components/Routing2";
 
 
 const myIcon = L.icon({
@@ -36,10 +36,12 @@ const DisplayMap = () => {
     // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
-            .post('http://localhost:8000/directions/', [
-                [11.653361, 52.144116],
-                [11.62847, 52.1303],
-            ])
+            .post('http://localhost:8000/directions/', {
+                // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
+                "locations" : [[-73.941297, 40.818077], [-73.950334, 40.779839]],
+                "time" : "placeholder", // time goes here e.g. "09:40:52"
+                "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
+            })
             .then((res) => {
                 setOptimalDirections(res.data.optimal_directions);
                 setAvoidanceDirections(res.data.avoidance_directions);
@@ -65,6 +67,7 @@ const DisplayMap = () => {
                 <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing />*/}
+                    {/*<Routing2/>*/}
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
