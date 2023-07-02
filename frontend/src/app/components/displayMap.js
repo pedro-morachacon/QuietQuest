@@ -31,8 +31,6 @@ const DisplayMap = () => {
 
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
-
-
     // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
@@ -76,7 +74,6 @@ const DisplayMap = () => {
                     <LocateUserControl/>
                     <Heatmap/>
                     {/*<RoutingMachine/>*/}
-                    {/*<Routing />*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
@@ -86,17 +83,15 @@ const DisplayMap = () => {
                     {optimalDirections && (
                         <GeoJSON
                             data={optimalDirections}
-                            strokeColor="red"
-                            fillColor="green"
-                            weight={2}
+                            color="purple"
+                            weight={5}
                         />)}
                     {/* displays route avoiding polygons*/}
                     {avoidanceDirections && (
                         <GeoJSON
                             data={avoidanceDirections}
-                            strokeColor="blue"
-                            fillColor="yellow"
-                            weight={2}
+                            color="white"
+                            weight={5}
                         />)}
                 </MapContainer>
             </div>

@@ -42,8 +42,8 @@ function RoutingMachine() {
 
         map.on('click', function (e) {
             var container = L.DomUtil.create('div'),
-                startBtn = createButton('', container),
-                destBtn = createButton('', container);
+                startBtn = createButton('Start from this location', container),
+                destBtn = createButton('Go to this location', container);
 
             L.DomEvent.on(startBtn, 'click', function () {
                 control.spliceWaypoints(0, 1, e.latlng);
@@ -56,9 +56,9 @@ function RoutingMachine() {
             });
 
             L.popup()
-                // .setContent(container)
+                .setContent(container)
                 .setLatLng(e.latlng)
-                // .openOn(map);
+                .openOn(map);
         });
 
         var ReversablePlan = L.Routing.Plan.extend({
@@ -70,16 +70,16 @@ function RoutingMachine() {
         })
 
         var plan = new ReversablePlan([
-            L.latLng(40.7683, -73.9942),
-            L.latLng(40.7683, -73.9942)
+            L.latLng(52.136196, 11.635108),
+            L.latLng(52.136296, 11.633508)
         ], {
             routeWhileDragging: true
         });
 
         control = L.Routing.control({
             waypoints: [
-                L.latLng(40.7183, -73.9942),
-                L.latLng(40.7683, -73.9942)
+                L.latLng(52.136196, 11.635108),
+                L.latLng(52.136296, 11.633508)
             ],
             createMarker: function (i, start, n) {
                 // Here we return a new marker with our custom icon for the waypoints
