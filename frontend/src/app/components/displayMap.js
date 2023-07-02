@@ -13,7 +13,7 @@ import Routing from "./Routing";
 import CommunityDistricts from "./CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
-// 0
+
 
 const myIcon = L.icon({
     iconUrl: 'https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png',
