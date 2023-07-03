@@ -12,7 +12,7 @@ import Geosearch from "@/app/components/Geosearch";
 import Routing from "./Routing";
 import CommunityDistricts from "./CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
-
+import Routing2 from "@/app/components/Routing2";
 
 
 const myIcon = L.icon({
@@ -67,6 +67,7 @@ const DisplayMap = () => {
                 <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing />*/}
+                    {/*<Routing2/>*/}
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
