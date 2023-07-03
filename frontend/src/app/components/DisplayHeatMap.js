@@ -2,22 +2,21 @@ import React, {useState, useEffect} from 'react';
 import {MapContainer, GeoJSON, TileLayer, useMap, Marker, Popup} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
-import "./HeatMap";
-import CommunityDistricts from "@/app/components/CommunityDistricts.json";
-import HeatmapMap2 from "@/app/components/HeatMap";
+import tileLayer from './tileLayer';
+import axios from 'axios';
+import Datetimepicker from './Datepicker';
+import LocateUserControl from "@/app/components/Locate";
+import Geosearch from "@/app/components/Geosearch";
+import L from 'leaflet';
+import RoutingMachine from "@/app/components/RoutingMachine";
+import HeatMap from "@/app/components/HeatMap";
 
 const DisplayMap = () => {
 
     return (
         <div>
-            <HeatmapMap2/>
+            <HeatMap/>
         </div>
-        // <div id="map">
-        //         <MapContainer center={[40.7283, -73.9942]} zoom={10}>
-        //             <TileLayer {...tileLayer} />
-        //             <HeatmapMap2 />
-        //         </MapContainer>
-        //     </div>
     );
 };
 

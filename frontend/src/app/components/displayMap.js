@@ -33,13 +33,15 @@ const DisplayMap = () => {
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
 
 
-    // onclick, POST operation to backend django for api call
+      // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
-            .post('http://localhost:8000/directions/', [
-                [11.653361, 52.144116],
-                [11.62847, 52.1303],
-            ])
+            .post('http://localhost:8000/directions/', {
+                // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
+                "locations" : [[-73.941297, 40.818077], [-73.950334, 40.779839]],
+                "time" : "placeholder", // time goes here e.g. "09:40:52"
+                "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
+            })
             .then((res) => {
                 setOptimalDirections(res.data.optimal_directions);
                 setAvoidanceDirections(res.data.avoidance_directions);
@@ -83,17 +85,15 @@ const DisplayMap = () => {
                     {optimalDirections && (
                         <GeoJSON
                             data={optimalDirections}
-                            strokeColor="red"
-                            fillColor="green"
-                            weight={2}
+                            color="purple"
+                            weight={5}
                         />)}
                     {/* displays route avoiding polygons*/}
                     {avoidanceDirections && (
                         <GeoJSON
                             data={avoidanceDirections}
-                            strokeColor="blue"
-                            fillColor="yellow"
-                            weight={2}
+                            color="white"
+                            weight={5}
                         />)}
                 </MapContainer>
             </div>
