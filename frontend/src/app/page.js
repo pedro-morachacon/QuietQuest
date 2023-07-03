@@ -8,9 +8,6 @@ const MapWithNoSSR = dynamic(() => import('./components/displayMap'), {
   ssr: false,
 });
 
-const SearchParamsWithNoSSR = dynamic(() => import('./components/SearchParams'), {
-  ssr: false,
-});
 
 export default function App() {
   return (

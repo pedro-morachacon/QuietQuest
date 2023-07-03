@@ -31,9 +31,7 @@ const DisplayMap = () => {
 
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
-
-
-      // onclick, POST operation to backend django for api call
+    // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
             .post('http://localhost:8000/directions/', {
@@ -76,7 +74,6 @@ const DisplayMap = () => {
                     <LocateUserControl/>
                     <Heatmap/>
                     {/*<RoutingMachine/>*/}
-                    {/*<Routing />*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
