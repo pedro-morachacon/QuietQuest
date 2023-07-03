@@ -7,12 +7,9 @@ import axios from 'axios';
 import Datetimepicker from './Datepicker';
 import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
-// import L from 'leaflet';
-// import RoutingMachine from "@/app/components/RoutingMachine";
-// import Routing from "./Routing";
-import CommunityDistricts from "./CommunityDistricts.json"
+import L from 'leaflet';
+//import RoutingMachine from "@/app/components/RoutingMachine";
 import Heatmap from "@/app/components/HeatMap";
-
 
 
 const myIcon = L.icon({
@@ -25,19 +22,24 @@ const myIcon = L.icon({
 
 const DisplayMap = () => {
 
+
     const setColor = ({properties}) => {
         return {weight: 1};
     };
 
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
-    // onclick, POST operation to backend django for api call
+
+
+      // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
-            .post('http://localhost:8000/directions/', [
-                [11.653361, 52.144116],
-                [11.62847, 52.1303],
-            ])
+            .post('http://localhost:8000/directions/', {
+                // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
+                "locations" : [[-73.941297, 40.818077], [-73.950334, 40.779839]],
+                "time" : "placeholder", // time goes here e.g. "09:40:52"
+                "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
+            })
             .then((res) => {
                 setOptimalDirections(res.data.optimal_directions);
                 setAvoidanceDirections(res.data.avoidance_directions);
@@ -49,28 +51,17 @@ const DisplayMap = () => {
 
     return (
         <div>
-            {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
+            <div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>
             <div id='datepicker'>
                 <Datetimepicker/>
-            </div>
-            <div>
-                {/* test button to check rest framework is working correctly */}
-                <button id="button-onclick" onClick={handleClick}>
-                    Click Me
-                </button>
             </div>
             <div id="map">
                 <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
-                    <GeoJSON
-                        data={CommunityDistricts}
-                        style={setColor}/>
-                    <Datetimepicker/>
                     <Geosearch/>
                     <LocateUserControl/>
                     <Heatmap/>
                     {/*<RoutingMachine/>*/}
-                    {/*<Routing />*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
@@ -80,26 +71,24 @@ const DisplayMap = () => {
                     {optimalDirections && (
                         <GeoJSON
                             data={optimalDirections}
-                            strokeColor="red"
-                            fillColor="green"
-                            weight={2}
+                            color="purple"
+                            weight={5}
                         />)}
                     {/* displays route avoiding polygons*/}
                     {avoidanceDirections && (
                         <GeoJSON
                             data={avoidanceDirections}
-                            strokeColor="blue"
-                            fillColor="yellow"
-                            weight={2}
+                            color="white"
+                            weight={5}
                         />)}
                 </MapContainer>
             </div>
-            {/*<div>*/}
-            {/*    /!* test button to check rest framework is working correctly *!/*/}
-            {/*    <button type="button" onClick={handleClick}>*/}
-            {/*        Click Me*/}
-            {/*    </button>*/}
-            {/*</div>*/}
+            <div>
+                {/* test button to check rest framework is working correctly */}
+                <button type="button" onClick={handleClick}>
+                    Click Me
+                </button>
+            </div>
         </div>
     );
 };
