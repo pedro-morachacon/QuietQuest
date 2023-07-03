@@ -8,9 +8,9 @@ const MapWithNoSSR = dynamic(() => import('./components/displayMap'), {
   ssr: false,
 });
 
-// const SearchParamsWithNoSSR = dynamic(() => import('./components/SearchParams'), {
-//   ssr: false,
-// });
+const SearchParamsWithNoSSR = dynamic(() => import('./components/SearchParams'), {
+  ssr: false,
+});
 
 export default function App() {
   return (
@@ -29,14 +29,12 @@ export default function App() {
           align-items: center;
         }
 
-        //.search-params-container {
-        //  margin-bottom: 20px;
-        //  
-        //}
+        .search-params-container {
+          margin-bottom: 20px;
+        }
 
         .map-container {
           width: 100%;
-          height: 100%;
         }
       `}</style>
     </div>

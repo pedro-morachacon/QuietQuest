@@ -29,7 +29,7 @@ body {
 
 .leaflet-container {
   margin: 30px auto;
-  height: 640px;
+  height: 500px;
   z-index: 0;
   border: 2px solid #333;
   overflow: hidden;
@@ -42,16 +42,11 @@ iframe {
 }
 
 button {
-  position: absolute;
-  top: 25px;
+  top: 600px;
   display:block;
-  left: 260px;
-  color: white;
 }
 
-#map {
-  height: 640px;
-}
+#map { height: 500px; }
 
 * {
   box-sizing: border-box;
@@ -59,8 +54,7 @@ button {
 }
 
 body {
-  background-color: darkslategrey;
-  /* #4F9D9D*/
+  background-color: #4F9D9D;
   /*background-image: url(http://pets-images.dev-apis.com/pets/wallpaperC.jpg);*/
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -435,14 +429,4 @@ form .pet {
   top: 25px;
   left: 10px;
   padding: 10px;
-}
-
-#button-onclick {
-  background-color: darkcyan;
-  font-size: 10px;
-  color: white;
-  position: absolute;
-  top: 25px;
-  left: 260px;
-  padding: 5px;
 }

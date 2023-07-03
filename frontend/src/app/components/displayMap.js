@@ -33,7 +33,7 @@ const DisplayMap = () => {
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
 
 
-    // onclick, POST operation to backend django for api call
+      // onclick, POST operation to backend django for api call
     const handleClick = () => {
         axios
             .post('http://localhost:8000/directions/', {
@@ -86,17 +86,15 @@ const DisplayMap = () => {
                     {optimalDirections && (
                         <GeoJSON
                             data={optimalDirections}
-                            strokeColor="red"
-                            fillColor="green"
-                            weight={2}
+                            color="purple"
+                            weight={5}
                         />)}
                     {/* displays route avoiding polygons*/}
                     {avoidanceDirections && (
                         <GeoJSON
                             data={avoidanceDirections}
-                            strokeColor="blue"
-                            fillColor="yellow"
-                            weight={2}
+                            color="white"
+                            weight={5}
                         />)}
                 </MapContainer>
             </div>
