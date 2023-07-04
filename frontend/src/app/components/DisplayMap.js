@@ -13,6 +13,8 @@ import Routing from "./Routing";
 import CommunityDistricts from "./CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
+import Datepicker from "./Datepicker";
+import ParentComponent from "@/app/components/ParentComponent";
 
 
 const myIcon = L.icon({
@@ -23,7 +25,7 @@ const myIcon = L.icon({
 });
 
 
-const DisplayMap = () => {
+const DisplayMap = ({date, time}) => {
 
     const setColor = ({properties}) => {
         return {weight: 1};
@@ -32,15 +34,34 @@ const DisplayMap = () => {
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
     // onclick, POST operation to backend django for api call
+
+    const startTime = Date.now();  // start time
+    const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    // const time = "09:40:52";
+    // const date = "Wed Jun 28 2023";
+
+    // const time = ParentComponent.setTime;
+    // const date = ParentComponent.setDate;
+
     const handleClick = () => {
         axios
             .post('http://localhost:8000/directions/', {
                 // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
-                "locations" : [[-73.941297, 40.818077], [-73.950334, 40.779839]],
-                "time" : "placeholder", // time goes here e.g. "09:40:52"
-                "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
+                "locations" : location,
+                "time" : time,
+                "date" : date,
+                // "time" : "placeholder", // time goes here e.g. "09:40:52"
+                // "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
             })
             .then((res) => {
+
+                console.log(res);
+
+                // Calculate Time
+                const endTime = Date.now();  // end time
+                const timeTaken = (endTime - startTime) / 1000;  // time taken in seconds
+                console.log(`Time taken for the request: ${timeTaken} seconds`);
+
                 setOptimalDirections(res.data.optimal_directions);
                 setAvoidanceDirections(res.data.avoidance_directions);
             })
@@ -48,6 +69,36 @@ const DisplayMap = () => {
                 console.error('Error:', error);
             });
     };
+
+
+    // const handleClick = () => {
+    //     axios
+    //         .post('http://localhost:8000/directions/', {
+    //             // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
+    //             "locations" : location,
+    //             "time" : time,
+    //             "date" : date,
+    //             // "time" : "placeholder", // time goes here e.g. "09:40:52"
+    //             // "date" : "placeholder", // date goes here e.g. "Wed Jun 28 2023"
+    //         })
+    //         .then((res) => {
+    //
+    //             console.log(res);
+    //
+    //             // Calculate Time
+    //             const endTime = Date.now();  // end time
+    //             const timeTaken = (endTime - startTime) / 1000;  // time taken in seconds
+    //             console.log(`Time taken for the request: ${timeTaken} seconds`);
+    //
+    //             setOptimalDirections(res.data.optimal_directions);
+    //             setAvoidanceDirections(res.data.avoidance_directions);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error:', error);
+    //         });
+    // };
+
+
 
     return (
         <div>
@@ -69,7 +120,6 @@ const DisplayMap = () => {
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
-                    <Datetimepicker/>
                     <Geosearch/>
                     <LocateUserControl/>
                     <Heatmap/>
