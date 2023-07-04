@@ -1,40 +1,25 @@
-"use client"
-import React from 'react';
-import dynamic from 'next/dynamic';
+"use client";
+import React from "react";
+import dynamic from "next/dynamic";
+import PostTest from "@/app/components/PostTest";
 
-const MapWithNoSSR = dynamic(() => import('../components/DisplayHeatMap'), {
-  ssr: false,
-});
+// const MapWithNoSSR = dynamic(() => import('../components/PostTest'), {
+//   ssr: false,
+// });
 
 export default function App() {
   return (
-      <main>
-        <div>
-            <button id="button-heatmap">HeatMap</button>
-        </div>
     <div className="App">
-      {/*<div className="search-params-container">*/}
-      {/*  <SearchParamsWithNoSSR />*/}
-      {/*</div>*/}
-      <div className="map-container">
-        <MapWithNoSSR />
-      </div>
+      <PostTest />
+
       <style jsx>{`
         .App {
           display: flex;
           flex-direction: column;
           align-items: center;
-        }
-
-        .search-params-container {
-          margin-bottom: 20px;
-        }
-
-        .map-container {
-          width: 100%;
+          height: 800px;
         }
       `}</style>
     </div>
-  </main>
   );
 }
