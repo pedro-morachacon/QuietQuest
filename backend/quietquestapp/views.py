@@ -141,7 +141,9 @@ def locations_view(request):
 
     # takes x as input, returns an array-like object of predicted values for each row in df x
     predictions = noise_model.predict(df)
-
+    
+    # temporary measure until model is updated, returns values between 0 and 1 (inclusive) only
+    predictions = predictions/4
     # iterates over the all_coordinates list, it gets both the index i and the corresponding data dictionary
     # in each iteration, it  retrieves the predicted value for the current iteration index i from
     # the predictions array-like object and assigns it to pred_float
