@@ -39,6 +39,8 @@ const Heatmap = () => {
                 lngField: "long",
                 // which field name in your data represents the data value - default "value"
                 valueField: "count",
+                // color gradient configuration
+                gradient: {0.25: 'cyan', 0.5: 'blue', 0.8: 'indigo', 1: 'black'},
             };
 
         const heatmapLayer = L.heatLayer(
