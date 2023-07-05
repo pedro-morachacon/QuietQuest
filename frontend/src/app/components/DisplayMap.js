@@ -77,7 +77,7 @@ const DisplayMap = () => {
                 </button>
             </div>
             <div id="map">
-                <MapContainer center={[40.7283, -73.9942]} zoom={10}>
+                <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={13}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing />*/}
                     {/*<Routing2/>*/}
