@@ -141,6 +141,11 @@ def locations_view(request):
 
     # takes x as input, returns an array-like object of predicted values for each row in df x
     predictions = noise_model.predict(df)
+        
+    # Temporary change so that prediction outputs are scaled from 0 minimum to 1 maximum
+    # This data format is necessary for adding the heat map gradient
+    predictions = predictions/4
+
 
     # iterates over the all_coordinates list, it gets both the index i and the corresponding data dictionary
     # in each iteration, it  retrieves the predicted value for the current iteration index i from
