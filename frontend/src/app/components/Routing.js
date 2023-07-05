@@ -9,7 +9,7 @@ import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 // import DisplayMap from "@/app/components/DisplayMap";
 
-function Routing() {
+function Routing({setLocation}) {
   const map = useMapEvents({
     click: (e) => {
       var container = L.DomUtil.create("div"),
@@ -68,13 +68,16 @@ function Routing() {
 
     plan.on("waypointschanged", function () {
       const waypoints = plan.getWaypoints();
-      const point1 = waypoints[0].latLng;
-      const point2 = waypoints[1].latLng;
 
-      console.log("Point 1: ", point1);
-      console.log("Point 2: ", point2);
+      const point = [[waypoints[0].latLng.lng, waypoints[0].latLng.lat], [waypoints[1].latLng.lng, waypoints[1].latLng.lat]];
+      const point1 = [waypoints[0].latLng.lng, waypoints[0].latLng.lat];
+      const point2 = [waypoints[1].latLng.lng, waypoints[1].latLng.lat];
 
-      // setLocation(plan.getWaypoints());
+      console.log("Point: ", point);
+      // console.log("Point 1: ", point1);
+      // console.log("Point 2: ", point2);
+
+      setLocation(point.toLocaleString());
     });
 
 

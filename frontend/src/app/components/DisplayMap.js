@@ -35,8 +35,9 @@ const DisplayMap = () => {
     // onclick, POST operation to backend django for api call
 
     const startTime = Date.now();  // start time
-    const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
-    // const [location, setLocation] = useState('');
+    // const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    const location2 = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
@@ -44,7 +45,7 @@ const DisplayMap = () => {
         axios
             .post('http://localhost:8000/directions/', {
                 // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
-                "locations" : location,
+                "locations" : location2,
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
@@ -80,8 +81,8 @@ const DisplayMap = () => {
             <div id="map">
                 <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
-                    <Routing />
-                    {/*<Routing setLocation={setLocation}/>*/}
+                    {/*<Routing />*/}
+                    <Routing setLocation={setLocation}/>
                     {/*<Routing2/>*/}
                     <GeoJSON
                         data={CommunityDistricts}
