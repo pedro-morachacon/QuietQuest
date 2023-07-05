@@ -36,6 +36,7 @@ const DisplayMap = () => {
 
     const startTime = Date.now();  // start time
     const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    // const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
@@ -79,7 +80,8 @@ const DisplayMap = () => {
             <div id="map">
                 <MapContainer center={[40.7283, -73.9942]} zoom={10}>
                     <TileLayer {...tileLayer} />
-                    {/*<Routing />*/}
+                    <Routing />
+                    {/*<Routing setLocation={setLocation}/>*/}
                     {/*<Routing2/>*/}
                     <GeoJSON
                         data={CommunityDistricts}
