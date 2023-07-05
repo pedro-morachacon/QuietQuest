@@ -1,40 +1,24 @@
-"use client"
-import React from 'react';
-import dynamic from 'next/dynamic';
+"use client";
+import React from "react";
+import dynamic from "next/dynamic";
+import Routing2 from "@/app/components/Routing2";
 
-const MapWithNoSSR = dynamic(() => import('../components/DisplayHeatMap'), {
+const MapWithNoSSR = dynamic(() => import('../components/Routing2'), {
   ssr: false,
 });
 
 export default function App() {
   return (
-      <main>
-        <div>
-            <button id="button-heatmap">HeatMap</button>
-        </div>
     <div className="App">
-      {/*<div className="search-params-container">*/}
-      {/*  <SearchParamsWithNoSSR />*/}
-      {/*</div>*/}
-      <div className="map-container">
-        <MapWithNoSSR />
-      </div>
+      <Routing2 />
       <style jsx>{`
         .App {
           display: flex;
           flex-direction: column;
           align-items: center;
-        }
-
-        .search-params-container {
-          margin-bottom: 20px;
-        }
-
-        .map-container {
-          width: 100%;
+          height: 800px;
         }
       `}</style>
     </div>
-  </main>
   );
 }
