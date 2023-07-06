@@ -56,7 +56,11 @@ def directions_view(request):
 
     api_key = info.ors_key
     ors = client.Client(key=api_key)
-    coordinates = request.data["locations"]
+
+    # splits the string and reformat it into the structure needed for the api
+    str_coordinates = request.data["locations"]
+    ls_coordinates = str_coordinates.split(",")
+    coordinates = [[ls_coordinates[0], ls_coordinates[1]], [ls_coordinates[2], ls_coordinates[3]]]
 
     high_index_value_ls = []
     point_geometry = []

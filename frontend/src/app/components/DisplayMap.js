@@ -36,7 +36,7 @@ const DisplayMap = () => {
 
     const startTime = Date.now();  // start time
     // const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
-    const location2 = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    const location2 = "-73.941297, 40.818077, -73.950334, 40.779839"; // changed here, replicates the string like the error
     const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
