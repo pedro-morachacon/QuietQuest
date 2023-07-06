@@ -8,17 +8,27 @@ import json
 
 @pytest.mark.django_db
 def test_directions_view():
+
+    locations_objects = []
+
     # Create dummy data for Locations table
-    Locations.objects.create(long=11.653227, lat=52.145416)
-    Locations.objects.create(long=11.62847, lat=52.1303)
-    Locations.objects.create(long=11.635499908155937, lat=52.13608947281918)
+    for hour in range(0, 23):
+        locations_objects.append(Locations(long=-73.941297, lat=40.818077, hour=hour, weekday=1, weekend=0, count=0))
+        locations_objects.append(Locations(long=-73.941297, lat=40.818077, hour=hour, weekday=0, weekend=1, count=0))
+        locations_objects.append(Locations(long=-73.950334, lat=40.779839, hour=hour, weekday=1, weekend=0, count=0))
+        locations_objects.append(Locations(long=-73.950334, lat=40.779839, hour=hour, weekday=0, weekend=1, count=0))
+        locations_objects.append(Locations(long=-73.935758, lat=40.799865, hour=hour, weekday=1, weekend=0, count=4))
+        locations_objects.append(Locations(long=-73.935758, lat=40.799865, hour=hour, weekday=0, weekend=1, count=4))
+
+    # Bulk create the Locations objects
+    Locations.objects.bulk_create(locations_objects)
 
     # Create a request factory
     factory = RequestFactory()
 
     # Create a POST request with JSON payload
     payload = {
-        "locations": [[11.653361, 52.144116], [11.62847, 52.1303]],
+        "locations": [[-73.941297, 40.818077], [-73.950334, 40.779839]],
         "time": "placeholder",
         "date": "placeholder"
     }
@@ -36,9 +46,19 @@ def test_directions_view():
 
 @pytest.mark.django_db
 def test_locations_view():
+    locations_objects = []
+
     # Create dummy data for Locations table
-    Locations.objects.create(long=11.653361, lat=52.144116)
-    Locations.objects.create(long=11.62847, lat=52.1303)
+    for hour in range(0, 23):
+        locations_objects.append(Locations(long=-73.941297, lat=40.818077, hour=hour, weekday=1, weekend=0, count=0))
+        locations_objects.append(Locations(long=-73.941297, lat=40.818077, hour=hour, weekday=0, weekend=1, count=0))
+        locations_objects.append(Locations(long=-73.950334, lat=40.779839, hour=hour, weekday=1, weekend=0, count=0))
+        locations_objects.append(Locations(long=-73.950334, lat=40.779839, hour=hour, weekday=0, weekend=1, count=0))
+        locations_objects.append(Locations(long=-73.935758, lat=40.799865, hour=hour, weekday=1, weekend=0, count=4))
+        locations_objects.append(Locations(long=-73.935758, lat=40.799865, hour=hour, weekday=0, weekend=1, count=4))
+
+    # Bulk create the Locations objects
+    Locations.objects.bulk_create(locations_objects)
 
     # Create a request factory
     factory = RequestFactory()

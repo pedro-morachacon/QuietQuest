@@ -78,6 +78,7 @@ def directions_view(request):
 
     # Create buffer around route
     avoidance_directions = create_buffer(optimal_directions)
+    avoidance_route = ""
 
     try:
         for site_poly in high_index_value_ls:
@@ -103,12 +104,9 @@ def directions_view(request):
 
 
 # on load of home page, a GET request returns all the coordinates in the database for the noise data
-# and the associated noise/busyness index value respectively
+# for heatmap generation and the associated noise/busyness index value respectively
 @api_view(['GET'])
 def locations_view(request):
-    # gets the value of all long and lat objects in the database
-    location_data = Locations.objects.values('long', 'lat')
-
     # gets the current time by hour
     now = datetime.now()
     now_hour = int(now.strftime("%H"))
@@ -122,43 +120,26 @@ def locations_view(request):
         weekday_value = 0
         weekend_value = 1
 
-    x_vars = [now_hour, weekday_value, weekend_value]
+    # filters through all the locations to match the current time and date
+    locations = Locations.objects.filter(hour=now_hour, weekday=weekday_value, weekend=weekend_value)
 
-    with open("quietquestapp/test_noise_model.pkl", "rb") as file:
-        noise_model = pickle.load(file)
+    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
+    response_list = []
+    for location in locations:
+        response_dict = {
+            'long': location.long,
+            'lat': location.lat,
+            'count': location.count
+        }
+        response_list.append(response_dict)
 
-    # initialises response data
-    response_data = []
-
-    # adds hour and weekday/weekend value to list and then converts to an array
-    all_coordinates = list(location_data)
-    all_x_vars = [[data['long'], data['lat']] + x_vars for data in all_coordinates]
-    coordinates_reshaped = np.array(all_x_vars)
-
-    # Pickle file input: [Longitude', 'Latitude, 'Hour', 'Weekday', 'Weekend']
-    # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
-    df = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
-
-    # takes x as input, returns an array-like object of predicted values for each row in df x
-    predictions = noise_model.predict(df)
-
-    # iterates over the all_coordinates list, it gets both the index i and the corresponding data dictionary
-    # in each iteration, it  retrieves the predicted value for the current iteration index i from
-    # the predictions array-like object and assigns it to pred_float
-    # .item() method extracts the scalar value from the array-like object
-    for i, data in enumerate(all_coordinates):
-        pred_float = predictions[i].item()
-        data["count"] = int(round(pred_float))
-        response_data.append(data)
-    return JsonResponse(response_data, safe=False)
+    # creates a JSON object and sends it to the frontend
+    return JsonResponse(response_list, safe=False)
 
 
 # temporarily uses current time and date, will change this to take in the parameters passed from the front end
 # such as date and time which will be used as inputs into the model
 def predicted_locations():
-    # gets the value of all long and lat objects in the database
-    location_data = Locations.objects.values('long', 'lat')
-
     # gets the current time by hour
     now = datetime.now()
     now_hour = int(now.strftime("%H"))
@@ -172,33 +153,17 @@ def predicted_locations():
         weekday_value = 0
         weekend_value = 1
 
-    x_vars = [now_hour, weekday_value, weekend_value]
+    # filters through all the locations to match the current time and date
+    locations = Locations.objects.filter(hour=now_hour, weekday=weekday_value, weekend=weekend_value)
 
-    with open("quietquestapp/test_noise_model.pkl", "rb") as file:
-        noise_model = pickle.load(file)
+    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
+    response_list = []
+    for location in locations:
+        response_dict = {
+            'long': location.long,
+            'lat': location.lat,
+            'count': location.count
+        }
+        response_list.append(response_dict)
 
-    # initialises response data
-    response_data = []
-
-    # adds hour and weekday/weekend value to list and then converts to an array
-    all_coordinates = list(location_data)
-    all_x_vars = [[data['long'], data['lat']] + x_vars for data in all_coordinates]
-    coordinates_reshaped = np.array(all_x_vars)
-
-    # Pickle file input: [Longitude', 'Latitude, 'Hour', 'Weekday', 'Weekend']
-    # Example: [-73.94508762577884, 40.81010795620323, 0, 1, 0]
-    df = pd.DataFrame(coordinates_reshaped, columns=['Longitude', 'Latitude', 'Hour', 'Weekday', 'Weekend'])
-
-    # takes x as input, returns an array-like object of predicted values for each row in df x
-    predictions = noise_model.predict(df)
-
-    # iterates over the all_coordinates list, it gets both the index i and the corresponding data dictionary
-    # in each iteration, it  retrieves the predicted value for the current iteration index i from
-    # the predictions array-like object and assigns it to pred_float
-    # .item() method extracts the scalar value from the array-like object
-    for i, data in enumerate(all_coordinates):
-        pred_float = predictions[i].item()
-        data["count"] = int(round(pred_float))
-        response_data.append(data)
-
-    return response_data
+    return response_list
