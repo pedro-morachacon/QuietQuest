@@ -36,7 +36,7 @@ def directions_view(request):
     def create_route(data, avoided_point_list, n=0):
         route_request = {'coordinates': data,
                          'format': 'geojson',
-                         'profile': 'driving-car',
+                         'profile': 'foot-walking',
                          'preference': 'shortest',
                          'instructions': False,
                          'options': {'avoid_polygons': mapping(MultiPolygon(avoided_point_list))}}
@@ -66,11 +66,10 @@ def directions_view(request):
     all_locations = predicted_locations()
 
     for location in all_locations:
-        if location['count'] >= 4:
-            position = [location['long'], location['lat']]
-            point_buffer = create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, position)
-            high_index_value_ls.append(point_buffer)
-            point_geometry.append(Polygon(point_buffer))
+        position = [location['long'], location['lat']]
+        point_buffer = create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, position)
+        high_index_value_ls.append(point_buffer)
+        point_geometry.append(Polygon(point_buffer))
 
     avoided_point_list = []
     # Create regular route with still empty avoided_point_list
@@ -78,16 +77,26 @@ def directions_view(request):
 
     # Create buffer around route
     avoidance_directions = create_buffer(optimal_directions)
+
     avoidance_route = ""
+    attempts = 0
 
     try:
         for site_poly in high_index_value_ls:
             poly = Polygon(site_poly)
             if poly.within(avoidance_directions):
-                avoided_point_list.append(poly)
-                avoidance_route = create_route(coordinates, avoided_point_list, 1)
-                avoidance_directions = create_buffer(avoidance_route)
-                print('Generated alternative route, which avoids affected areas.')
+                if attempts < 5:
+                    avoided_point_list.append(poly)
+                    avoidance_route = create_route(coordinates, avoided_point_list, 1)
+                    avoidance_directions = create_buffer(avoidance_route)
+                    attempts += 1
+                    print('Generated alternative route, which avoids affected areas.')
+
+                else:
+                    return JsonResponse({
+                        'optimal_directions': optimal_directions,
+                        'avoidance_directions': avoidance_route
+                    })
 
     except Exception as e:
         avoidance_route = ""
@@ -159,11 +168,12 @@ def predicted_locations():
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []
     for location in locations:
-        response_dict = {
-            'long': location.long,
-            'lat': location.lat,
-            'count': location.count
-        }
-        response_list.append(response_dict)
+        if location.count >= 4:
+            response_dict = {
+                'long': location.long,
+                'lat': location.lat,
+                'count': location.count
+            }
+            response_list.append(response_dict)
 
     return response_list
