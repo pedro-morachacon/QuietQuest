@@ -37,7 +37,7 @@ Start by deleting all the *numbered* files in the *backend/quietquestapp/migrati
 
 Then delete the *db.sqlite3* file in the *backend* directory. 
 
-Inside the *backend* directory run each of these commands in terminal to recreate the database from the data.
+Inside the *backend* directory run each of these commands in the terminal to recreate the database from the data.
 
 Start with running:
 
@@ -49,6 +49,6 @@ Then run:
 
 To populate the database (this may take up to 20 minutes to finish), run:
 
-### `python manage.py runscript scv_storing_script`
+### `python manage.py runscript csv_storing_script`
 
 The application should have all the data required to run now.
