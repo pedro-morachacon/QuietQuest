@@ -10,7 +10,7 @@ import Geosearch from "@/app/components/Geosearch";
 // import L from 'leaflet';
 // import RoutingMachine from "@/app/components/RoutingMachine";
 import Routing from "./Routing";
-import CommunityDistricts from "./CommunityDistricts.json"
+import CommunityDistricts from "../geojson/CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
