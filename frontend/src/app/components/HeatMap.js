@@ -4,16 +4,10 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 import axios from 'axios';
 
-const Heatmap = () => {
+const HeatMap = ({ heatmapData }) => {
     const map = useMap();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/')
-       .then((res) => {
-
-          /* on load send a GET request to the backend to get the coordinates data and the
-          noise/busyness value from the model for each coordinate */
-           let heatmapData = res.data;
             const testData = {
                 max: 8,
                 data: [
@@ -47,13 +41,9 @@ const Heatmap = () => {
             testData.data[0].map((item) => [item.lat, item.long, item.count]),
             cfg
         ).addTo(map);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, [map]);
+  }, [heatmapData, map]);
 
   return null;
 };
 
-export default Heatmap;
+export default HeatMap;

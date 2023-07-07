@@ -11,7 +11,7 @@ import Geosearch from "@/app/components/Geosearch";
 // import RoutingMachine from "@/app/components/RoutingMachine";
 import Routing from "./Routing";
 import CommunityDistricts from "../geojson/CommunityDistricts.json"
-import Heatmap from "@/app/components/HeatMap";
+import HeatMap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
 
@@ -41,7 +41,7 @@ const DisplayMap = () => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
-    const handleClick = () => {
+    const routingClick = () => {
         axios
             .post('http://localhost:8000/directions/', {
                 // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
@@ -66,6 +66,41 @@ const DisplayMap = () => {
             });
     };
 
+    const [heatmapData, setHeatmapData] = useState(null);
+    const [showHeatmap, setShowHeatmap] = useState(false);
+
+  const noiseHeatmapClick = () => {
+      // gets noise heatmap
+    axios
+        .post('http://localhost:8000/noiseheatmap/', {
+                "time" : time, // time goes here e.g. "09:40:52"
+                "date" : date, // date goes here e.g. "04/07/2023"
+            })
+        .then((res) => {
+            setHeatmapData(res.data);
+            setShowHeatmap(true);
+        })
+        .catch((error) => {
+            console.error('Error fetching heatmap data:', error);
+        });
+  };
+
+  const busynessHeatmapClick = () => {
+    // temporarily uses noise heatmap until the backend is finished
+    axios
+        .post('http://localhost:8000/noiseheatmap/', {
+                "time" : time, // time goes here e.g. "09:40:52"
+                "date" : date, // date goes here e.g. "04/07/2023"
+            })
+        .then((res) => {
+            setHeatmapData(res.data);
+            setShowHeatmap(true);
+        })
+        .catch((error) => {
+            console.error('Error fetching heatmap data:', error);
+        });
+  };
+
     return (
         <div>
             {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
@@ -74,8 +109,18 @@ const DisplayMap = () => {
             </div>
             <div>
                 {/* test button to check rest framework is working correctly */}
-                <button id="button-onclick" onClick={handleClick}>
-                    Click Me
+                <button className="button-onclick" onClick={routingClick}>
+                    Routing
+                </button>
+            </div>
+            <div>
+                <button className="button-onclick" onClick={noiseHeatmapClick}>
+                    Noise Heatmap
+                </button>
+            </div>
+            <div>
+                <button className="button-onclick" onClick={busynessHeatmapClick}>
+                    Busyness Heatmap
                 </button>
             </div>
             <div id="map">
@@ -89,7 +134,7 @@ const DisplayMap = () => {
                         style={setColor}/>
                     <Geosearch/>
                     <LocateUserControl/>
-                    <Heatmap/>
+                    {showHeatmap && <HeatMap heatmapData={heatmapData} />}
                     {/*<RoutingMachine/>*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
