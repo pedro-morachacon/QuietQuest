@@ -7,6 +7,7 @@ import json
 from datetime import datetime
 
 
+
 @pytest.mark.django_db
 def test_directions_view():
 
@@ -28,7 +29,7 @@ def test_directions_view():
     factory = RequestFactory()
 
     # initialises time and day as current time and day
-    now = datetime.now()
+    now = datetime(2100, 1, 2)
     prediction_hour = now.strftime("%H")
     prediction_date = str(now.date())
 
@@ -72,10 +73,10 @@ def test_locations_view():
     factory = RequestFactory()
 
     # initialises time and day as current time and day
-    now = datetime.now()
+    now = datetime(2100, 1, 2)
     prediction_hour = now.strftime("%H")
     prediction_date = str(now.date())
-
+    print(prediction_date)
     # Create a POST request with JSON payload
     payload = {
         "time": prediction_hour,
@@ -89,4 +90,3 @@ def test_locations_view():
 
     # Assert the expected behavior of the function
     assert isinstance(response, JsonResponse)
-

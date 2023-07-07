@@ -15,6 +15,35 @@ import pandas as pd
 import time
 
 
+# returns all coordinate values in the database for the given hour and given weekday/weekend value, only returns those
+# with a count of 4
+def predicted_locations(hour, day):
+    # gets the current day of the week and assigning binary value for weekend/weekday
+    if 0 <= day <= 4:
+        weekday_value = 1
+        weekend_value = 0
+    else:
+        weekday_value = 0
+        weekend_value = 1
+
+    # filters through all the locations to match the current time and date
+    locations = Locations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value, count=4)
+
+    # df = pd.DataFrame(list(NoiseLocations.objects.filter(count=4).values()))
+    # print(df["hour"].unique())
+
+    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
+    response_list = []
+    for location in locations:
+        response_dict = {
+            'long': location.long,
+            'lat': location.lat,
+        }
+        response_list.append(response_dict)
+
+    return response_list
+
+
 # Expects POST operation from react front end, request contains the coordinates of the start and destination
 # will be expanded to include date and time
 @api_view(['POST'])
@@ -138,17 +167,21 @@ def directions_view(request):
     })
 
 
-# on load of home page, a GET request returns all the coordinates in the database for the noise data
-# for heatmap generation and the associated noise/busyness index value respectively
-@api_view(['GET'])
+# on click for the noise heatmap, a POST request returns all the coordinates in the database for the noise data
+# for heatmap generation and the associated noise count value
+@api_view(['POST'])
 def locations_view(request):
-    # gets the current time by hour
+    # initialises time and day as current time and day
     now = datetime.now()
-    now_hour = int(now.strftime("%H"))
+    prediction_hour = int(now.strftime("%H"))
+    prediction_day = now.weekday()
 
-    # gets the current day of the week and assigning binary value for weekend/weekday
-    day_of_week = now.weekday()
-    if 0 <= day_of_week <= 4:
+    # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
+    if request.data["time"] != "" and request.data["date"] != "":
+        prediction_hour = request.data["time"][0:2]
+        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
+
+    if 0 <= prediction_day <= 4:
         weekday_value = 1
         weekend_value = 0
     else:
@@ -156,7 +189,7 @@ def locations_view(request):
         weekend_value = 1
 
     # filters through all the locations to match the current time and date
-    locations = Locations.objects.filter(hour=now_hour, weekday=weekday_value, weekend=weekend_value)
+    locations = Locations.objects.filter(hour=prediction_hour, weekday=weekday_value, weekend=weekend_value)
 
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []
@@ -165,39 +198,9 @@ def locations_view(request):
             'long': location.long,
             'lat': location.lat,
             # temp divided by 4 for the frontend gradient
-            'count': location.count/4
+            'count': location.count / 4
         }
         response_list.append(response_dict)
 
     # creates a JSON object and sends it to the frontend
     return JsonResponse(response_list, safe=False)
-
-
-# returns all coordinate values in the database for the given hour and given weekday/weekend value, only returns those
-# with a count of 4
-def predicted_locations(hour, day):
-
-    # gets the current day of the week and assigning binary value for weekend/weekday
-    if 0 <= day <= 4:
-        weekday_value = 1
-        weekend_value = 0
-    else:
-        weekday_value = 0
-        weekend_value = 1
-
-    # filters through all the locations to match the current time and date
-    locations = Locations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value, count=4)
-
-    #df = pd.DataFrame(list(Locations.objects.filter(count=4).values()))
-    #print(df["hour"].unique())
-
-    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
-    response_list = []
-    for location in locations:
-        response_dict = {
-            'long': location.long,
-            'lat': location.lat,
-        }
-        response_list.append(response_dict)
-
-    return response_list
