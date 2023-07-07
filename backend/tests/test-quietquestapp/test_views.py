@@ -14,12 +14,12 @@ def test_directions_view():
 
     # Create dummy data for Locations table
     for hour in range(0, 23):
-        locations_objects.append(Locations(long=-73.941297, lat=40.818077, hour=hour, weekday=1, weekend=0, count=0))
-        locations_objects.append(Locations(long=-73.941297, lat=40.818077, hour=hour, weekday=0, weekend=1, count=0))
-        locations_objects.append(Locations(long=-73.950334, lat=40.779839, hour=hour, weekday=1, weekend=0, count=0))
-        locations_objects.append(Locations(long=-73.950334, lat=40.779839, hour=hour, weekday=0, weekend=1, count=0))
-        locations_objects.append(Locations(long=-73.935758, lat=40.799865, hour=hour, weekday=1, weekend=0, count=4))
-        locations_objects.append(Locations(long=-73.935758, lat=40.799865, hour=hour, weekday=0, weekend=1, count=4))
+        locations_objects.append(Locations(long=-74.002614, lat=40.747031, hour=hour, weekday=1, weekend=0, count=0))
+        locations_objects.append(Locations(long=-74.002614, lat=40.747031, hour=hour, weekday=0, weekend=1, count=0))
+        locations_objects.append(Locations(long=-73.994052, lat=40.743439, hour=hour, weekday=1, weekend=0, count=0))
+        locations_objects.append(Locations(long=-73.994052, lat=40.743439, hour=hour, weekday=0, weekend=1, count=0))
+        locations_objects.append(Locations(long=-74.000048, lat=40.745949, hour=hour, weekday=1, weekend=0, count=4))
+        locations_objects.append(Locations(long=-74.000048, lat=40.745949, hour=hour, weekday=0, weekend=1, count=4))
 
     # Bulk create the Locations objects
     Locations.objects.bulk_create(locations_objects)
@@ -34,7 +34,7 @@ def test_directions_view():
 
     # Create a POST request with JSON payload
     payload = {
-        "locations": "-73.941297, 40.818077, -73.950334, 40.779839",
+        "locations": "-74.002614, 40.747031, -73.994052, 40.743439",
         "time": prediction_hour,
         "date": prediction_date
     }
