@@ -8,7 +8,6 @@ import Datetimepicker from './Datepicker';
 import LocateUserControl from "@/app/components/Locate";
 import Geosearch from "@/app/components/Geosearch";
 import L from 'leaflet';
-import RoutingMachine from "@/app/components/RoutingMachine";
 import HeatMap from "@/app/components/HeatMap";
 
 const DisplayMap = () => {

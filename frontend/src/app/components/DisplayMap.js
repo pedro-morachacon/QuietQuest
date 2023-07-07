@@ -10,7 +10,7 @@ import Geosearch from "@/app/components/Geosearch";
 // import L from 'leaflet';
 // import RoutingMachine from "@/app/components/RoutingMachine";
 import Routing from "./Routing";
-import CommunityDistricts from "./CommunityDistricts.json"
+import CommunityDistricts from "../geojson/CommunityDistricts.json"
 import Heatmap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
@@ -35,7 +35,9 @@ const DisplayMap = () => {
     // onclick, POST operation to backend django for api call
 
     const startTime = Date.now();  // start time
-    const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    // const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
+    const location2 = "-73.941297, 40.818077, -73.950334, 40.779839"; // changed here, replicates the string like the error
+    const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
@@ -80,6 +82,7 @@ const DisplayMap = () => {
                 <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={13}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing />*/}
+                    <Routing setLocation={setLocation}/>
                     {/*<Routing2/>*/}
                     <GeoJSON
                         data={CommunityDistricts}
