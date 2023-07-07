@@ -45,7 +45,7 @@ const DisplayMap = () => {
         axios
             .post('http://localhost:8000/directions/', {
                 // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
-                "locations" : location2,
+                "locations" : location,
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
