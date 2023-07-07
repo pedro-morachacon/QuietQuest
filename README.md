@@ -30,7 +30,14 @@ Open [http://localhost:3000](http://localhost:3000) to view the site in the brow
 ## Database Setup
 First try the above instructions, if you are getting an error you may have to set up the database rather than just 
 pulling it from the branch as the db.sqlite3 database may be empty. This means you may need to populate it yourself 
-with the Noise_Lat_Long.csv. Inside the *backend* directory run each of these commands in terminal.
+with the Noise_Lat_Long.csv. 
+
+**DO NOT DELETE** the *__init__.py* file in the directory below.
+Start by deleting all the *numbered* files in the *backend/quietquestapp/migrations* directory, e.g. 0001_initial.py.
+
+Then delete the *db.sqlite3* file in the *backend* directory. 
+
+Inside the *backend* directory run each of these commands in terminal to recreate the database from the data.
 
 Start with running:
 
@@ -44,4 +51,4 @@ To populate the database (this may take up to 20 minutes to finish), run:
 
 ### `python manage.py runscript scv_storing_script`
 
-The application should have all the data required to run now
+The application should have all the data required to run now.

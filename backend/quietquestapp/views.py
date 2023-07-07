@@ -11,9 +11,7 @@ from . import info
 
 from .models import Locations
 from datetime import datetime
-import pickle
 import pandas as pd
-import numpy as np
 import time
 
 
@@ -24,7 +22,7 @@ def directions_view(request):
     start = time.time()
 
     def create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, point_in, resolution=2,
-                              radius=20):
+                              radius=100):
         point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
         point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
 
@@ -56,14 +54,29 @@ def directions_view(request):
 
     api_key = info.ors_key
     ors = client.Client(key=api_key)
-    coordinates = request.data["locations"]
+
+    # splits the string and reformat it into the structure needed for the api
+    str_coordinates = request.data["locations"]
+    ls_coordinates = str_coordinates.split(",")
+    coordinates = [[ls_coordinates[0], ls_coordinates[1]], [ls_coordinates[2], ls_coordinates[3]]]
+
+    # initialises time and day as current time and day
+    now = datetime.now()
+    prediction_hour = int(now.strftime("%H"))
+    prediction_day = now.weekday()
+
+    # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
+    if request.data["time"] != "" and request.data["date"] != "":
+        prediction_hour = request.data["time"][0:2]
+        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
 
     high_index_value_ls = []
     point_geometry = []
     transformer_wgs84_to_utm32n = Transformer.from_crs("EPSG:4326", "EPSG:3857")
     transformer_utm32n_to_wgs84 = Transformer.from_crs("EPSG:3857", "EPSG:4326")
 
-    all_locations = predicted_locations()
+    # pass hour and day to be used in route prediction
+    all_locations = predicted_locations(prediction_hour, prediction_day)
 
     for location in all_locations:
         position = [location['long'], location['lat']]
@@ -78,27 +91,39 @@ def directions_view(request):
     # Create buffer around route
     avoidance_directions = create_buffer(optimal_directions)
 
+    # makes avoidance route empty initially, status is for the front end error messaging
     avoidance_route = ""
+    # indicates no rerouting was needed
+    status = "no_rerouting"
     attempts = 0
 
     try:
         for site_poly in high_index_value_ls:
             poly = Polygon(site_poly)
             if poly.within(avoidance_directions):
+                # limits rerouting to 5 tries to preserver API quota and reduce processing time
                 if attempts < 5:
                     avoided_point_list.append(poly)
                     avoidance_route = create_route(coordinates, avoided_point_list, 1)
                     avoidance_directions = create_buffer(avoidance_route)
                     attempts += 1
+                    # indicates routing was completed successfully, in under 5 attempts
+                    status = "rerouting_success"
                     print('Generated alternative route, which avoids affected areas.')
 
                 else:
+                    # indicates that too many attempts were made and the avoidance route only avoids a maximum
+                    # of 5 busy areas
+                    status = "many_reroutes"
                     return JsonResponse({
                         'optimal_directions': optimal_directions,
-                        'avoidance_directions': avoidance_route
+                        'avoidance_directions': avoidance_route,
+                        'status': status
                     })
 
+    # indicates an exception occurred while using the API
     except Exception as e:
+        status = "exception_raised"
         avoidance_route = ""
         print(e)
 
@@ -108,7 +133,8 @@ def directions_view(request):
     # return json back to react front end
     return JsonResponse({
         'optimal_directions': optimal_directions,
-        'avoidance_directions': avoidance_route
+        'avoidance_directions': avoidance_route,
+        'status': status
     })
 
 
@@ -138,7 +164,8 @@ def locations_view(request):
         response_dict = {
             'long': location.long,
             'lat': location.lat,
-            'count': location.count
+            # temp divided by 4 for the frontend gradient
+            'count': location.count/4
         }
         response_list.append(response_dict)
 
@@ -146,16 +173,12 @@ def locations_view(request):
     return JsonResponse(response_list, safe=False)
 
 
-# temporarily uses current time and date, will change this to take in the parameters passed from the front end
-# such as date and time which will be used as inputs into the model
-def predicted_locations():
-    # gets the current time by hour
-    now = datetime.now()
-    now_hour = int(now.strftime("%H"))
+# returns all coordinate values in the database for the given hour and given weekday/weekend value, only returns those
+# with a count of 4
+def predicted_locations(hour, day):
 
     # gets the current day of the week and assigning binary value for weekend/weekday
-    day_of_week = now.weekday()
-    if 0 <= day_of_week <= 4:
+    if 0 <= day <= 4:
         weekday_value = 1
         weekend_value = 0
     else:
@@ -163,17 +186,18 @@ def predicted_locations():
         weekend_value = 1
 
     # filters through all the locations to match the current time and date
-    locations = Locations.objects.filter(hour=now_hour, weekday=weekday_value, weekend=weekend_value)
+    locations = Locations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value, count=4)
+
+    #df = pd.DataFrame(list(Locations.objects.filter(count=4).values()))
+    #print(df["hour"].unique())
 
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []
     for location in locations:
-        if location.count >= 4:
-            response_dict = {
-                'long': location.long,
-                'lat': location.lat,
-                'count': location.count
-            }
-            response_list.append(response_dict)
+        response_dict = {
+            'long': location.long,
+            'lat': location.lat,
+        }
+        response_list.append(response_dict)
 
     return response_list
