@@ -17,3 +17,7 @@ class LocationsFactory(factory.django.DjangoModelFactory):
     # Create testing data values 
     lat = 40.86333333
     long = -73.92777777
+    hour = 0
+    weekday = 0
+    weekend = 1
+    count = 4

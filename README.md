@@ -26,3 +26,22 @@ Both of these terminal windows have to be running at the same time
 
 Open [http://localhost:3000](http://localhost:3000) to view the site in the browser.
 (http://localhost:8000 might not always work)
+
+## Database Setup
+First try the above instructions, if you are getting an error you may have to set up the database rather than just 
+pulling it from the branch as the db.sqlite3 database may be empty. This means you may need to populate it yourself 
+with the Noise_Lat_Long.csv. Inside the *backend* directory run each of these commands in terminal.
+
+Start with running:
+
+### `python manage.py makemigrations`
+
+Then run:
+
+### `python manage.py migrate`
+
+To populate the database (this may take up to 20 minutes to finish), run:
+
+### `python manage.py runscript scv_storing_script`
+
+The application should have all the data required to run now
