@@ -126,9 +126,8 @@ const DisplayMap = () => {
             <div id="map">
                 <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={13}>
                     <TileLayer {...tileLayer} />
-                    {/*<Routing />*/}
-                    <Routing setLocation={setLocation}/>
-                    {/*<Routing2/>*/}
+                    {/*<Routing setLocation={setLocation}/>*/}
+                    <Routing2 setLocation={setLocation}/>
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
