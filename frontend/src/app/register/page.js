@@ -5,19 +5,12 @@ import Routing2 from "@/app/components/Routing2";
 import Login from "@/app/login/Login";
 import Register from "@/app/register/Register";
 
-const MapWithNoSSR = dynamic(() => import('../components/Routing2'), {
-  ssr: false,
-});
-
-const LoginWithNoSSR = dynamic(() => import('./Login'), {
-  ssr: false,
-});
 
 export default function App() {
   return (
     <main className="App">
-        <Login/>
-        {/*<Register />*/}
+        {/*<Login/>*/}
+        <Register />
     </main>
   );
 }

@@ -1,10 +1,14 @@
 import React from 'react';
-import { useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect, useContext} from "react";
 import './login.css';
-// ...
+import AuthContext from "@/app/login/AuthProvider";
+import axios from "axios";
+
+const LOGIN_URL = '/auth';
 
 const Login = () => {
 
+    const { setAuth } = useContext(AuthContext);
     const userRef = useRef('');
     const errRef = useRef('');
 
@@ -24,7 +28,6 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSuccess(true);
         console.log(user, pwd);
         setUser('');
         setPwd('');
@@ -72,7 +75,7 @@ const Login = () => {
                 Need an Account?<br />
                 <span className="line">
                     {/* put router link here */}
-                    <a href="#">Sign Up</a>
+                    <a href="http://localhost:3000/register">Sign Up</a>
                 </span>
             </p>
         </section>
@@ -88,8 +91,8 @@ export default Login;
 
 // import { useRef, useState, useEffect, useContext } from 'react';
 // import AuthContext from "@/app/login/AuthProvider";
-// import axios from "axios";
-// const LOGIN_URL = '/auth';
+// import axios from "../login/AxiosLogin";
+// const LOGIN_URL = '/';
 // import '../login/login.css';
 //
 // const Login = () => {
@@ -171,8 +174,8 @@ export default Login;
 //
 //                         <label htmlFor="password">Password:</label>
 //                         <input
-//                             type="password"
-//                             id="password"
+//                             type="text"
+//                             id="id"
 //                             onChange={(e) => setPwd(e.target.value)}
 //                             value={pwd}
 //                             required
