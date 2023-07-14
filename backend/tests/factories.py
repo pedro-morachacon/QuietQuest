@@ -10,7 +10,7 @@ from quietquestapp.models import Locations
 # "factory.django.DjangoModelFactory" uses information that
 # has already been written in our model to create the data
 class LocationsFactory(factory.django.DjangoModelFactory):
-    # specify the model that we're using in login
+    # specify the model that we're using in test
     class Meta:
         model = Locations
 
