@@ -23,7 +23,7 @@ const HeatMap = ({ heatmapData }) => {
                 maxOpacity: 0.8,
                 // scales the radius based on map zoom
                 scaleRadius: true,
-                // if set to false the heatmap uses the global maximum for colorization
+                // if set to false the login uses the global maximum for colorization
                  // if activated: uses the data maximum within the current map boundaries
                 //   (there will always be a red spot with useLocalExtremas true)
                 useLocalExtrema: true,
@@ -33,7 +33,7 @@ const HeatMap = ({ heatmapData }) => {
                 lngField: "long",
                 // which field name in your data represents the data value - default "value"
                 valueField: "count",
-                // customises thresholds and colours in the heatmap gradient
+                // customises thresholds and colours in the login gradient
                 gradient: {0.25 : "cyan", 0.5: "blue", 0.75: "indigo", 1: "black"},
             };
 

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {MapContainer, GeoJSON, TileLayer, useMap, Marker, Popup} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+// import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import tileLayer from './tileLayer';
 import axios from 'axios';
 import Datetimepicker from './Datepicker';
@@ -14,7 +14,7 @@ import CommunityDistricts from "../geojson/CommunityDistricts.json"
 import HeatMap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
-
+import '../css/map.css';
 
 const myIcon = L.icon({
     iconUrl: 'https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png',
@@ -70,7 +70,7 @@ const DisplayMap = () => {
     const [showHeatmap, setShowHeatmap] = useState(false);
 
   const noiseHeatmapClick = () => {
-      // gets noise heatmap
+      // gets noise login
     axios
         .post('http://localhost:8000/noiseheatmap/', {
                 "time" : time, // time goes here e.g. "09:40:52"
@@ -81,12 +81,12 @@ const DisplayMap = () => {
             setShowHeatmap(true);
         })
         .catch((error) => {
-            console.error('Error fetching heatmap data:', error);
+            console.error('Error fetching login data:', error);
         });
   };
 
   const busynessHeatmapClick = () => {
-    // temporarily uses noise heatmap until the backend is finished
+    // temporarily uses noise login until the backend is finished
     axios
         .post('http://localhost:8000/noiseheatmap/', {
                 "time" : time, // time goes here e.g. "09:40:52"
@@ -97,7 +97,7 @@ const DisplayMap = () => {
             setShowHeatmap(true);
         })
         .catch((error) => {
-            console.error('Error fetching heatmap data:', error);
+            console.error('Error fetching login data:', error);
         });
   };
 
@@ -108,7 +108,7 @@ const DisplayMap = () => {
                 <Datetimepicker setDate={setDate} setTime={setTime} />
             </div>
             <div>
-                {/* test button to check rest framework is working correctly */}
+                {/* login button to check rest framework is working correctly */}
                 <button className="button-onclick" onClick={routingClick}>
                     Routing
                 </button>
@@ -157,7 +157,7 @@ const DisplayMap = () => {
                 </MapContainer>
             </div>
             {/*<div>*/}
-            {/*    /!* test button to check rest framework is working correctly *!/*/}
+            {/*    /!* login button to check rest framework is working correctly *!/*/}
             {/*    <button type="button" onClick={handleClick}>*/}
             {/*        Click Me*/}
             {/*    </button>*/}

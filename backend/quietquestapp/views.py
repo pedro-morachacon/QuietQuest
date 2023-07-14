@@ -167,8 +167,8 @@ def directions_view(request):
     })
 
 
-# on click for the noise heatmap, a POST request returns all the coordinates in the database for the noise data
-# for heatmap generation and the associated noise count value
+# on click for the noise login, a POST request returns all the coordinates in the database for the noise data
+# for login generation and the associated noise count value
 @api_view(['POST'])
 def locations_view(request):
     # initialises time and day as current time and day
