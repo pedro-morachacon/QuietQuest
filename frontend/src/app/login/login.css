@@ -15,6 +15,9 @@ html {
 body {
     min-height: 100vh;
     background-color: dodgerblue;
+    background-image: url("https://img.onl/SuE006");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .App {
@@ -65,7 +68,10 @@ button {
 }
 
 button {
-  padding: 0.5rem;
+    padding: 0.5rem;
+    background-color: seagreen;
+    color: white;
+    font-weight: bold;
 }
 
 .instructions {
