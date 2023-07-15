@@ -9,7 +9,7 @@ import "leaflet-control-geocoder";
 // import L from 'leaflet';
 
 
-// test
+// login
 const myIcon = L.icon({
   iconUrl:
     "https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png",
