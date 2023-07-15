@@ -1,8 +1,8 @@
-# File to auth0 file 'models.py' in Django 'quietquestapp' App
+# File to test file 'models.py' in Django 'quietquestapp' App
 # Get pytest libraries
 import pytest
 
-# Create a blanket setup where all the classes in this auth0 file will be able to access the django database
+# Create a blanket setup where all the classes in this test file will be able to access the django database
 pytestmark = pytest.mark.django_db()
 
 
