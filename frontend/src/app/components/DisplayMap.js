@@ -53,7 +53,7 @@ const DisplayMap = () => {
             })
             .then((res) => {
 
-                console.log(res);
+                console.log(res.data);
 
                 // Calculate Time
                 const endTime = Date.now();  // end time
@@ -88,9 +88,9 @@ const DisplayMap = () => {
   };
 
   const busynessHeatmapClick = () => {
-    // temporarily uses noise login until the backend is finished
+    // gets busyness heatmap
     axios
-        .post('http://localhost:8000/noiseheatmap/', {
+        .post('http://localhost:8000/busynessheatmap/', {
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
@@ -103,6 +103,22 @@ const DisplayMap = () => {
         });
   };
 
+  const combinedHeatmapClick = () => {
+    // gets combined heatmap
+    axios
+        .post('http://localhost:8000/combinedheatmap/', {
+                "time" : time, // time goes here e.g. "09:40:52"
+                "date" : date, // date goes here e.g. "04/07/2023"
+            })
+        .then((res) => {
+            setHeatmapData(res.data);
+            setShowHeatmap(true);
+        })
+        .catch((error) => {
+            console.error('Error fetching heatmap data:', error);
+        });
+  };
+
     return (
         <div>
             {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
@@ -110,19 +126,18 @@ const DisplayMap = () => {
                 <Datetimepicker setDate={setDate} setTime={setTime} />
             </div>
             <div>
-                {/* login button to check rest framework is working correctly */}
+                {/* test button to check rest framework is working correctly */}
                 <button className="button-onclick" onClick={routingClick}>
                     Routing
                 </button>
-            </div>
-            <div>
                 <button className="button-onclick" onClick={noiseHeatmapClick}>
                     Noise Heatmap
                 </button>
-            </div>
-            <div>
                 <button className="button-onclick" onClick={busynessHeatmapClick}>
                     Busyness Heatmap
+                </button>
+                <button className="button-onclick" onClick={combinedHeatmapClick}>
+                    Combined Heatmap
                 </button>
             </div>
             <div id="map">
