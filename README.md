@@ -47,8 +47,12 @@ Then run:
 
 ### `python manage.py migrate`
 
-To populate the database (this may take up to 20 minutes to finish), run:
+To populate the 3 databases (this may take between 40 and 60 minutes to finish), run:
 
-### `python manage.py runscript csv_storing_script`
+### `python manage.py runscript noise_storing`
+
+### `python manage.py runscript weekday_taxi_storing`
+
+### `python manage.py runscript weekend_taxi_storing`
 
 The application should have all the data required to run now.
