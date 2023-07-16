@@ -3,16 +3,16 @@
 import factory
 
 # Import each data table from the Django app models
-from quietquestapp.models import Locations
+from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations
 
 
 # This class creates new data(database) for the testing
 # "factory.django.DjangoModelFactory" uses information that
 # has already been written in our model to create the data
-class LocationsFactory(factory.django.DjangoModelFactory):
+class NoiseLocationsFactory(factory.django.DjangoModelFactory):
     # specify the model that we're using in test
     class Meta:
-        model = Locations
+        model = NoiseLocations
 
     # Create testing data values 
     lat = 40.86333333
@@ -20,4 +20,28 @@ class LocationsFactory(factory.django.DjangoModelFactory):
     hour = 0
     weekday = 0
     weekend = 1
+    count = 4
+
+
+class TaxiWeekdayLocationsFactory(factory.django.DjangoModelFactory):
+    # specify the model that we're using in test
+    class Meta:
+        model = TaxiWeekdayLocations
+
+    # Create testing data values
+    lat = 40.86333333
+    long = -73.92777777
+    hour = 0
+    count = 4
+
+
+class TaxiWeekendLocationsFactory(factory.django.DjangoModelFactory):
+    # specify the model that we're using in test
+    class Meta:
+        model = TaxiWeekendLocations
+
+    # Create testing data values
+    lat = 40.86333333
+    long = -73.92777777
+    hour = 0
     count = 4
