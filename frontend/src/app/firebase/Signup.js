@@ -1,10 +1,19 @@
 import React, { useRef } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAuth } from "@/app/firebase/AuthContext";
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const { signup } = useAuth();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    signup(emailRef.current.value, passwordRef.current.value);
+  }
 
   return (
     <>
