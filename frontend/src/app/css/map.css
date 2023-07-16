@@ -37,8 +37,9 @@ body {
 
 iframe {
   display: block;
-  width: 100%;
+  width: 100vw;
   border: 0;
+  height: 800px;
 }
 
 button {

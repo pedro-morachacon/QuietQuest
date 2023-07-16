@@ -16,6 +16,8 @@ import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
 import '../css/map.css';
 
+
+
 const myIcon = L.icon({
     iconUrl: 'https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png',
     iconSize: [26, 32],
@@ -142,7 +144,7 @@ const DisplayMap = () => {
                 <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={13}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing setLocation={setLocation}/>*/}
-                    <Routing2 setLocation={setLocation}/>
+                    {/*<Routing2 setLocation={setLocation}/>*/}
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
@@ -170,6 +172,9 @@ const DisplayMap = () => {
                             weight={5}
                         />)}
                 </MapContainer>
+            </div>
+            <div>
+                <iframe src="https://weather-app-live.netlify.app"></iframe>
             </div>
             {/*<div>*/}
             {/*    /!* login button to check rest framework is working correctly *!/*/}
