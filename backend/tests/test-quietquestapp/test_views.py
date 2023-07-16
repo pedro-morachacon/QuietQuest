@@ -1,7 +1,7 @@
 import pytest
 from django.http import JsonResponse
-from quietquestapp.models import Locations
-from quietquestapp.views import directions_view, locations_view
+from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations
+from quietquestapp.views import directions_view, noise_heatmap_view, busyness_heatmap_view, combined_heatmap_view
 from django.test import RequestFactory
 import json
 from datetime import datetime
@@ -10,25 +10,33 @@ from datetime import datetime
 @pytest.mark.django_db
 def test_directions_view():
 
-    locations_objects = []
+    noise_locations_objects = []
+    taxi_locations_objects = []
 
     # Create dummy data for Locations table
     for hour in range(0, 23):
-        locations_objects.append(Locations(long=-74.002614, lat=40.747031, hour=hour, weekday=1, weekend=0, count=0))
-        locations_objects.append(Locations(long=-74.002614, lat=40.747031, hour=hour, weekday=0, weekend=1, count=0))
-        locations_objects.append(Locations(long=-73.994052, lat=40.743439, hour=hour, weekday=1, weekend=0, count=0))
-        locations_objects.append(Locations(long=-73.994052, lat=40.743439, hour=hour, weekday=0, weekend=1, count=0))
-        locations_objects.append(Locations(long=-74.000048, lat=40.745949, hour=hour, weekday=1, weekend=0, count=4))
-        locations_objects.append(Locations(long=-74.000048, lat=40.745949, hour=hour, weekday=0, weekend=1, count=4))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-74.002614, lat=40.747031, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-74.002614, lat=40.747031, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.994052, lat=40.743439, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.994052, lat=40.743439, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.99675563, lat=40.74457668, hour=hour, count=4))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.99675563, lat=40.74457668, hour=hour, count=4))
+        noise_locations_objects.append(NoiseLocations(long=-74.002614, lat=40.747031, hour=hour, weekday=1, weekend=0, count=0))
+        noise_locations_objects.append(NoiseLocations(long=-74.002614, lat=40.747031, hour=hour, weekday=0, weekend=1, count=0))
+        noise_locations_objects.append(NoiseLocations(long=-73.994052, lat=40.743439, hour=hour, weekday=1, weekend=0, count=0))
+        noise_locations_objects.append(NoiseLocations(long=-73.994052, lat=40.743439, hour=hour, weekday=0, weekend=1, count=0))
+        noise_locations_objects.append(NoiseLocations(long=-74.000048, lat=40.745949, hour=hour, weekday=1, weekend=0, count=4))
+        noise_locations_objects.append(NoiseLocations(long=-74.000048, lat=40.745949, hour=hour, weekday=0, weekend=1, count=4))
 
     # Bulk create the Locations objects
-    Locations.objects.bulk_create(locations_objects)
+    TaxiWeekdayLocations.objects.bulk_create(taxi_locations_objects)
+    NoiseLocations.objects.bulk_create(noise_locations_objects)
 
     # Create a request factory
     factory = RequestFactory()
 
     # initialises time and day as current time and day
-    now = datetime.now()
+    now = datetime(2100, 1, 1)
     prediction_hour = now.strftime("%H")
     prediction_date = str(now.date())
 
@@ -51,28 +59,32 @@ def test_directions_view():
 
 
 @pytest.mark.django_db
-def test_locations_view():
-    locations_objects = []
+def test_noise_heatmap_view():
+    noise_locations_objects = []
 
     # Create dummy data for Locations table
     for hour in range(0, 23):
-        locations_objects.append(Locations(long=-74.002614, lat=40.747031, hour=hour, weekday=1, weekend=0, count=0))
-        locations_objects.append(Locations(long=-74.002614, lat=40.747031, hour=hour, weekday=0, weekend=1, count=0))
-        locations_objects.append(Locations(long=-73.994052, lat=40.743439, hour=hour, weekday=1, weekend=0, count=0))
-        locations_objects.append(Locations(long=-73.994052, lat=40.743439, hour=hour, weekday=0, weekend=1, count=0))
-        locations_objects.append(Locations(long=-73.99675563, lat=40.74457668, hour=hour, weekday=1, weekend=0,
-                                           count=4))
-        locations_objects.append(Locations(long=-73.99675563, lat=40.74457668, hour=hour, weekday=0, weekend=1,
-                                           count=4))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.002614, lat=40.747031, hour=hour, weekday=1, weekend=0, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.002614, lat=40.747031, hour=hour, weekday=0, weekend=1, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-73.994052, lat=40.743439, hour=hour, weekday=1, weekend=0, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-73.994052, lat=40.743439, hour=hour, weekday=0, weekend=1, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.000048, lat=40.745949, hour=hour, weekday=1, weekend=0, count=4))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.000048, lat=40.745949, hour=hour, weekday=0, weekend=1, count=4))
 
     # Bulk create the Locations objects
-    Locations.objects.bulk_create(locations_objects)
+    NoiseLocations.objects.bulk_create(noise_locations_objects)
 
     # Create a request factory
     factory = RequestFactory()
 
     # initialises time and day as current time and day
-    now = datetime.now()
+    now = datetime(2100, 1, 1)
     prediction_hour = now.strftime("%H")
     prediction_date = str(now.date())
 
@@ -82,11 +94,102 @@ def test_locations_view():
         "date": prediction_date
     }
 
-    request = factory.post('/directions/', data=payload, content_type='application/json')
+    request = factory.post('/noiseheatmap/', data=payload, content_type='application/json')
 
     # Call the function being tested
-    response = locations_view(request)
+    response = noise_heatmap_view(request)
 
     # Assert the expected behavior of the function
     assert isinstance(response, JsonResponse)
 
+
+@pytest.mark.django_db
+def test_busyness_heatmap_view():
+    taxi_locations_objects = []
+
+    # Create dummy data for Locations table
+    for hour in range(0, 23):
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-74.002614, lat=40.747031, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-74.002614, lat=40.747031, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.994052, lat=40.743439, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.994052, lat=40.743439, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.99675563, lat=40.74457668, hour=hour, count=4))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.99675563, lat=40.74457668, hour=hour, count=4))
+
+    # Bulk create the Locations objects
+    TaxiWeekdayLocations.objects.bulk_create(taxi_locations_objects)
+
+    # Create a request factory
+    factory = RequestFactory()
+
+    # initialises time and day as current time and day
+    now = datetime(2100, 1, 1)
+    prediction_hour = now.strftime("%H")
+    prediction_date = str(now.date())
+
+    # Create a POST request with JSON payload
+    payload = {
+        "time": prediction_hour,
+        "date": prediction_date
+    }
+
+    request = factory.post('/busynessheatmap/', data=payload, content_type='application/json')
+
+    # Call the function being tested
+    response = busyness_heatmap_view(request)
+
+    # Assert the expected behavior of the function
+    assert isinstance(response, JsonResponse)
+
+
+@pytest.mark.django_db
+def test_combined_heatmap_view():
+    noise_locations_objects = []
+    taxi_locations_objects = []
+
+    # Create dummy data for Locations table
+    for hour in range(0, 23):
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-74.002614, lat=40.747031, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-74.002614, lat=40.747031, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.994052, lat=40.743439, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.994052, lat=40.743439, hour=hour, count=0))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.99675563, lat=40.74457668, hour=hour, count=4))
+        taxi_locations_objects.append(TaxiWeekdayLocations(long=-73.99675563, lat=40.74457668, hour=hour, count=4))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.002614, lat=40.747031, hour=hour, weekday=1, weekend=0, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.002614, lat=40.747031, hour=hour, weekday=0, weekend=1, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-73.994052, lat=40.743439, hour=hour, weekday=1, weekend=0, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-73.994052, lat=40.743439, hour=hour, weekday=0, weekend=1, count=0))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.000048, lat=40.745949, hour=hour, weekday=1, weekend=0, count=4))
+        noise_locations_objects.append(
+            NoiseLocations(long=-74.000048, lat=40.745949, hour=hour, weekday=0, weekend=1, count=4))
+
+    # Bulk create the Locations objects
+    TaxiWeekdayLocations.objects.bulk_create(taxi_locations_objects)
+    NoiseLocations.objects.bulk_create(noise_locations_objects)
+
+    # Create a request factory
+    factory = RequestFactory()
+
+    # initialises time and day as current time and day
+    now = datetime(2100, 1, 1)
+    prediction_hour = now.strftime("%H")
+    prediction_date = str(now.date())
+
+    # Create a POST request with JSON payload
+    payload = {
+        "time": prediction_hour,
+        "date": prediction_date
+    }
+
+    request = factory.post('/combinedheatmap/', data=payload, content_type='application/json')
+
+    # Call the function being tested
+    response = combined_heatmap_view(request)
+
+    # Assert the expected behavior of the function
+    assert isinstance(response, JsonResponse)
