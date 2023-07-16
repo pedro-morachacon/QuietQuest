@@ -9,10 +9,11 @@ from pyproj import Transformer
 # separate file with api keys
 from . import info
 
-from .models import Locations
+from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations
 from datetime import datetime
 import pandas as pd
 import time
+from itertools import chain
 
 
 # returns all coordinate values in the database for the given hour and given weekday/weekend value, only returns those
@@ -22,12 +23,15 @@ def predicted_locations(hour, day):
     if 0 <= day <= 4:
         weekday_value = 1
         weekend_value = 0
+        locations = list(chain(NoiseLocations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value,
+                                                             count=4), TaxiWeekdayLocations.objects.filter(hour=hour,
+                                                                                                           count=4)))
     else:
         weekday_value = 0
         weekend_value = 1
-
-    # filters through all the locations to match the current time and date
-    locations = Locations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value, count=4)
+        locations = list(chain(NoiseLocations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value,
+                                                             count=4), TaxiWeekendLocations.objects.filter(hour=hour,
+                                                                                                           count=4)))
 
     # df = pd.DataFrame(list(NoiseLocations.objects.filter(count=4).values()))
     # print(df["hour"].unique())
@@ -40,7 +44,6 @@ def predicted_locations(hour, day):
             'lat': location.lat,
         }
         response_list.append(response_dict)
-
     return response_list
 
 
@@ -53,7 +56,7 @@ def directions_view(request):
     def create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, point_in, resolution=2,
                               radius=100):
         point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
-        point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 20 m buffer
+        point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 100 m buffer
 
         # Transform back to WGS84
         poly_wgs = [transformer_utm32n_to_wgs84.transform(*point) for point in point_buffer_proj.exterior.coords]
@@ -65,7 +68,7 @@ def directions_view(request):
                          'format': 'geojson',
                          'profile': 'foot-walking',
                          'preference': 'shortest',
-                         'instructions': False,
+                         'instructions': True,
                          'options': {'avoid_polygons': mapping(MultiPolygon(avoided_point_list))}}
         route_directions = ors.directions(**route_request)
         return route_directions
@@ -130,8 +133,8 @@ def directions_view(request):
         for site_poly in high_index_value_ls:
             poly = Polygon(site_poly)
             if poly.within(avoidance_directions):
-                # limits rerouting to 5 tries to preserver API quota and reduce processing time
-                if attempts < 5:
+                # limits rerouting to 5 tries to preserve API quota and reduce processing time
+                if attempts < 2:
                     avoided_point_list.append(poly)
                     avoidance_route = create_route(coordinates, avoided_point_list, 1)
                     avoidance_directions = create_buffer(avoidance_route)
@@ -170,7 +173,7 @@ def directions_view(request):
 # on click for the noise heatmap, a POST request returns all the coordinates in the database for the noise data
 # for heatmap generation and the associated noise count value
 @api_view(['POST'])
-def locations_view(request):
+def noise_heatmap_view(request):
     # initialises time and day as current time and day
     now = datetime.now()
     prediction_hour = int(now.strftime("%H"))
@@ -189,7 +192,77 @@ def locations_view(request):
         weekend_value = 1
 
     # filters through all the locations to match the current time and date
-    locations = Locations.objects.filter(hour=prediction_hour, weekday=weekday_value, weekend=weekend_value)
+    locations = NoiseLocations.objects.filter(hour=prediction_hour, weekday=weekday_value, weekend=weekend_value)
+
+    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
+    response_list = []
+    for location in locations:
+        response_dict = {
+            'long': location.long,
+            'lat': location.lat,
+            # temp divided by 4 for the frontend gradient
+            'count': location.count / 4
+        }
+        response_list.append(response_dict)
+
+    # creates a JSON object and sends it to the frontend
+    return JsonResponse(response_list, safe=False)
+
+
+# on click for the busyness heatmap, a POST request returns all the coordinates in the database for the busyness data
+# for heatmap generation and the associated busyness count value
+@api_view(['POST'])
+def busyness_heatmap_view(request):
+    # initialises time and day as current time and day
+    now = datetime.now()
+    prediction_hour = int(now.strftime("%H"))
+    prediction_day = now.weekday()
+
+    # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
+    if request.data["time"] != "" and request.data["date"] != "":
+        prediction_hour = request.data["time"][0:2]
+        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
+
+    if 0 <= prediction_day <= 4:
+        # filters through all the locations to match the current time and date
+        locations = TaxiWeekdayLocations.objects.filter(hour=prediction_hour)
+    else:
+        locations = TaxiWeekendLocations.objects.filter(hour=prediction_hour)
+
+    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
+    response_list = []
+    for location in locations:
+        response_dict = {
+            'long': location.long,
+            'lat': location.lat,
+            # temp divided by 4 for the frontend gradient
+            'count': location.count / 4
+        }
+        response_list.append(response_dict)
+
+    # creates a JSON object and sends it to the frontend
+    return JsonResponse(response_list, safe=False)
+
+
+@api_view(['POST'])
+def combined_heatmap_view(request):
+    # initialises time and day as current time and day
+    now = datetime.now()
+    prediction_hour = int(now.strftime("%H"))
+    prediction_day = now.weekday()
+
+    # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
+    if request.data["time"] != "" and request.data["date"] != "":
+        prediction_hour = request.data["time"][0:2]
+        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
+
+    if 0 <= prediction_day <= 4:
+        # filters through all the locations to match the current time and date
+        locations = list(chain(NoiseLocations.objects.filter(hour=prediction_hour), TaxiWeekdayLocations.objects
+                               .filter(hour=prediction_hour)))
+    else:
+        locations = list(chain(NoiseLocations.objects.filter(hour=prediction_hour), TaxiWeekendLocations.objects
+                               .filter(hour=prediction_hour)))
 
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []

@@ -11,13 +11,37 @@ pytestmark = pytest.mark.django_db()
 
 
 # Testing the models Locations class
-class Test_LocationsModel:
+class Test_NoiseLocationsModel:
     # Testing the models' Locations class string method
     # locations_factory comes from registered LocationsFactory.
     # we can then access the LocationsFactory in lower case and utilizing the underscore between locations and
     # factory. That's the kind of format that's going to happen if we would call another registered factory
-    def test_LocationsModel_str_return(self, locations_factory):
+    def test_NoiseLocationsModel_str_return(self, noise_locations_factory):
         # Get the expected coordinates string
-        response = locations_factory()
+        response = noise_locations_factory()
         print(response)
         assert response.__str__() == "40.86333333,-73.92777777,0,0,1,4"
+
+
+class Test_TaxiWeekdayLocationsModel:
+    # Testing the models' Locations class string method
+    # locations_factory comes from registered LocationsFactory.
+    # we can then access the LocationsFactory in lower case and utilizing the underscore between locations and
+    # factory. That's the kind of format that's going to happen if we would call another registered factory
+    def test_TaxiWeekdayLocationsModel_str_return(self, taxi_weekday_locations_factory):
+        # Get the expected coordinates string
+        response = taxi_weekday_locations_factory()
+        print(response)
+        assert response.__str__() == "40.86333333,-73.92777777,0,4"
+
+
+class Test_TaxiWeekendLocationsModel:
+    # Testing the models' Locations class string method
+    # locations_factory comes from registered LocationsFactory.
+    # we can then access the LocationsFactory in lower case and utilizing the underscore between locations and
+    # factory. That's the kind of format that's going to happen if we would call another registered factory
+    def test_TaxiWeekendLocationsModel_str_return(self, taxi_weekend_locations_factory):
+        # Get the expected coordinates string
+        response = taxi_weekend_locations_factory()
+        print(response)
+        assert response.__str__() == "40.86333333,-73.92777777,0,4"
