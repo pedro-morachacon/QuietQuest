@@ -45,3 +45,11 @@ class Test_TaxiWeekendLocationsModel:
         response = taxi_weekend_locations_factory()
         print(response)
         assert response.__str__() == "40.86333333,-73.92777777,0,4"
+
+class Test_AccountsModel:
+
+    def test_AccountsModel_str_return(self, accounts_factory):
+        # Get the expected coordinates string
+        response = accounts_factory()
+        print(response)
+        assert response.__str__() == "Test,Aa12345"
