@@ -9,11 +9,13 @@ from pyproj import Transformer
 # separate file with api keys
 from . import info
 
-from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations
+from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts
 from datetime import datetime
 import pandas as pd
 import time
 from itertools import chain
+import json
+from django.core import serializers
 
 
 # returns all coordinate values in the database for the given hour and given weekday/weekend value, only returns those
@@ -277,3 +279,24 @@ def combined_heatmap_view(request):
 
     # creates a JSON object and sends it to the frontend
     return JsonResponse(response_list, safe=False)
+
+
+@api_view(['POST'])
+def register_view(request):
+    user = request.data['user']
+    password = request.data['password']
+    user_entry = Accounts(user=user, password=password)
+    user_entry.save()
+    return JsonResponse({'message': 'User registered successfully.'})
+
+
+@api_view(['POST'])
+def login_view(request):
+    user = request.data['user']
+    password = request.data['password']
+    user_details = list(Accounts.objects.filter(user=user, password=password))
+
+    serialized_user_details = serializers.serialize('json', user_details)
+    json_user_details = json.loads(serialized_user_details)
+
+    return JsonResponse(json_user_details, safe=False)
