@@ -3,7 +3,7 @@
 import factory
 
 # Import each data table from the Django app models
-from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations
+from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts
 
 
 # This class creates new data(database) for the testing
@@ -45,3 +45,13 @@ class TaxiWeekendLocationsFactory(factory.django.DjangoModelFactory):
     long = -73.92777777
     hour = 0
     count = 4
+
+
+class AccountsFactory(factory.django.DjangoModelFactory):
+    # specify the model that we're using in test
+    class Meta:
+        model = Accounts
+
+    # Create testing data values
+    user = "Test"
+    password = "Aa12345"

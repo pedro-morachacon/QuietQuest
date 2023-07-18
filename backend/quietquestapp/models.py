@@ -53,3 +53,15 @@ class TaxiWeekendLocations(models.Model):
     # reassign the name of the model for future use
     class Meta:
         verbose_name = "taxi_weekday"
+
+
+class Accounts(models.Model):
+    user = models.TextField(default="")
+    password = models.TextField(default="")
+
+    def __str__(self):
+        details = str(self.user) + "," + str(self.password)
+        return details
+
+    class Meta:
+        verbose_name = "accounts"

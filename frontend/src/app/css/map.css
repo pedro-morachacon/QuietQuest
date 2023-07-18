@@ -43,10 +43,8 @@ iframe {
 }
 
 button {
-  position: absolute;
-  top: 25px;
-  display:block;
-  left: 260px;
+  position: relative;
+  left: 200px;
   color: white;
 }
 
@@ -424,6 +422,7 @@ form .pet {
 
 #datepicker {
   position: relative;
+  display: block;
   top: 25px;
   left: 10px;
 }
@@ -442,8 +441,6 @@ form .pet {
   background-color: darkcyan;
   font-size: 10px;
   color: white;
-  position: absolute;
-  top: 25px;
-  left: 260px;
   padding: 5px;
+  margin: 5px;
 }

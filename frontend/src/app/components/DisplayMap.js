@@ -125,8 +125,7 @@ const DisplayMap = () => {
             <div id='datepicker'>
                 <Datetimepicker setDate={setDate} setTime={setTime} />
             </div>
-            <div>
-                {/* test button to check rest framework is working correctly */}
+            <div style={{ display: 'flex' }}>
                 <button className="button-onclick" onClick={routingClick}>
                     Routing
                 </button>
