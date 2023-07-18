@@ -35,6 +35,7 @@ function Routing2({ setLocation }) {
 
     const plan = new ReversablePlan(
       [L.latLng(40.7283, -73.9942), L.latLng(40.7483, -73.9942), L.latLng()],
+      //   [L.latLng( ), L.latLng( )],
       {
         geocoder: L.Control.Geocoder.nominatim(),
         routeWhileDragging: true,

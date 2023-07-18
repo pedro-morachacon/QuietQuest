@@ -6,7 +6,11 @@ const Datepicker = ({ setDate, setTime }) => {
 
     // const [date, setDate] = useState(new Date());
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     const handleDateChange = (selectedDate) => {
+
+        setSelectedDate(selectedDate);
         // console.log('date and time：', selectedDate);
         console.log('Date：', selectedDate.toLocaleDateString());
         console.log('Time：', selectedDate.toLocaleTimeString());
@@ -19,7 +23,7 @@ const Datepicker = ({ setDate, setTime }) => {
     return (
         <DatePicker
             // selected={date}
-            selected={new Date()}
+            selected={selectedDate}
             onChange={handleDateChange}
             showTimeSelect
             dateFormat="Pp"
@@ -28,3 +32,25 @@ const Datepicker = ({ setDate, setTime }) => {
 };
 
 export default Datepicker;
+
+
+// const Datepicker = ({ setDate, setTime }) => {
+//     const [selectedDate, setSelectedDate] = useState(new Date());
+//
+//     const handleDateChange = (date) => {
+//         setSelectedDate(date);
+//         setDate(date.toLocaleDateString());
+//         setTime(date.toLocaleTimeString());
+//     };
+//
+//     return (
+//         <DatePicker
+//             selected={selectedDate}
+//             onChange={handleDateChange}
+//             showTimeSelect
+//             dateFormat="Pp"
+//         />
+//     );
+// };
+//
+// export default Datepicker;

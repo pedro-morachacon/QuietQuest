@@ -141,10 +141,10 @@ const DisplayMap = () => {
                 </button>
             </div>
             <div id="map">
-                <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={13}>
+                <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={10}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing setLocation={setLocation}/>*/}
-                    {/*<Routing2 setLocation={setLocation}/>*/}
+                    <Routing2 setLocation={setLocation}/>
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
@@ -173,9 +173,9 @@ const DisplayMap = () => {
                         />)}
                 </MapContainer>
             </div>
-            <div>
-                <iframe src="https://weather-app-live.netlify.app"></iframe>
-            </div>
+            {/*<div>*/}
+            {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
+            {/*</div>*/}
             {/*<div>*/}
             {/*    /!* login button to check rest framework is working correctly *!/*/}
             {/*    <button type="button" onClick={handleClick}>*/}
