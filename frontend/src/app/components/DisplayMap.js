@@ -26,7 +26,7 @@ const myIcon = L.icon({
 });
 
 
-const DisplayMap = () => {
+const DisplayMap = ({ activeTab }) => {
 
     const setColor = ({properties}) => {
         return {weight: 1};
@@ -73,12 +73,15 @@ const DisplayMap = () => {
 
   const noiseHeatmapClick = () => {
       // gets noise login
+      setHeatmapData(null); // Clear existing heatmap data
+      setShowHeatmap(false);
     axios
         .post('http://localhost:8000/noiseheatmap/', {
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
         .then((res) => {
+       
             setHeatmapData(res.data);
             setShowHeatmap(true);
         })
@@ -88,6 +91,8 @@ const DisplayMap = () => {
   };
 
   const busynessHeatmapClick = () => {
+    setHeatmapData(null); // Clear existing heatmap data
+    setShowHeatmap(false);
     // gets busyness heatmap
     axios
         .post('http://localhost:8000/busynessheatmap/', {
@@ -95,6 +100,7 @@ const DisplayMap = () => {
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
         .then((res) => {
+        
             setHeatmapData(res.data);
             setShowHeatmap(true);
         })
@@ -105,12 +111,14 @@ const DisplayMap = () => {
 
   const combinedHeatmapClick = () => {
     // gets combined heatmap
+    setHeatmapData(null); // Clear existing heatmap data
+    setShowHeatmap(false);
     axios
         .post('http://localhost:8000/combinedheatmap/', {
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
-        .then((res) => {
+        .then((res) => {     
             setHeatmapData(res.data);
             setShowHeatmap(true);
         })
@@ -119,26 +127,44 @@ const DisplayMap = () => {
         });
   };
 
+
+
+  useEffect(() => {
+
+
+
+    switch(activeTab) {
+      case 'noise':
+       
+        noiseHeatmapClick();
+        break;
+      case 'crowds':
+       
+        busynessHeatmapClick();
+        break;
+      case 'both':
+     
+        combinedHeatmapClick();
+        break;
+    case 'map-only':
+        setHeatmapData([]);  // Indicate that heatmap layer should be removed
+        break;
+    
+        
+      default:
+        break;
+    }
+  }, [activeTab, date, time]);
+
+
+
     return (
         <div>
             {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
             <div id='datepicker'>
                 <Datetimepicker setDate={setDate} setTime={setTime} />
             </div>
-            <div style={{ display: 'flex' }}>
-                <button className="button-onclick" onClick={routingClick}>
-                    Routing
-                </button>
-                <button className="button-onclick" onClick={noiseHeatmapClick}>
-                    Noise Heatmap
-                </button>
-                <button className="button-onclick" onClick={busynessHeatmapClick}>
-                    Busyness Heatmap
-                </button>
-                <button className="button-onclick" onClick={combinedHeatmapClick}>
-                    Combined Heatmap
-                </button>
-            </div>
+      
             <div id="map">
                 <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={10}>
                     <TileLayer {...tileLayer} />

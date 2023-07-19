@@ -1,32 +1,44 @@
 /* homepage */
 
-"use client";
-import React from "react";
-import dynamic from "next/dynamic";
-import "./css/homepage.css";
-import Datetimepicker from './components/Datepicker';
+"use client"
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import Tabs from './components/Tabs'
+
 
 const MapWithNoSSR = dynamic(() => import("./components/DisplayMap"), {
   ssr: false,
 });
 
 export default function App() {
+
+
+  const [activeTab, setActiveTab] = useState('');
+  // Initialize the activeTab state
+
+
+  useEffect(() => {
+    // Code to run when the activeTab changes
+    // You can add any side effects or logic here
+    console.log('activeTab changed:', activeTab);
+  }, [activeTab]);
+
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab); // Update the activeTab state when the tab is changed
+  };
+
   return (
+      <main>
     <div className="App">
-      {/*<header>*/}
-      {/*    <div className="container">*/}
-      {/*        <nav className="navbar">*/}
-      {/*            <a href="/" className="nav-branding">DEV.</a>*/}
-      {/*            <ul>*/}
-      {/*                <li className="nav-link"><a href="/">Home</a></li>*/}
-      {/*                <li className="nav-link"><a href="/">About</a></li>*/}
-      {/*                <li className="nav-link"><a href="/">Home</a></li>*/}
-      {/*            </ul>*/}
-      {/*        </nav>*/}
-      {/*    </div>*/}
-      {/*</header>*/}
+      {/*<div className="search-params-container">*/}
+      {/*  <SearchParamsWithNoSSR />*/}
+      {/*</div>*/}
+      <div>
+         <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
+      </div>
       <div className="map-container">
-        <MapWithNoSSR />
+        <MapWithNoSSR activeTab={activeTab}/>
       </div>
 
       <style jsx>{`
@@ -42,5 +54,6 @@ export default function App() {
         }
       `}</style>
     </div>
+  </main>
   );
 }
