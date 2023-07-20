@@ -8,6 +8,10 @@ import { AuthContextProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import './firebaseauth.css';
 
+// import {signInWithGoogle} from "@/app/firbase";
+import {signInWithGoogle} from "@/app/firebaseauth/GoogleLogin";
+import "./googleLogin.css";
+
 function App() {
   return (
     <div className="App">
@@ -32,6 +36,12 @@ function App() {
           </BrowserRouter>
         </AuthContextProvider>
       </section>
+        <div>
+            <button onClick={signInWithGoogle} type="button" className="login-with-google-btn">Sign in with Google</button>
+            {/*<h1>{localStorage.getItem("name")}</h1>*/}
+            {/*<h1>{localStorage.getItem("email")}</h1>*/}
+            {/*<img src={localStorage.getItem("profilePic")}/>*/}
+        </div>
     </div>
   );
 }
