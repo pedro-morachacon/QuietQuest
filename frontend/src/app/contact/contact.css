@@ -122,3 +122,9 @@ button {
     text-decoration: underline;
 }
 
+.home-page{
+    position: relative;
+    left: 380px;
+    bottom: 30px;
+    text-decoration: underline;
+}

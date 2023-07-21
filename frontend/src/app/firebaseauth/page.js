@@ -6,11 +6,13 @@ import Account from "./Account";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
-import './firebaseauth.css';
+import "./firebaseauth.css";
 
 // import {signInWithGoogle} from "@/app/firbase";
-import {signInWithGoogle} from "@/app/firebaseauth/GoogleLogin";
+import { signInWithGoogle } from "@/app/firebaseauth/GoogleLogin";
 import "./googleLogin.css";
+
+// import {ContactUs} from "@/app/contact/ContactUs";
 
 function App() {
   return (
@@ -35,13 +37,12 @@ function App() {
             </Routes>
           </BrowserRouter>
         </AuthContextProvider>
-      </section>
         <div>
-            <button onClick={signInWithGoogle} type="button" className="login-with-google-btn">Sign in with Google</button>
-            {/*<h1>{localStorage.getItem("name")}</h1>*/}
-            {/*<h1>{localStorage.getItem("email")}</h1>*/}
-            {/*<img src={localStorage.getItem("profilePic")}/>*/}
+          <a href="http://localhost:3000/contact" className="contact">
+            Contact Us
+          </a>
         </div>
+      </section>
     </div>
   );
 }

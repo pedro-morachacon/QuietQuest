@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "./AuthContext";
 
+import { signInWithGoogle } from "@/app/firebaseauth/GoogleLogin";
+
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,8 @@ const Signin = () => {
     // setSuccess("Login Successful!");  // set success message upon successful login
     try {
       await signIn(email, password);
-      navigate("/firebaseauth/account");
+      window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
+      // navigate("/firebaseauth/account");
       setSuccess("Login Successful!");
     } catch (e) {
       setError(e.message);
@@ -64,6 +67,16 @@ const Signin = () => {
         <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white">
           Sign In
         </button>
+        <button
+          onClick={signInWithGoogle}
+          type="button"
+          className="login-with-google-btn"
+        >
+          Sign in with Google
+        </button>
+        {/*<h1>{localStorage.getItem("name")}</h1>*/}
+        {/*<h1>{localStorage.getItem("email")}</h1>*/}
+        {/*<img src={localStorage.getItem("profilePic")}/>*/}
       </form>
     </div>
   );
