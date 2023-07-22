@@ -176,7 +176,6 @@ const DisplayMap = ({ activeTab }) => {
                     <Geosearch/>
                     <LocateUserControl/>
                     {showHeatmap && <HeatMap heatmapData={heatmapData} />}
-                    {/*<RoutingMachine/>*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
@@ -200,12 +199,6 @@ const DisplayMap = ({ activeTab }) => {
             </div>
             {/*<div>*/}
             {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    /!* login button to check rest framework is working correctly *!/*/}
-            {/*    <button type="button" onClick={handleClick}>*/}
-            {/*        Click Me*/}
-            {/*    </button>*/}
             {/*</div>*/}
         </div>
     );

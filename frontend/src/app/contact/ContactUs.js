@@ -39,7 +39,6 @@ export const ContactUs = () => {
       >
         Send
       </button>
-      {/*<input type="submit" value="Send" />*/}
     </form>
   );
 };

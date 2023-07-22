@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /*line-height: 40px;*/
 }
 
 html {
@@ -127,4 +128,8 @@ button {
     left: 380px;
     bottom: 30px;
     text-decoration: underline;
+}
+
+label{
+    line-height: 60px;
 }

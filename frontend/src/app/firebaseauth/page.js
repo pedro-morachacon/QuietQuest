@@ -7,20 +7,12 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import "./firebaseauth.css";
-
-// import {signInWithGoogle} from "@/app/firbase";
-import { signInWithGoogle } from "@/app/firebaseauth/GoogleLogin";
 import "./googleLogin.css";
-
-// import {ContactUs} from "@/app/contact/ContactUs";
 
 function App() {
   return (
     <div className="App">
       <section>
-        {/*<h3 className='text-center text-2xl font-bold'>*/}
-        {/*  Firebase Auth & Context*/}
-        {/*</h3>*/}
         <AuthContextProvider>
           <BrowserRouter>
             <Routes>
@@ -40,6 +32,11 @@ function App() {
         <div>
           <a href="http://localhost:3000/contact" className="contact">
             Contact Us
+          </a>
+        </div>
+        <div>
+          <a href="http://localhost:3000/resetpwd" className="reset-pwd">
+            Forgot Password ?
           </a>
         </div>
       </section>
