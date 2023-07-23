@@ -1,0 +1,36 @@
+/*.App {*/
+/*  text-align: center;*/
+/*}*/
+
+/*body{*/
+/*  background-color: #fff;*/
+/*}*/
+
+.card {
+  width: 12%;
+  border: 1px solid grey;
+  margin: 1%;
+  padding: 10px 0;
+}
+
+.weather-cards {
+  display: flex;
+  justify-content: center;
+}
+
+.header{
+  margin: 50px;
+}
+
+small{
+  font-size: 12px;
+  color: grey;
+}
+
+.weather-text{
+  text-align: center;
+  /*background-color: #fff;*/
+  background-color: floralwhite;
+
+}
+

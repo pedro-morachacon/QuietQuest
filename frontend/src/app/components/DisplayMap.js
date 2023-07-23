@@ -10,12 +10,14 @@ import Geosearch from "@/app/components/Geosearch";
 // import L from 'leaflet';
 // import RoutingMachine from "@/app/components/RoutingMachine";
 import Routing from "./Routing";
-import CommunityDistricts from "../geojson/CommunityDistricts.json"
+import CommunityDistricts from "../geojson/CommunityDistricts.json";
 import HeatMap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
 import '../css/map.css';
 
+import WeatherCards from "@/app/weather/weather-cards";
+import "../weather/weather.css";
 
 
 const myIcon = L.icon({
@@ -200,6 +202,9 @@ const DisplayMap = ({ activeTab }) => {
             {/*<div>*/}
             {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
             {/*</div>*/}
+            <div className="weather-text">
+                <WeatherCards />
+            </div>
         </div>
     );
 };
