@@ -4,7 +4,7 @@
       "id": 1,
       "weekDay": "Sunday",
       "date": "July 23th",
-      "year": 2024,
+      "year": 2023,
       "temperature": 22,
       "tempInWords": "Clear Sky",
       "url": "http://openweathermap.org/img/wn/01d@2x.png"

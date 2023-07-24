@@ -16,7 +16,7 @@ import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
 import '../css/map.css';
 
-import WeatherCards from "@/app/weather/weather-cards";
+import WeatherCards2 from "@/app/weather/weather-cards2";
 import "../weather/weather.css";
 
 
@@ -203,7 +203,7 @@ const DisplayMap = ({ activeTab }) => {
             {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
             {/*</div>*/}
             <div className="weather-text">
-                <WeatherCards />
+                <WeatherCards2 />
             </div>
         </div>
     );
