@@ -32,7 +32,7 @@ info.py
 
 # misc
 *.pem
-.env
+frontend/.env
 
 # debug
 npm-debug.log*

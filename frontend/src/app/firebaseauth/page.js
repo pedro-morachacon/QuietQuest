@@ -6,15 +6,13 @@ import Account from "./Account";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
-import './firebaseauth.css';
+import "./firebaseauth.css";
+import "./googleLogin.css";
 
 function App() {
   return (
     <div className="App">
       <section>
-        {/*<h3 className='text-center text-2xl font-bold'>*/}
-        {/*  Firebase Auth & Context*/}
-        {/*</h3>*/}
         <AuthContextProvider>
           <BrowserRouter>
             <Routes>
@@ -31,6 +29,16 @@ function App() {
             </Routes>
           </BrowserRouter>
         </AuthContextProvider>
+        <div>
+          <a href="http://localhost:3000/contact" className="contact">
+            Contact Us
+          </a>
+        </div>
+        <div>
+          <a href="http://localhost:3000/resetpwd" className="reset-pwd">
+            Forgot Password ?
+          </a>
+        </div>
       </section>
     </div>
   );

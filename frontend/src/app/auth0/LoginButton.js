@@ -8,19 +8,3 @@ const LoginButton = () => {
 };
 
 export default LoginButton;
-
-// console.log
-
-// const LoginButton = () => {
-//   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-//
-//   useEffect(() => {
-//     if (isAuthenticated) {
-//       console.log(user);
-//     }
-//   }, [isAuthenticated, user]);
-//
-//   return <button onClick={() => loginWithRedirect()}>Log In</button>;
-// };
-//
-// export default LoginButton;

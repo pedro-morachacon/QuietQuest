@@ -14,6 +14,8 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    /*--background-start-rgb: 255, 255, 255;*/
+    /*--background-end-rgb: 255, 255, 255;*/
   }
 }
 
@@ -31,7 +33,7 @@ body {
   margin: 30px auto;
   height: 640px;
   z-index: 0;
-  border: 2px solid #333;
+  /*border: 2px solid #333;*/
   overflow: hidden;
 }
 
@@ -59,6 +61,7 @@ button {
 
 body {
   background-color: darkslategrey;
+  /*background-color: white;*/
   /* #4F9D9D*/
   /*background-image: url(http://pets-images.dev-apis.com/pets/wallpaperC.jpg);*/
   margin: 0;
@@ -459,7 +462,7 @@ form .pet {
     width: 90%;
   }
 }
- 
+
 ul.nav li {
   width: 50%;
   padding: 1rem;
@@ -468,27 +471,29 @@ ul.nav li {
   cursor: pointer;
   transition: all 0.7s;
 }
- 
+
 ul.nav li:first-child {
   border-bottom-left-radius: 2rem;
   border-top-left-radius: 2rem;
 }
- 
+
 ul.nav li:last-child {
   border-bottom-right-radius: 2rem;
   border-top-right-radius: 2rem;
 }
- 
+
 ul.nav li:hover {
   background: rgba(50, 224, 196, 0.15);
 }
- 
+
 ul.nav li.active {
   background: #39A2DB;
 }
- 
+
 /* Tab Content Styles */
 .TabContent {
   font-size: 2rem;
   text-align: center;
 }
+
+

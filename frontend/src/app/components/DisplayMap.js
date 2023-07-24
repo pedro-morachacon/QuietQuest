@@ -10,12 +10,14 @@ import Geosearch from "@/app/components/Geosearch";
 // import L from 'leaflet';
 // import RoutingMachine from "@/app/components/RoutingMachine";
 import Routing from "./Routing";
-import CommunityDistricts from "../geojson/CommunityDistricts.json"
+import CommunityDistricts from "../geojson/CommunityDistricts.json";
 import HeatMap from "@/app/components/HeatMap";
 import Routing2 from "@/app/components/Routing2";
 import Datepicker from "./Datepicker";
 import '../css/map.css';
 
+import WeatherCards2 from "@/app/weather/weather-cards2";
+import "../weather/weather.css";
 
 
 const myIcon = L.icon({
@@ -166,17 +168,16 @@ const DisplayMap = ({ activeTab }) => {
             </div>
       
             <div id="map">
-                <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={13}>
+                <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={10}>
                     <TileLayer {...tileLayer} />
                     {/*<Routing setLocation={setLocation}/>*/}
-                    {/*<Routing2 setLocation={setLocation}/>*/}
+                    <Routing2 setLocation={setLocation}/>
                     <GeoJSON
                         data={CommunityDistricts}
                         style={setColor}/>
                     <Geosearch/>
                     <LocateUserControl/>
                     {showHeatmap && <HeatMap heatmapData={heatmapData} />}
-                    {/*<RoutingMachine/>*/}
                     {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
                     {/*    <Popup>*/}
                     {/*      52.136096, 11.635208*/}
@@ -198,15 +199,12 @@ const DisplayMap = ({ activeTab }) => {
                         />)}
                 </MapContainer>
             </div>
-            <div>
-                <iframe src="https://weather-app-live.netlify.app"></iframe>
-            </div>
             {/*<div>*/}
-            {/*    /!* login button to check rest framework is working correctly *!/*/}
-            {/*    <button type="button" onClick={handleClick}>*/}
-            {/*        Click Me*/}
-            {/*    </button>*/}
+            {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
             {/*</div>*/}
+            <div className="weather-text">
+                <WeatherCards2 />
+            </div>
         </div>
     );
 };

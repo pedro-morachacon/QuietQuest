@@ -6,15 +6,14 @@ import dynamic from 'next/dynamic';
 import Tabs from './components/Tabs'
 
 
-const MapWithNoSSR = dynamic(() => import('./components/DisplayMap'), {
+const MapWithNoSSR = dynamic(() => import("./components/DisplayMap"), {
   ssr: false,
 });
-
 
 export default function App() {
 
 
-  const [activeTab, setActiveTab] = useState(''); 
+  const [activeTab, setActiveTab] = useState('');
   // Initialize the activeTab state
 
 
@@ -23,7 +22,7 @@ export default function App() {
     // You can add any side effects or logic here
     console.log('activeTab changed:', activeTab);
   }, [activeTab]);
-  
+
 
   const handleTabChange = (tab) => {
     setActiveTab(tab); // Update the activeTab state when the tab is changed
@@ -41,6 +40,7 @@ export default function App() {
       <div className="map-container">
         <MapWithNoSSR activeTab={activeTab}/>
       </div>
+
       <style jsx>{`
         .App {
           display: flex;
@@ -48,12 +48,9 @@ export default function App() {
           align-items: center;
         }
 
-        .search-params-container {
-          margin-bottom: 20px;
-        }
-
         .map-container {
-          width: 100%;
+          width: 95%;
+          z-index: 1;
         }
       `}</style>
     </div>
