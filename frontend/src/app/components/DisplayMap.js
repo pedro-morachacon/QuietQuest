@@ -18,6 +18,9 @@ import '../css/map.css';
 
 import WeatherCards2 from "@/app/weather/weather-cards2";
 import "../weather/weather.css";
+import Instructions from "@/app/components/Instructions";
+import RoutingStatus from "@/app/components/RoutingStatus";
+import RoutingLegend from "@/app/components/RoutingLegend";
 
 
 const myIcon = L.icon({
@@ -36,34 +39,44 @@ const DisplayMap = ({ activeTab }) => {
 
     const [optimalDirections, setOptimalDirections] = useState(null);
     const [avoidanceDirections, setAvoidanceDirections] = useState(null);
-    // onclick, POST operation to backend django for api call
+    const [optimalInstructionsData, setOptimalInstructionsData] = useState(null);
+    const [avoidanceInstructionsData, setAvoidanceInstructionsData] = useState(null);
+    const [routingStatus, setRoutingStatus] = useState(null);
 
-    const startTime = Date.now();  // start time
-    // const location = [[-73.941297, 40.818077], [-73.950334, 40.779839]];
-    const location2 = "-73.941297, 40.818077, -73.950334, 40.779839"; // changed here, replicates the string like the error
     const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
+    // onclick, POST operation to backend django for api call
     const routingClick = () => {
+        const startTimeRouting = Date.now();  // start time
+        setOptimalDirections(null);
+        setAvoidanceDirections(null);
+        setOptimalInstructionsData(null);
+        setAvoidanceInstructionsData(null);
+        setRoutingStatus(null);
+
         axios
             .post('http://localhost:8000/directions/', {
                 // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
                 "locations" : location,
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
+                "tab" : activeTab //changes route dependent on active tab
             })
             .then((res) => {
-
                 console.log(res.data);
-
-                // Calculate Time
-                const endTime = Date.now();  // end time
-                const timeTaken = (endTime - startTime) / 1000;  // time taken in seconds
-                console.log(`Time taken for the request: ${timeTaken} seconds`);
-
                 setOptimalDirections(res.data.optimal_directions);
                 setAvoidanceDirections(res.data.avoidance_directions);
+                setOptimalInstructionsData(res.data.optimal_directions.features[0].properties);
+                if (res.data.avoidance_directions !== "") {
+                    setAvoidanceInstructionsData(res.data.avoidance_directions.features[0].properties);
+                }
+                setRoutingStatus(res.data.status);
+                // Calculate Time
+                const endTimeRouting = Date.now();  // end time
+                const timeTaken = (endTimeRouting - startTimeRouting) / 1000;  // time taken in seconds
+                console.log(`Routing Time: ${timeTaken}'s`);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -74,6 +87,7 @@ const DisplayMap = ({ activeTab }) => {
     const [showHeatmap, setShowHeatmap] = useState(false);
 
   const noiseHeatmapClick = () => {
+      const startTimeNoise = Date.now();
       // gets noise login
       setHeatmapData(null); // Clear existing heatmap data
       setShowHeatmap(false);
@@ -83,9 +97,13 @@ const DisplayMap = ({ activeTab }) => {
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
         .then((res) => {
-       
+
             setHeatmapData(res.data);
             setShowHeatmap(true);
+            // Calculate Time
+            const endTimeNoise = Date.now();  // end time
+            const timeTaken = (endTimeNoise - startTimeNoise) / 1000;  // time taken in seconds
+            console.log(`Noise Time: ${timeTaken}'s`);
         })
         .catch((error) => {
             console.error('Error fetching login data:', error);
@@ -93,6 +111,7 @@ const DisplayMap = ({ activeTab }) => {
   };
 
   const busynessHeatmapClick = () => {
+      const startTimeTaxi = Date.now();  // end time
     setHeatmapData(null); // Clear existing heatmap data
     setShowHeatmap(false);
     // gets busyness heatmap
@@ -102,9 +121,14 @@ const DisplayMap = ({ activeTab }) => {
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
         .then((res) => {
-        
+
             setHeatmapData(res.data);
             setShowHeatmap(true);
+            // Calculate Time
+            const endTimeTaxi = Date.now();  // end time
+            const timeTaken = (endTimeTaxi - startTimeTaxi) / 1000;  // time taken in seconds
+            console.log(`Taxi Time: ${timeTaken}'s`);
+
         })
         .catch((error) => {
             console.error('Error fetching login data:', error);
@@ -112,6 +136,7 @@ const DisplayMap = ({ activeTab }) => {
   };
 
   const combinedHeatmapClick = () => {
+      const startTimeCombined = Date.now();
     // gets combined heatmap
     setHeatmapData(null); // Clear existing heatmap data
     setShowHeatmap(false);
@@ -120,45 +145,42 @@ const DisplayMap = ({ activeTab }) => {
                 "time" : time, // time goes here e.g. "09:40:52"
                 "date" : date, // date goes here e.g. "04/07/2023"
             })
-        .then((res) => {     
+        .then((res) => {
             setHeatmapData(res.data);
             setShowHeatmap(true);
+            // Calculate Time
+            const endTimeCombined = Date.now();  // end time
+            const timeTaken = (endTimeCombined - startTimeCombined) / 1000;  // time taken in seconds
+            console.log(`Combined Time: ${timeTaken}'s`);
         })
         .catch((error) => {
             console.error('Error fetching heatmap data:', error);
         });
   };
 
-
-
   useEffect(() => {
-
-
 
     switch(activeTab) {
       case 'noise':
-       
+
         noiseHeatmapClick();
         break;
       case 'crowds':
-       
+
         busynessHeatmapClick();
         break;
       case 'both':
-     
+
         combinedHeatmapClick();
         break;
     case 'map-only':
         setHeatmapData([]);  // Indicate that heatmap layer should be removed
         break;
-    
-        
+
       default:
         break;
     }
   }, [activeTab, date, time]);
-
-
 
     return (
         <div>
@@ -166,7 +188,16 @@ const DisplayMap = ({ activeTab }) => {
             <div id='datepicker'>
                 <Datetimepicker setDate={setDate} setTime={setTime} />
             </div>
-      
+            <div>
+                <button className="button-onclick" onClick={routingClick}>
+                    Routing
+                </button>
+            </div>
+            <div>
+                {routingStatus && (
+                    <RoutingLegend routingStatus={routingStatus} />
+                )}
+            </div>
             <div id="map">
                 <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={10}>
                     <TileLayer {...tileLayer} />
@@ -198,6 +229,28 @@ const DisplayMap = ({ activeTab }) => {
                             weight={5}
                         />)}
                 </MapContainer>
+            </div>
+            <div>
+                {routingStatus && (
+                    <RoutingStatus routingStatus={routingStatus} />
+                )}
+            </div>
+            <div>
+                {optimalInstructionsData !== null && (
+                    <div>
+                        <h2>Optimal Instructions:</h2>
+                        <Instructions instructionsData={optimalInstructionsData} />
+                    </div>
+                )}
+            </div>
+            <div>
+                {avoidanceInstructionsData !== null && (
+                    <div>
+                        <br/>
+                        <h2>Avoidance Instructions:</h2>
+                        <Instructions instructionsData={avoidanceInstructionsData} />
+                    </div>
+                )}
             </div>
             {/*<div>*/}
             {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
