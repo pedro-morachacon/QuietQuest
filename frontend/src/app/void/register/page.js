@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Register from "@/app/register/Register";
+import Register from "@/app/void/register/Register";
 
 export default function App() {
   return (

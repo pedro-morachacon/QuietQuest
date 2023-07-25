@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import LoginButton from "@/app/auth0/LoginButton";
-import LogoutButton from "@/app/auth0/LogoutButton";
+import LoginButton from "@/app/void/auth0/LoginButton";
+import LogoutButton from "@/app/void/auth0/LogoutButton";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "./auth0.css";
 

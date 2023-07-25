@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 
-import SignIn from "@/app/firebase/SignIn";
-import SignUp from "@/app/firebase/SignUp";
-import AuthDetails from "@/app/firebase/AuthDetails";
+import SignIn from "@/app/void/firebase/SignIn";
+import SignUp from "@/app/void/firebase/SignUp";
+import AuthDetails from "@/app/void/firebase/AuthDetails";
 import "./firebase.css";
 
 function App() {

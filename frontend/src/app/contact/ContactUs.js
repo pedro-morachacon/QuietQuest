@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, {useRef, useState} from "react";
 import emailjs from "@emailjs/browser";
 
 export const ContactUs = () => {
   const form = useRef();
+  const [message, setMessage] = useState('');
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ export const ContactUs = () => {
         (result) => {
           console.log(result.text);
           console.log("message send");
+          setMessage('Email Send!');
         },
         (error) => {
           console.log(error.text);
@@ -39,6 +41,7 @@ export const ContactUs = () => {
       >
         Send
       </button>
+        {message && <p style={{ color: 'orange' }}>{message}</p>}
     </form>
   );
 };

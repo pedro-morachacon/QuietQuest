@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import Login from "@/app/login/Login";
+import Login from "@/app/void/login/Login";
 
 export default function App() {
   return (

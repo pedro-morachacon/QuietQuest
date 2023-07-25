@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
-
-import Weather from "@/app/test/Weather";
+import FetchDataForm from "@/app/test/FetchDataForm";
 
 export default function App() {
   return (
-    <main className="App">
-        {/*<Weather />*/}
-    </main>
+    <div>
+      <h1>My App</h1>
+      <FetchDataForm />
+    </div>
   );
 }

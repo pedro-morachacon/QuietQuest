@@ -17,6 +17,12 @@ const Signin = () => {
     e.preventDefault();
     setError("");
     // setSuccess("Login Successful!");  // set success message upon successful login
+
+    // Log user login details (WARNING: Be careful about logging passwords, especially in production!)
+    console.log(`Attempting to sign in with
+    Email: ${email}
+    Password: ${password}`);
+
     try {
       await signIn(email, password);
       window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
@@ -41,7 +47,7 @@ const Signin = () => {
           <p style={{ color: "orange", fontWeight: "bold" }}>{success}</p>
         )}
         <p className="py-2">
-          Don't have an account yet?{" "}
+          Do not have an account yet?{" "}
           <Link to="/firebaseauth/signup" className="underline">
             Sign up.
           </Link>
@@ -54,6 +60,7 @@ const Signin = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="border p-3"
             type="email"
+            placeholder="Enter your email"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -62,6 +69,7 @@ const Signin = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="border p-3"
             type="password"
+            placeholder="Enter your password"
           />
         </div>
         <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white">
