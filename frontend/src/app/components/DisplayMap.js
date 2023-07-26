@@ -22,6 +22,7 @@ import Instructions from "@/app/components/Instructions";
 import RoutingStatus from "@/app/components/RoutingStatus";
 import RoutingLegend from "@/app/components/RoutingLegend";
 
+import FirebaseUserName from "@/app/components/FirebaseUserName";
 
 const myIcon = L.icon({
     iconUrl: 'https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png',
@@ -32,7 +33,6 @@ const myIcon = L.icon({
 
 
 const DisplayMap = ({ activeTab }) => {
-
     const setColor = ({properties}) => {
         return {weight: 1};
     };
@@ -185,6 +185,8 @@ const DisplayMap = ({ activeTab }) => {
     return (
         <div>
             {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
+            {/*sss*/}
+            <FirebaseUserName/>
             <div id='datepicker'>
                 <Datetimepicker setDate={setDate} setTime={setTime} />
             </div>
