@@ -62,6 +62,10 @@
       "temperature": 25,
       "tempInWords": "Light Rain",
       "url": "http://openweathermap.org/img/wn/10d@2x.png"
+    },
+    {
+      "rating": 4,
+      "id": 8
     }
   ]
 }
