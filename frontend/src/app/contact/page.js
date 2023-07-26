@@ -10,6 +10,7 @@ function App() {
     <div className="App">
       <section>
           <h1 className="text-2xl font-bold py-2">Contact Us</h1>
+          <iframe src="http://localhost:3000/rating"></iframe>
         <ContactUs />
           <div>
           <a href="http://localhost:3000/firebaseauth" className="home-page">

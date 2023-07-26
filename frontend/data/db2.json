@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "rating": 4
+    },
+    {
+      "rating": 3,
+      "id": 2
+    },
+    {
+      "rating": 4,
+      "id": 3
+    },
+    {
+      "rating": 4,
+      "id": 4
+    },
+    {
+      "rating": 4,
+      "id": 5
+    },
+    {
+      "rating": 4,
+      "id": 6
+    },
+    {
+      "rating": 1,
+      "id": 7
+    },
+    {
+      "rating": 4,
+      "id": 8
+    }
+  ]
+}
