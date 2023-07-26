@@ -25,9 +25,9 @@ const Signup = () => {
 
       // add data to Cloud Firestore
       const docRef = await addDoc(collection(db, "users"), {
-        UserName: username,
+        // UserName: username,
         UserEmail: email,
-        UserBorn: birthday,
+        // UserBorn: birthday,
       });
       console.log("Document written with ID: ", docRef.id);
 
@@ -58,15 +58,15 @@ const Signup = () => {
         </p>
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col py-2">
-          <label className="py-2 font-medium">Username</label>
-          <input
-            onChange={(e) => setUsername(e.target.value)}
-            className="border p-3"
-            type="text"
-            placeholder="Enter your username"
-          />
-        </div>
+        {/*<div className="flex flex-col py-2">*/}
+        {/*  <label className="py-2 font-medium">Username</label>*/}
+        {/*  <input*/}
+        {/*    onChange={(e) => setUsername(e.target.value)}*/}
+        {/*    className="border p-3"*/}
+        {/*    type="text"*/}
+        {/*    placeholder="Enter your username"*/}
+        {/*  />*/}
+        {/*</div>*/}
 
         <div className="flex flex-col py-2">
           <label className="py-2 font-medium">Email Address</label>
@@ -87,15 +87,15 @@ const Signup = () => {
           />
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="py-2 font-medium">Birth</label>
-          <input
-            onChange={(e) => setBirthday(e.target.value)}
-            className="border p-3"
-            type="text"
-            placeholder="Enter your birthday"
-          />
-        </div>
+        {/*<div className="flex flex-col py-2">*/}
+        {/*  <label className="py-2 font-medium">Birth</label>*/}
+        {/*  <input*/}
+        {/*    onChange={(e) => setBirthday(e.target.value)}*/}
+        {/*    className="border p-3"*/}
+        {/*    type="text"*/}
+        {/*    placeholder="Enter your birthday"*/}
+        {/*  />*/}
+        {/*</div>*/}
 
         <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white">
           Sign Up

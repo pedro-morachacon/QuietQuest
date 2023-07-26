@@ -25,8 +25,8 @@ const Signin = () => {
 
     try {
       await signIn(email, password);
-      window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
-      // navigate("/firebaseauth/account");
+      // window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
+      navigate("/firebaseauth/account");
       setSuccess("Login Successful!");
     } catch (e) {
       setError(e.message);

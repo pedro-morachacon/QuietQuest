@@ -20,44 +20,55 @@
 //
 // export default FetchDataForm;
 
-
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase";
+import {user} from "../firebaseauth/AuthContext";
 
 function FetchDataForm() {
-    // State variable to store the user names
-    const [userNames, setUserNames] = useState([]);
+  // State variable to store the user names
+  const [userNames, setUserNames] = useState([]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        let fetchedNames = [];
-        const querySnapshot = await getDocs(collection(db, "users"));
-        querySnapshot.forEach((doc) => {
-            fetchedNames.push(doc.data().UserName);
-            console.log("User Data: ", `${doc.id} => ${doc.data().UserName}`);
-        });
+    let fetchedNames = [];
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      fetchedNames.push(doc.data().UserName);
+      console.log("User Data: ", `${doc.id} => ${doc.data().UserName}`);
+    });
 
-        // Update the state with the fetched user names
-        setUserNames(fetchedNames);
-    };
+    // Update the state with the fetched user names
+    setUserNames(fetchedNames);
+  };
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <button type="submit">Fetch User Data</button>
-            </form>
+  // return (
+  //     <div>
+  //         <form onSubmit={handleSubmit}>
+  //             <button type="submit">Fetch User Data</button>
+  //         </form>
+  //
+  //         {/* Render the user names */}
+  //         <ul>
+  //             {userNames.map((name, index) => (
+  //                 <li key={index}>{name}</li>
+  //             ))}
+  //         </ul>
+  //     </div>
+  // );
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <button type="submit">Fetch Current User Data</button>
+      </form>
 
-            {/* Render the user names */}
-            <ul>
-                {userNames.map((name, index) => (
-                    <li key={index}>{name}</li>
-                ))}
-            </ul>
-        </div>
-    );
+      {/* Render the current user name */}
+      <ul>
+        <li>{userNames}</li>
+      </ul>
+    </div>
+  );
 }
 
 export default FetchDataForm;
