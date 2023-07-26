@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './card';
+import "./weather.css";
 
 function WeatherCards2() {
     const [weatherData, setWeatherData] = useState([]);

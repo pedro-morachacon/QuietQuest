@@ -3,12 +3,17 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import Tabs from './components/Tabs'
+import Tabs from './components/Tabs';
+import "./weather/weather.css";
 
 
 const MapWithNoSSR = dynamic(() => import("./components/DisplayMap"), {
   ssr: false,
 });
+
+const WeatherWithNoSSR = dynamic(() => import("./weather/weather-cards2"),
+    { ssr: false,
+    });
 
 export default function App() {
 
@@ -39,6 +44,9 @@ export default function App() {
       </div>
       <div className="map-container">
         <MapWithNoSSR activeTab={activeTab}/>
+      </div>
+      <div className="weather-text">
+        <WeatherWithNoSSR />
       </div>
 
       <style jsx>{`

@@ -257,9 +257,9 @@ const DisplayMap = ({ activeTab }) => {
             {/*<div>*/}
             {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
             {/*</div>*/}
-            <div className="weather-text">
-                <WeatherCards2 />
-            </div>
+            {/*<div className="weather-text">*/}
+            {/*    <WeatherCards2 />*/}
+            {/*</div>*/}
         </div>
     );
 };
