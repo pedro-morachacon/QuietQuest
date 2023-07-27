@@ -184,8 +184,7 @@ const DisplayMap = ({ activeTab }) => {
 
     return (
         <div>
-            {/*<div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>*/}
-            {/*sss*/}
+            <div><img src="https://upload.cc/i1/2023/06/25/UDz3pI.png" alt=" " width={200} height={200}/></div>
             <FirebaseUserName/>
             <div id='datepicker'>
                 <Datetimepicker setDate={setDate} setTime={setTime} />
