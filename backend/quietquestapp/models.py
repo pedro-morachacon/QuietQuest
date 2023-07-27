@@ -65,3 +65,16 @@ class Accounts(models.Model):
 
     class Meta:
         verbose_name = "accounts"
+
+
+class Ratings(models.Model):
+    ratings = models.IntegerField(default=0)
+
+    # override the string method to return the lat and lng values rather than the object type
+    def __str__(self):
+        ratings_level = str(self.rating)
+        return ratings_level
+
+    # reassign the name of the model for future use
+    class Meta:
+        verbose_name = "ratings"
