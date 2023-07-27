@@ -3,50 +3,21 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 
 from openrouteservice import client
-from shapely.geometry import Polygon, mapping, MultiPolygon, LineString, Point
+from shapely.geometry import Polygon, mapping, MultiPolygon, Point
 from pyproj import Transformer
 
 # separate file with api keys
 from . import info
 
-from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts
+from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts, NoisePolygons, \
+    TaxiWeekdayPolygons, TaxiWeekendPolygons
 from datetime import datetime
 import pandas as pd
 import time
 from itertools import chain
 import json
 from django.core import serializers
-
-
-# returns all coordinate values in the database for the given hour and given weekday/weekend value, only returns those
-# with a count of 4
-def predicted_locations(hour, day):
-    # gets the current day of the week and assigning binary value for weekend/weekday
-    if 0 <= day <= 4:
-        weekday_value = 1
-        weekend_value = 0
-        locations = list(chain(NoiseLocations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value,
-                                                             count=4), TaxiWeekdayLocations.objects.filter(hour=hour,
-                                                                                                           count=4)))
-    else:
-        weekday_value = 0
-        weekend_value = 1
-        locations = list(chain(NoiseLocations.objects.filter(hour=hour, weekday=weekday_value, weekend=weekend_value,
-                                                             count=4), TaxiWeekendLocations.objects.filter(hour=hour,
-                                                                                                           count=4)))
-
-    # df = pd.DataFrame(list(NoiseLocations.objects.filter(count=4).values()))
-    # print(df["hour"].unique())
-
-    # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
-    response_list = []
-    for location in locations:
-        response_dict = {
-            'long': location.long,
-            'lat': location.lat,
-        }
-        response_list.append(response_dict)
-    return response_list
+from shapely import affinity
 
 
 # Expects POST operation from react front end, request contains the coordinates of the start and destination
@@ -55,36 +26,29 @@ def predicted_locations(hour, day):
 def directions_view(request):
     start = time.time()
 
-    def create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, point_in, resolution=2,
-                              radius=100):
-        point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
-        point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)  # 100 m buffer
-
-        # Transform back to WGS84
-        poly_wgs = [transformer_utm32n_to_wgs84.transform(*point) for point in point_buffer_proj.exterior.coords]
-        return poly_wgs
-
     # sends route request to api with start and destination coordinates and polygons to avoid
-    def create_route(data, avoided_point_list, n=0):
+    def create_route(data, avoided_polygons, n=0):
         route_request = {'coordinates': data,
                          'format': 'geojson',
                          'profile': 'foot-walking',
                          'preference': 'shortest',
                          'instructions': True,
-                         'options': {'avoid_polygons': mapping(MultiPolygon(avoided_point_list))}}
+                         'options': {'avoid_polygons': mapping(MultiPolygon(avoided_polygons))}}
         route_directions = ors.directions(**route_request)
         return route_directions
 
-    # create a buffer around the route itself, so it is not repeated
-    def create_buffer(route_directions):
-        line_tup = []
-        for line in route_directions['features'][0]['geometry']['coordinates']:
-            tup_format = tuple(line)
-            line_tup.append(tup_format)
+    def create_buffer_polygon(point_in, resolution=10, radius=100):
+        transformer_wgs84_to_utm32n = Transformer.from_crs("EPSG:4326", "EPSG:3857")
+        transformer_utm32n_to_wgs84 = Transformer.from_crs("EPSG:3857", "EPSG:4326")
+        point_in_proj = transformer_wgs84_to_utm32n.transform(*point_in)
+        point_buffer_proj = Point(point_in_proj).buffer(radius, resolution=resolution)
 
-        new_linestring = LineString(line_tup)
-        dilated_route = new_linestring.buffer(0.001)
-        return dilated_route
+        # Adjust the aspect ratio of the buffer
+        transformed_buffer = affinity.scale(point_buffer_proj, xfact=1, yfact=5)
+
+        # Transform back to WGS84
+        poly_wgs = [transformer_utm32n_to_wgs84.transform(*point) for point in transformed_buffer.exterior.coords]
+        return poly_wgs
 
     api_key = info.ors_key
     ors = client.Client(key=api_key)
@@ -104,56 +68,60 @@ def directions_view(request):
         prediction_hour = request.data["time"][0:2]
         prediction_day = pd.Timestamp(request.data["date"]).day_of_week
 
-    high_index_value_ls = []
-    point_geometry = []
-    transformer_wgs84_to_utm32n = Transformer.from_crs("EPSG:4326", "EPSG:3857")
-    transformer_utm32n_to_wgs84 = Transformer.from_crs("EPSG:3857", "EPSG:4326")
+    active_tab = request.data["tab"]
 
-    # pass hour and day to be used in route prediction
-    all_locations = predicted_locations(prediction_hour, prediction_day)
+    if 0 <= prediction_day <= 4:
+        if active_tab == "noise":
+            all_objects = list(NoisePolygons.objects.filter(hour=prediction_hour, weekday=1, weekend=0))
+        elif active_tab == "crowds":
+            all_objects = list(TaxiWeekdayPolygons.objects.filter(hour=prediction_hour, day=prediction_day))
+        else:
+            all_objects = list(
+                chain(NoisePolygons.objects.filter(hour=prediction_hour, weekday=1, weekend=0),
+                      TaxiWeekdayPolygons.objects.filter(hour=prediction_hour, day=prediction_day)))
+    else:
+        if active_tab == "noise":
+            all_objects = list(NoisePolygons.objects.filter(hour=prediction_hour, weekday=0, weekend=1))
+        elif active_tab == "crowds":
+            all_objects = list(TaxiWeekendPolygons.objects.filter(hour=prediction_hour, day=prediction_day))
+        else:
+            all_objects = list(chain(NoisePolygons.objects.filter(hour=prediction_hour, weekday=0, weekend=1),
+                                     TaxiWeekendPolygons.objects.filter(hour=prediction_hour, day=prediction_day)))
 
-    for location in all_locations:
-        position = [location['long'], location['lat']]
-        point_buffer = create_buffer_polygon(transformer_wgs84_to_utm32n, transformer_utm32n_to_wgs84, position)
-        high_index_value_ls.append(point_buffer)
-        point_geometry.append(Polygon(point_buffer))
+    intersecting_polygons = []
+
+    for poly in all_objects:
+        intersecting_polygons.append(Polygon(poly.polygon['coordinates'][0]))
+
+    start_buffer = Polygon(create_buffer_polygon(coordinates[0]))
+    end_buffer = Polygon(create_buffer_polygon(coordinates[1]))
+
+    intersecting_polygons_copy = intersecting_polygons.copy()
+    for poly in intersecting_polygons_copy:
+        if poly.intersects(start_buffer) or poly.intersects(end_buffer):
+            intersecting_polygons.remove(poly)
 
     avoided_point_list = []
     # Create regular route with still empty avoided_point_list
     optimal_directions = create_route(coordinates, avoided_point_list)
 
-    # Create buffer around route
-    avoidance_directions = create_buffer(optimal_directions)
-
-    # makes avoidance route empty initially, status is for the front end error messaging
-    avoidance_route = ""
-    # indicates no rerouting was needed
-    status = "no_rerouting"
-    attempts = 0
+    optimal_coordinates_list = []
+    for feature in optimal_directions['features']:
+        optimal_coordinates = feature['geometry']['coordinates']
+        optimal_coordinates_list.extend(optimal_coordinates)
+    print('Generated regular route.')
 
     try:
-        for site_poly in high_index_value_ls:
-            poly = Polygon(site_poly)
-            if poly.within(avoidance_directions):
-                # limits rerouting to 5 tries to preserve API quota and reduce processing time
-                if attempts < 2:
-                    avoided_point_list.append(poly)
-                    avoidance_route = create_route(coordinates, avoided_point_list, 1)
-                    avoidance_directions = create_buffer(avoidance_route)
-                    attempts += 1
-                    # indicates routing was completed successfully, in under 5 attempts
-                    status = "rerouting_success"
-                    print('Generated alternative route, which avoids affected areas.')
-
-                else:
-                    # indicates that too many attempts were made and the avoidance route only avoids a maximum
-                    # of 5 busy areas
-                    status = "many_reroutes"
-                    return JsonResponse({
-                        'optimal_directions': optimal_directions,
-                        'avoidance_directions': avoidance_route,
-                        'status': status
-                    })
+        avoidance_route = create_route(coordinates, intersecting_polygons, 1)
+        avoidance_coordinates_list = []
+        for feature in avoidance_route['features']:
+            avoidance_coordinates = feature['geometry']['coordinates']
+            avoidance_coordinates_list.extend(avoidance_coordinates)
+        if avoidance_coordinates_list == optimal_coordinates_list:
+            avoidance_route = ""
+            status = "no_rerouting"
+        else:
+            status = "rerouting_success"
 
     # indicates an exception occurred while using the API
     except Exception as e:
@@ -186,24 +154,31 @@ def noise_heatmap_view(request):
         prediction_hour = request.data["time"][0:2]
         prediction_day = pd.Timestamp(request.data["date"]).day_of_week
 
-    if 0 <= prediction_day <= 4:
-        weekday_value = 1
-        weekend_value = 0
-    else:
-        weekday_value = 0
-        weekend_value = 1
-
     # filters through all the locations to match the current time and date
-    locations = NoiseLocations.objects.filter(hour=prediction_hour, weekday=weekday_value, weekend=weekend_value)
+    if 0 <= prediction_day <= 4:
+        locations = list(NoiseLocations.objects.filter(hour=prediction_hour, weekday=1, weekend=0))
+    else:
+        locations = list(NoiseLocations.objects.filter(hour=prediction_hour, weekday=0, weekend=1))
 
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []
     for location in locations:
+
+        if 0 <= location.count <= 0.19:
+            continue
+        elif 0.20 <= location.count <= 0.39:
+            count_value = 0.25
+        elif 0.40 <= location.count <= 0.59:
+            count_value = 0.5
+        elif 0.60 <= location.count <= 0.79:
+            count_value = 0.75
+        elif 0.80 <= location.count <= 1:
+            count_value = 1
+
         response_dict = {
             'long': location.long,
             'lat': location.lat,
-            # temp divided by 4 for the frontend gradient
-            'count': location.count / 4
+            'count': count_value
         }
         response_list.append(response_dict)
 
@@ -227,18 +202,28 @@ def busyness_heatmap_view(request):
 
     if 0 <= prediction_day <= 4:
         # filters through all the locations to match the current time and date
-        locations = TaxiWeekdayLocations.objects.filter(hour=prediction_hour)
+        locations = TaxiWeekdayLocations.objects.filter(hour=prediction_hour, day=prediction_day)
     else:
-        locations = TaxiWeekendLocations.objects.filter(hour=prediction_hour)
+        locations = TaxiWeekendLocations.objects.filter(hour=prediction_hour, day=prediction_day)
 
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []
     for location in locations:
+        if 0 <= location.count <= 0.19:
+            continue
+        elif 0.20 <= location.count <= 0.39:
+            count_value = 0.25
+        elif 0.40 <= location.count <= 0.59:
+            count_value = 0.5
+        elif 0.60 <= location.count <= 0.79:
+            count_value = 0.75
+        elif 0.80 <= location.count <= 1:
+            count_value = 1
+
         response_dict = {
             'long': location.long,
             'lat': location.lat,
-            # temp divided by 4 for the frontend gradient
-            'count': location.count / 4
+            'count': count_value
         }
         response_list.append(response_dict)
 
@@ -260,20 +245,32 @@ def combined_heatmap_view(request):
 
     if 0 <= prediction_day <= 4:
         # filters through all the locations to match the current time and date
-        locations = list(chain(NoiseLocations.objects.filter(hour=prediction_hour), TaxiWeekdayLocations.objects
-                               .filter(hour=prediction_hour)))
+        locations = list(
+            chain(NoiseLocations.objects.filter(hour=prediction_hour, weekday=1, weekend=0),
+                  TaxiWeekdayLocations.objects.filter(hour=prediction_hour, day=prediction_day)))
     else:
-        locations = list(chain(NoiseLocations.objects.filter(hour=prediction_hour), TaxiWeekendLocations.objects
-                               .filter(hour=prediction_hour)))
+        locations = list(
+            chain(NoiseLocations.objects.filter(hour=prediction_hour, weekday=0, weekend=1),
+                  TaxiWeekendLocations.objects.filter(hour=prediction_hour, day=prediction_day)))
 
     # creates a list of dictionaries to send to the frontend, containing the coordinates and the count value
     response_list = []
     for location in locations:
+        if 0 <= location.count <= 0.19:
+            continue
+        elif 0.20 <= location.count <= 0.39:
+            count_value = 0.25
+        elif 0.40 <= location.count <= 0.59:
+            count_value = 0.5
+        elif 0.60 <= location.count <= 0.79:
+            count_value = 0.75
+        elif 0.80 <= location.count <= 1:
+            count_value = 1
+
         response_dict = {
             'long': location.long,
             'lat': location.lat,
-            # temp divided by 4 for the frontend gradient
-            'count': location.count / 4
+            'count': count_value
         }
         response_list.append(response_dict)
 
