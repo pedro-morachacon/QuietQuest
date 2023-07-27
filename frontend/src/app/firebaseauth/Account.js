@@ -32,7 +32,7 @@ const Account = () => {
       {/*<div>*/}
       {/*  <DisplayNameSetter />*/}
       {/*</div>*/}
-      <DisplayNameSetter />
+      {/*<DisplayNameSetter />*/}
       <FirebaseUserDetails />
       <button
         onClick={handleNavigation}
