@@ -16,8 +16,8 @@ html {
 
 body {
     min-height: 100vh;
-    background-color: dodgerblue;
-    background-image: url("https://img.onl/SuE006");
+    background-color: #3D4E59;
+    /*background-image: url("https://img.onl/SuE006");*/
     background-repeat: no-repeat;
     background-size: cover;
 }
