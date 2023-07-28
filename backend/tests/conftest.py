@@ -4,7 +4,7 @@
 from pytest_factoryboy import register
 
 # Import specific factories
-from .factories import NoiseLocationsFactory, TaxiWeekdayLocationsFactory, TaxiWeekendLocationsFactory, AccountsFactory, NoisePolygonsFactory, TaxiWeekdayPolygonsFactory, TaxiWeekendPolygonsFactory
+from .factories import NoiseLocationsFactory, TaxiWeekdayLocationsFactory, TaxiWeekendLocationsFactory, AccountsFactory, NoisePolygonsFactory, TaxiWeekdayPolygonsFactory, TaxiWeekendPolygonsFactory, RatingsFactory
 
 # register specific factories
 register(NoiseLocationsFactory)
@@ -14,3 +14,4 @@ register(NoisePolygonsFactory)
 register(TaxiWeekdayPolygonsFactory)
 register(TaxiWeekendPolygonsFactory)
 register(AccountsFactory)
+register(RatingsFactory)

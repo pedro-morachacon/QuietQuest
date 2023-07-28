@@ -3,7 +3,7 @@
 import factory
 
 # Import each data table from the Django app models
-from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts, NoisePolygons, TaxiWeekdayPolygons, TaxiWeekendPolygons
+from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts, NoisePolygons, TaxiWeekdayPolygons, TaxiWeekendPolygons, Ratings
 
 
 # This class creates new data(database) for the testing
@@ -91,3 +91,12 @@ class AccountsFactory(factory.django.DjangoModelFactory):
     # Create testing data values
     user = "Test"
     password = "Aa12345"
+
+
+class RatingsFactory(factory.django.DjangoModelFactory):
+    # specify the model that we're using in test
+    class Meta:
+        model = Ratings
+
+    # Create testing data values
+    ratings = 4

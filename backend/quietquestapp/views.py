@@ -10,7 +10,7 @@ from pyproj import Transformer
 from . import info
 
 from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts, NoisePolygons, \
-    TaxiWeekdayPolygons, TaxiWeekendPolygons
+    TaxiWeekdayPolygons, TaxiWeekendPolygons, Ratings
 from datetime import datetime
 import pandas as pd
 import time
@@ -297,3 +297,10 @@ def login_view(request):
     json_user_details = json.loads(serialized_user_details)
 
     return JsonResponse(json_user_details, safe=False)
+
+
+@api_view(['POST'])
+def ratings_view(request):
+    rating = Ratings(ratings=request.data['rating'])
+    rating.save()
+    return JsonResponse({'message': 'Rating Recorded Successfully.'})

@@ -1,8 +1,8 @@
 import pytest
 from django.http import JsonResponse
-from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, Accounts, NoisePolygons, TaxiWeekdayPolygons
+from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, Accounts, NoisePolygons, TaxiWeekdayPolygons, Ratings
 from quietquestapp.views import directions_view, noise_heatmap_view, busyness_heatmap_view, combined_heatmap_view, \
-    register_view, login_view
+    register_view, login_view, ratings_view
 from django.test import RequestFactory
 import json
 from datetime import datetime
@@ -607,6 +607,30 @@ def test_login_view():
 
     # Call the function being tested
     response = login_view(request)
+
+    # Assert the expected behavior of the function
+    assert isinstance(response, JsonResponse)
+
+
+@pytest.mark.django_db
+def test_ratings_view():
+    # Create dummy data for accounts table
+    rating = 4
+    rating_entry = Ratings(ratings=rating)
+    rating_entry.save()
+
+    # Create a request factory
+    factory = RequestFactory()
+
+    # Create a POST request with JSON payload
+    payload = {
+        "rating": rating,
+    }
+
+    request = factory.post('/ratings/', data=payload, content_type='application/json')
+
+    # Call the function being tested
+    response = ratings_view(request)
 
     # Assert the expected behavior of the function
     assert isinstance(response, JsonResponse)
