@@ -121,7 +121,7 @@ class Ratings(models.Model):
 
     # override the string method to return the lat and lng values rather than the object type
     def __str__(self):
-        ratings_level = str(self.rating)
+        ratings_level = str(self.ratings)
         return ratings_level
 
     # reassign the name of the model for future use

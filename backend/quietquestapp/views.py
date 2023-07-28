@@ -10,7 +10,7 @@ from pyproj import Transformer
 from . import info
 
 from .models import NoiseLocations, TaxiWeekdayLocations, TaxiWeekendLocations, Accounts, NoisePolygons, \
-    TaxiWeekdayPolygons, TaxiWeekendPolygons
+    TaxiWeekdayPolygons, TaxiWeekendPolygons, Ratings
 from datetime import datetime
 import pandas as pd
 import time

@@ -86,3 +86,12 @@ class Test_AccountsModel:
         response = accounts_factory()
         print(response)
         assert response.__str__() == "Test,Aa12345"
+
+
+class Test_RatingsModel:
+
+    def test_RatingsModel_str_return(self, ratings_factory):
+        # Get the expected coordinates string
+        response = ratings_factory()
+        print(response)
+        assert response.__str__() == "4"
