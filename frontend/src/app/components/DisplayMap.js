@@ -189,22 +189,22 @@ const DisplayMap = ({ activeTab }) => {
 
   return (
     <div>
-      <a href="http://localhost:3000">
+      <a href="/">
         <img
-          src="https://upload.cc/i1/2023/07/27/Ib3GRw.png"
+          src="https://upload.cc/i1/2023/07/28/2xVIi7.png"
           alt=" "
           width="200"
           height="200"
         />
       </a>
-      <a href="http://localhost:3000/accountpage">
-        <img
-          src="https://img.onl/jdKvod"
-          alt=" "
-          width="50"
-          height="50"
-        />
-      </a>
+      {/*<a href="/accountpage">*/}
+      {/*  <img*/}
+      {/*    src="https://upload.cc/i1/2023/07/28/3mpZgu.png"*/}
+      {/*    alt=" "*/}
+      {/*    width="50"*/}
+      {/*    height="50"*/}
+      {/*  />*/}
+      {/*</a>*/}
       <FirebaseUserName />
       <div id="datepicker">
         <Datetimepicker setDate={setDate} setTime={setTime} />

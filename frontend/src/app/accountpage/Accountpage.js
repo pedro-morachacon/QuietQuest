@@ -22,16 +22,16 @@ const Accountpage = () => {
     //     }
     // };
 
-    const handleNavigation = () => {
-    window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
-    // navigate("http://localhost:3000"); // Navigate to the root, which is usually the homepage
-  };
+  //   const handleNavigation = () => {
+  //   window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
+  //   // navigate("http://localhost:3000"); // Navigate to the root, which is usually the homepage
+  // };
 
   return (
     <div className="max-w-[600px] mx-auto my-16 p-4">
-        <a href="http://localhost:3000">
+        <a href="/">
         <img
-          src="https://upload.cc/i1/2023/07/27/Ib3GRw.png"
+          src="https://upload.cc/i1/2023/07/28/2xVIi7.png"
           alt=" "
           width="200"
           height="200"
