@@ -39,6 +39,14 @@ const Signin = () => {
   return (
     <div className="max-w-[700px] mx-auto my-16 p-4">
       <div>
+        <a href="/">
+        <img
+          src="https://upload.cc/i1/2023/07/28/2xVIi7.png"
+          alt=" "
+          width="200"
+          height="200"
+        />
+      </a>
         <h1 className="text-2xl font-bold py-2">Sign in to your account</h1>
         {error && (
           <p style={{ color: "orange", fontWeight: "bold" }}>{error}</p>
