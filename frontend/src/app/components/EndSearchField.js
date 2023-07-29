@@ -28,7 +28,7 @@ const EndSearchField = ({ setEndLocation }) => {
         timer = setTimeout(async () => {
           const results = await provider.search({ query: value });
           setAutocompleteResults(results);
-        }, 25);
+        }, 1000);
       } else {
         setAutocompleteResults([]);
       }
