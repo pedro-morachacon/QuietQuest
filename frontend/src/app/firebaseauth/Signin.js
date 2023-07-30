@@ -41,7 +41,7 @@ const Signin = () => {
       <div>
         <a href="/">
         <img
-          src="https://upload.cc/i1/2023/07/28/2xVIi7.png"
+          src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
           alt=" "
           width="200"
           height="200"

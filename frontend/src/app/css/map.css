@@ -60,8 +60,8 @@ button {
   color: white;
   padding: 5px;
   /*margin: 5px;*/
-  margin-left: 120px;
-  margin-top: 25px;
+  left: 195px;
+  top: 315px;
   position: absolute;
 }
 
@@ -74,10 +74,9 @@ button {
   /*margin-left: 200px;*/
   /*margin-top: 30px;*/
   position: relative;
-  bottom: 65px;
-  right: 75px;
+  bottom: 175px;
+  left: 20px;
 }
-
 
 /* Tab Navigation */
 ul.nav {
@@ -107,6 +106,7 @@ ul.nav li {
   transition: all 0.7s;
   padding-top: 20px;
   font-weight: bold;
+  color: white;
 }
 
 ul.nav li:first-child {
@@ -135,12 +135,12 @@ ul.nav li.active {
 
 
 .tab-icon {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   position: relative;
-  left: 130px;
-  bottom: 25px;
-  /*margin-right: 8px;  !* 如果您希望圖片與標題之間有一些間隔 *!*/
+  left: 150px;
+  bottom: 28px;
+  margin-right: 8px;
 }
 
 
@@ -156,7 +156,83 @@ ul.nav li.active {
 .user-image{
   position: absolute;
   top: 30px;
-  right: 40px;
+  right: 120px;
+}
+
+.contact {
+  position: absolute;
+  bottom: 120px;
+  left: 60px;
+  color: white;
+  text-decoration: underline;
+  font-size: 30px;
+  align-items: center;
+}
+
+.contact img {
+    margin-right: 10px;
+}
+
+.feedback {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+  color: white;
+  text-decoration: underline;
+  font-size: 30px;
+}
+
+.routing{
+  position: relative;
+  top: 100px;
+  right: 20px;
+}
+
+.datetimepicker{
+  position: relative;
+  top: 100px;
+  right: 20px;
+}
+
+.logo-phone{
+  position: absolute;
+  bottom: 120px;
+  left: 5px;
+}
+
+.logo-feedback{
+  position: absolute;
+  bottom: 85px;
+  left: 10px;
+}
+
+.logo-journey{
+  position: absolute;
+  top: 168px;
+  left: 30px;
+}
+
+.journey {
+  position: absolute;
+  top: 180px;
+  left: 70px;
+  color: white;
+  font-size: 20px;
+  align-items: center;
 }
 
 
+
+/*container*/
+.container{
+   display:flex;
+}
+
+.item-right{
+   flex:4;
+}
+
+.item-left{
+   flex:1;
+}
+/*container*/
