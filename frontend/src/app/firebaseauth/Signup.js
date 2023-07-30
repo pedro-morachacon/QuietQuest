@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "./AuthContext";
 
 // Add a second document with a generated ID.
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
 // import "../firebase";
 import { db } from "@/app/firebase";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -18,33 +19,38 @@ const Signup = () => {
   const [birthday, setBirthday] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await createUser(email, password);
+  e.preventDefault();
+  setError("");
+  try {
+    await createUser(email, password);
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-      // add data to Cloud Firestore
-      const docRef = await addDoc(collection(db, "users"), {
-        // UserName: username,
-        UserEmail: email,
-        // UserBorn: birthday,
-      });
-      console.log("Document written with ID: ", docRef.id);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
 
-      // read data from Cloud Firestore
-      const querySnapshot = await getDocs(collection(db, "users"));
-      querySnapshot.forEach((doc) => {
-        console.log("User Data: ", `${doc.id} => ${doc.data().UserName}`);
-      });
+        // Add data to Cloud Firestore inside onAuthStateChanged
+        const usersCollectionRef = collection(db, "users");
+        const userDocRef = doc(usersCollectionRef, user.uid);
 
-      // navigate to account page
-      navigate("/firebaseauth/account");
-    } catch (e) {
-      setError(e.message);
-      console.log(e.message);
-      console.error("Error adding document: ", e);
-    }
-  };
+        try {
+          await setDoc(userDocRef, { UserEmail: email });
+          navigate("/firebaseauth/account");
+        } catch (error) {
+          setError(error.message);
+          console.error("Error adding document: ", error);
+        }
+      } else {
+
+      }
+    });
+  } catch (e) {
+    setError(e.message);
+    console.log(e.message);
+    console.error("Error creating user: ", e);
+  }
+};
+
 
   return (
     <div className="max-w-[700px] mx-auto my-16 p-4">
