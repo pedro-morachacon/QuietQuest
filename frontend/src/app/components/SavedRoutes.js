@@ -4,12 +4,13 @@ import { doc, setDoc, getFirestore, addDoc, collection, getDocs, query, where, g
 import { db } from "@/app/firebase";
 
 const SavedRoutes = () => {
-
+  const [user, setUser] = useState(null);
   const [docData, setDocData] = useState(null);
 
+  const auth = getAuth();
+  setUser(auth.currentUser);
+
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
     // Using onAuthStateChanged for real-time listening
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -40,14 +41,25 @@ const SavedRoutes = () => {
 
 };
 
-  // const addRoute = () => {
-    //     const path = "users/" + userUid;
-    //     // add data to Cloud Firestore
-    //     const docRef = addDoc(collection(db, path), {
-    //         Test: "test",
-    //     });
-    //     console.log("Document written with ID: ", docRef.id);
-    // };
+  const addRoute = async () => {
+    if (user) {
+      try {
+        const usersCollectionRef = collection(db, "users");
+        const userDocRef = doc(usersCollectionRef, user.uid);
+
+        const doct = await getDoc(userDocRef);
+        if (!doct.exists) {
+          console.log('No such document!');
+        } else {
+          setDocData(doct.data());
+        }
+      } catch (error) {
+        console.error("Error fetching documents: ", error);
+      }
+    } else {
+
+    }
+  };
 
   const deleteRoute = () => {
 
@@ -61,19 +73,22 @@ const SavedRoutes = () => {
       <div>
         <ul>
           <ul>
+            <li>
+              <button onClick={addRoute}>Save Route</button>
+            </li>
+          </ul>
+          <ul>
             <li>Saved Route 1</li>
             <li>
-              <button>Click Me</button>
+              <button onClick={deleteRoute}>Delete Route</button>
             </li>
-            <button onClick={deleteRoute}>Delete Route</button>
           </ul>
           <br />
           <ul>
             <li>Saved Route 2</li>
             <li>
-              <button>Click Me</button>
+              <button onClick={deleteRoute}>Delete Route</button>
             </li>
-            <button onClick={deleteRoute}>Delete Route</button>
           </ul>
         </ul>
       </div>
