@@ -32,6 +32,10 @@ import CurrentLocation from "@/app/components/CurrentLocation";
 import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
 import L from 'leaflet';
 
+// import Navbar from "@/app/navbar/Navbar";
+import Navbar from "@/app/sidebar/Navbar";
+import {Route, Routes, BrowserRouter} from "react-router-dom";
+
 const redIcon = L.icon({
   iconUrl:
     "https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png",
@@ -228,7 +232,9 @@ const DisplayMap = ({ activeTab }) => {
 
   return (
     <div>
-      <a href="/">
+      <BrowserRouter>
+      {/*<Navbar/>*/}
+      <a href="/" className={"logo"}>
         <img
           src="https://upload.cc/i1/2023/07/28/2xVIi7.png"
           alt=" "
@@ -236,15 +242,9 @@ const DisplayMap = ({ activeTab }) => {
           height="200"
         />
       </a>
-      {/*<a href="/accountpage">*/}
-      {/*  <img*/}
-      {/*    src="https://upload.cc/i1/2023/07/28/3mpZgu.png"*/}
-      {/*    alt=" "*/}
-      {/*    width="50"*/}
-      {/*    height="50"*/}
-      {/*  />*/}
-      {/*</a>*/}
-      <FirebaseUserName />
+      <div className={"user-image"}>
+        <FirebaseUserName />
+      </div>
       <div id="datepicker">
         <Datetimepicker setDate={setDate} setTime={setTime} />
       </div>
@@ -261,10 +261,13 @@ const DisplayMap = ({ activeTab }) => {
           <StartSearchField setStartLocation={setStartLocation} currentLocation={currentLocation}/>
           <EndSearchField setEndLocation={setEndLocation}/>
         </div>
-        <div>
+        {/*<div>*/}
+        {/*  <CurrentLocation setCurrentLocation={setCurrentLocation} />*/}
+        {/*</div>*/}
+      </div>
+        <div className="button-onclick2">
           <CurrentLocation setCurrentLocation={setCurrentLocation} />
         </div>
-      </div>
       <div id="map">
         <MapContainer center={[40.76657321777155, -73.9831392189498]} zoom={12} >
           {/* Display start marker */}
@@ -332,6 +335,7 @@ const DisplayMap = ({ activeTab }) => {
       {/*<div className="weather-text">*/}
       {/*    <WeatherCards2 />*/}
       {/*</div>*/}
+        </BrowserRouter>
     </div>
   );
 };
