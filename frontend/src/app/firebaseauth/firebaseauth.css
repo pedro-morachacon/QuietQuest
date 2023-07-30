@@ -115,6 +115,10 @@ button {
     font-weight: bold;
 }
 
+.black {
+  color: black;
+}
+
 .contact{
     position: relative;
     left: 280px;
