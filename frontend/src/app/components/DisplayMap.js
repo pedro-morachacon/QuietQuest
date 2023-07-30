@@ -320,7 +320,7 @@ const DisplayMap = ({ activeTab }) => {
           </a>
 
           <div>
-            <a href="http://localhost:3000/contact" className="feedback">
+            <a href="http://localhost:3000/feedback" className="feedback">
               Feedback
             </a>
           </div>
