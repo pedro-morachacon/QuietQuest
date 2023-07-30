@@ -30,6 +30,7 @@ import StartSearchField from "@/app/components/StartSearchField";
 import EndSearchField from "@/app/components/EndSearchField";
 import CurrentLocation from "@/app/components/CurrentLocation";
 import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
+import SavedRoutes from "@/app/components/SavedRoutes";
 import L from 'leaflet';
 
 const redIcon = L.icon({
@@ -255,6 +256,9 @@ const DisplayMap = ({ activeTab }) => {
       </div>
       <div>
         {routingStatus && <RoutingLegend routingStatus={routingStatus} />}
+      </div>
+      <div>
+        <SavedRoutes/>
       </div>
       <div style={{ display: "flex" }}>
         <div style={{ paddingBottom: "10px" }}>
