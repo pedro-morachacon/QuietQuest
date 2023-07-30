@@ -78,7 +78,7 @@ def test_directions_view_no_rerouting_all():
 
     # Create a POST request with JSON payload
     payload = {
-        "locations": "-73.985362, 40.744498, -73.983881, 40.746465",
+        "locations": [[-73.985362, 40.744498], [-73.983881, 40.746465]],
         "time": prediction_hour,
         "date": prediction_date,
         "tab": ""
@@ -167,7 +167,7 @@ def test_directions_view_no_rerouting_crowds():
 
     # Create a POST request with JSON payload
     payload = {
-        "locations": "-73.985362, 40.744498, -73.983881, 40.746465",
+        "locations": [[-73.985362, 40.744498], [-73.983881, 40.746465]],
         "time": prediction_hour,
         "date": prediction_date,
         "tab": "crowds"
@@ -256,7 +256,7 @@ def test_directions_view_no_rerouting_noise():
 
     # Create a POST request with JSON payload
     payload = {
-        "locations": "-73.985362, 40.744498, -73.983881, 40.746465",
+        "locations": [[-73.985362, 40.744498], [-73.983881, 40.746465]],
         "time": prediction_hour,
         "date": prediction_date,
         "tab": "noise"
@@ -345,7 +345,7 @@ def test_directions_view_rerouting():
 
     # Create a POST request with JSON payload
     payload = {
-        "locations": "-73.986349, 40.743182, -73.98287782229693, 40.747928761902976",
+        "locations": [[-73.986349, 40.743182], [-73.98287782229693, 40.747928761902976]],
         "time": prediction_hour,
         "date": prediction_date,
         "tab": ""
