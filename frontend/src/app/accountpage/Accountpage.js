@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { UserAuth } from "@/app/firebaseauth/AuthContext";
 import FirebaseUserName from "@/app/components/FirebaseUserName";
 import DisplayNameSetter from "@/app/firebaseauth/DisplayNameSetter";
@@ -20,11 +20,12 @@ import Signin from "@/app/firebaseauth/Signin";
 import Signup from "@/app/firebaseauth/Signup";
 import ProtectedRoute from "@/app/firebaseauth/ProtectedRoute";
 import Account from "@/app/firebaseauth/Account";
+import DeleteAccountButton from "@/app/accountpage/DeleteAccountButton";
+
 const DynamicBrowserRouter = dynamic(
-  () => import('react-router-dom').then((mod) => mod.BrowserRouter),
+  () => import("react-router-dom").then((mod) => mod.BrowserRouter),
   { ssr: false }
 );
-
 
 const Accountpage = () => {
   // const {user, logout} = UserAuth();
@@ -94,13 +95,26 @@ const Accountpage = () => {
           justifyContent: "space-between",
         }}
       >
+        <h3 className="text-2xl py-4">Delete Account</h3>
+        <DeleteAccountButton />
+      </div>
+      <p>Permanently delete your account</p>
+      <p>-----------------------------------------------------</p>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <h3 className="text-2xl py-4">Logout</h3>
         {/*<button onClick={handleLogout} className="border px-6 py-2 my-4">*/}
         {/*  Logout*/}
         {/*</button>*/}
-          <DynamicBrowserRouter>
-              <AccountLogout/>
-              </DynamicBrowserRouter>
+        <DynamicBrowserRouter>
+          <AccountLogout />
+        </DynamicBrowserRouter>
       </div>
       <p>You can still use QuletQuest after logging out</p>
     </div>
