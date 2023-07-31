@@ -28,7 +28,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         timer = setTimeout(async () => {
           const results = await provider.search({ query: value });
           setAutocompleteResults(results);
-        }, 1000);
+        }, 150);
       } else {
         setAutocompleteResults([]);
       }

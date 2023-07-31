@@ -77,8 +77,6 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
   };
 
   const fillEndSearchField = async (routeAddress, routeCoordinates) => {
-    console.log(routeAddress);
-    console.log(routeCoordinates);
     setSavedRouteAddress(routeAddress);
     setEndLocation(routeCoordinates);
   };

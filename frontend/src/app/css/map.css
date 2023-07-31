@@ -46,6 +46,7 @@ button {
 
 #map {
   height: 640px;
+  width: 800px;
 }
 
 * {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(savedRouteAddress || '');
   const [autocompleteResults, setAutocompleteResults] = useState([]);
   const provider = new OpenStreetMapProvider({
     params: {
@@ -12,6 +12,10 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
   });
 
   const inputRef = useRef(null); // Ref to hold the input element
+
+  useEffect(() => {
+    setInputValue(savedRouteAddress || '');
+  }, [savedRouteAddress]);
 
   useEffect(() => {
     let timer; // Variable to hold the timer ID
@@ -28,7 +32,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
         timer = setTimeout(async () => {
           const results = await provider.search({ query: value });
           setAutocompleteResults(results);
-        }, 1000);
+        }, 150);
       } else {
         setAutocompleteResults([]);
       }
@@ -62,7 +66,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
       <input
         ref={inputRef} // Use the inputRef here
         type="text"
-        value={savedRouteAddress !== null ? savedRouteAddress : inputValue}
+        value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Enter Destination"
       />
