@@ -5,6 +5,7 @@ import { UserAuth } from "./AuthContext";
 import FirebaseUserDetails from "@/app/firebaseauth/FirebaseUserDetails";
 import DisplayNameSetter from "@/app/firebaseauth/DisplayNameSetter";
 
+import EditPhotoButtonWithPopup from "@/app/accountpage/EditPhotoButtonWithPopup";
 
 const Account = () => {
   const { user, logout } = UserAuth();
@@ -34,6 +35,7 @@ const Account = () => {
       {/*</div>*/}
       {/*<DisplayNameSetter />*/}
       <FirebaseUserDetails />
+        <EditPhotoButtonWithPopup/>
       <button
         onClick={handleNavigation}
         className="border px-6 py-2 my-4 ml-4 mr-4"

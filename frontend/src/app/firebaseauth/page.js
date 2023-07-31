@@ -9,12 +9,20 @@ import ProtectedRoute from "./ProtectedRoute";
 import "./firebaseauth.css";
 import "./googleLogin.css";
 
+import dynamic from 'next/dynamic';
+
+const DynamicBrowserRouter = dynamic(
+  () => import('react-router-dom').then((mod) => mod.BrowserRouter),
+  { ssr: false }
+);
+
+
 function App() {
   return (
     <div className="App">
       <section>
         <AuthContextProvider>
-          <BrowserRouter>
+          <DynamicBrowserRouter>
             <Routes>
               <Route path="/firebaseauth" element={<Signin />} />
               <Route path="/firebaseauth/signup" element={<Signup />} />
@@ -27,7 +35,7 @@ function App() {
                 }
               />
             </Routes>
-          </BrowserRouter>
+          </DynamicBrowserRouter>
         </AuthContextProvider>
         <div>
           <a href="http://localhost:3000/contact" className="contact">
