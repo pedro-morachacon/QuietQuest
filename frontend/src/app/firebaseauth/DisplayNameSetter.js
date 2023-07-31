@@ -34,7 +34,7 @@ function DisplayNameSetter() {
           placeholder="New Display Name"
           required
         />
-        <button type="submit" className="border px-6 py-2 my-4">Set Display Name</button>
+        <button type="submit" className="border px-6 py-2 my-4 black">Set Display Name</button>
       </form>
       {message && <p>{message}</p>}
     </div>

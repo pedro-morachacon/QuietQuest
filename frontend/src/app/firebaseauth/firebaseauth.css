@@ -115,11 +115,14 @@ button {
     font-weight: bold;
 }
 
+.black {
+  color: black;
+}
+
 .contact{
     position: relative;
     left: 280px;
     bottom: 120px;
-    text-decoration: underline;
 }
 
 .reset-pwd{

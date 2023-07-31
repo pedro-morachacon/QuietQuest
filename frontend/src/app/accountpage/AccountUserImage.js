@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/firebase";
 
-function FirebaseUserName() {
+function AccountUserImage() {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function FirebaseUserName() {
     {userDetails ? (
       <div>
         <a href="/accountpage">
-        {userDetails.photoURL && <img src={userDetails.photoURL} alt="User's profile" style={{ width: "60px", height: "60px", borderRadius: "50%" }} />}
+        {userDetails.photoURL && <img src={userDetails.photoURL} alt="User's profile" style={{ width: "100px", height: "100px", borderRadius: "50%" }} />}
         </a>
         {/*<p><strong>Display Name:</strong> {userDetails.displayName}</p>*/}
         {/*<p><strong>Email:</strong> {userDetails.email}</p>*/}
@@ -51,5 +51,5 @@ function FirebaseUserName() {
 );
 }
 
-export default FirebaseUserName;
+export default AccountUserImage;
 
