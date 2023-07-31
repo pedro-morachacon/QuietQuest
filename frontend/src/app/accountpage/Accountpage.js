@@ -17,11 +17,13 @@ import EditPhotoButtonWithPopup from "@/app/accountpage/EditPhotoButtonWithPopup
 const Accountpage = () => {
   // const {user, logout} = UserAuth();
   // const navigate = useNavigate();
-  //
+
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      window.location.href = "/firebaseauth";
+      // await logout();
+      // navigate("/firebaseauth");
+      window.location.href = "/firebaseauth/";
       console.log("You are logged out");
     } catch (e) {
       console.log(e.message);
@@ -54,10 +56,12 @@ const Accountpage = () => {
         </div>
         <p>Change the username linked to your account</p>
       </div>
+      <p>-----------------------------------------------------</p>
 
       <h3 className="text-2xl py-4">Email</h3>
       <AccountUserEmail />
       <p>Change the email linked to your account</p>
+      <p>-----------------------------------------------------</p>
 
       <div>
         <h3 className="text-2xl py-4">Profile Image</h3>
@@ -69,7 +73,7 @@ const Accountpage = () => {
         </div>
         <p>Change the profile image linked to your account</p>
       </div>
-
+      <p>-----------------------------------------------------</p>
 
       <div
         style={{

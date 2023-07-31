@@ -45,7 +45,14 @@ function FirebaseUserName() {
         {/*<p><strong>UID:</strong> {userDetails.uid}</p>*/}
       </div>
     ) : (
-      <p>No user is currently signed in.</p>
+        <a href="/firebaseauth">
+        <img
+          src="https://imagizer.imageshack.com/img922/1508/00uUdj.png"
+          alt=" "
+          width="50"
+          height="50"
+        />
+      </a>
     )}
   </div>
 );

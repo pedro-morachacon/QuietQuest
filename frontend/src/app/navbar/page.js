@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import dynamic from 'next/dynamic';
-import {Route, Routes, BrowserRouter} from "react-router-dom";
+// import {Route, Routes, BrowserRouter} from "react-router-dom";
 
 // import Navbar from "@/app/navbar/Navbar";
 const NavbarWithNoSSR = dynamic(() => import('./Navbar'), {
@@ -14,9 +14,9 @@ const NavbarWithNoSSR = dynamic(() => import('./Navbar'), {
 function App() {
   return (
     <div className="App">
-        <BrowserRouter>
+        {/*<BrowserRouter>*/}
             <NavbarWithNoSSR />
-        </BrowserRouter>
+        {/*</BrowserRouter>*/}
     </div>
   );
 }
