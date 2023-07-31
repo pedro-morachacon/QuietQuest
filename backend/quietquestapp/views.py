@@ -54,9 +54,7 @@ def directions_view(request):
     ors = client.Client(key=api_key)
 
     # splits the string and reformat it into the structure needed for the api
-    str_coordinates = request.data["locations"]
-    ls_coordinates = str_coordinates.split(",")
-    coordinates = [[ls_coordinates[0], ls_coordinates[1]], [ls_coordinates[2], ls_coordinates[3]]]
+    coordinates = request.data["locations"]
 
     # initialises time and day as current time and day
     now = datetime.now()
