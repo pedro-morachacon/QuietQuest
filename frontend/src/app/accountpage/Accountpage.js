@@ -1,26 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { UserAuth } from "../firebaseauth/AuthContext";
+import { UserAuth } from "@/app/firebaseauth/AuthContext";
 import FirebaseUserName from "@/app/components/FirebaseUserName";
 import DisplayNameSetter from "@/app/firebaseauth/DisplayNameSetter";
 import "../firebaseauth/firebaseauth.css";
-
 import ImageUploader from "@/app/firebaseauth/ImageUploader";
 import UpdatePhotoURL from "@/app/firebaseauth/UpdatePhotoURL";
 
+import AccountUserName from "@/app/accountpage/AccountUserName";
+import AccountUserEmail from "@/app/accountpage/AccountUserEmail";
+import AccountUserImage from "@/app/accountpage/AccountUserImage";
+
+import EditNameWithPopup from "@/app/accountpage/EditButtonWithPopup";
+import EditPhotoButtonWithPopup from "@/app/accountpage/EditPhotoButtonWithPopup";
+
 const Accountpage = () => {
-    // const {user, logout} = UserAuth();
-    // const navigate = useNavigate();
-    //
-    // const handleLogout = async () => {
-    //     try {
-    //         await logout();
-    //         navigate("/firebaseauth");
-    //         console.log("You are logged out");
-    //     } catch (e) {
-    //         console.log(e.message);
-    //     }
-    // };
+  // const {user, logout} = UserAuth();
+  // const navigate = useNavigate();
+  //
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try {
+      window.location.href = "/firebaseauth";
+      console.log("You are logged out");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   //   const handleNavigation = () => {
   //   window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
@@ -29,36 +35,55 @@ const Accountpage = () => {
 
   return (
     <div className="max-w-[600px] mx-auto my-16 p-4">
-        <a href="/">
+      <a href="/">
         <img
-          src="https://upload.cc/i1/2023/07/28/2xVIi7.png"
+          src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
           alt=" "
-          width="200"
-          height="200"
+          width="400"
+          height="100"
         />
       </a>
-      <h1 className="text-2xl font-bold py-4">User Account</h1>
-      {/*<p>User Email: {user && user.email}</p>*/}
-      {/*<div>*/}
-      {/*  <DisplayNameSetter />*/}
-      {/*</div>*/}
+
+      <div>
+        <h3 className="text-2xl py-4">Username</h3>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <AccountUserName />
+          <div style={{ marginLeft: "250px" }}>
+            <EditNameWithPopup />
+          </div>
+        </div>
+        <p>Change the username linked to your account</p>
+      </div>
+
+      <h3 className="text-2xl py-4">Email</h3>
+      <AccountUserEmail />
+      <p>Change the email linked to your account</p>
+
+      <div>
+        <h3 className="text-2xl py-4">Profile Image</h3>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <AccountUserImage />
+          <div style={{ marginLeft: "380px" }}>
+            <EditPhotoButtonWithPopup />
+          </div>
+        </div>
+        <p>Change the profile image linked to your account</p>
+      </div>
 
 
-      <DisplayNameSetter />
-        {/*<ImageUploader />*/}
-        <UpdatePhotoURL/>
-      <FirebaseUserName />
-
-
-      {/*<button*/}
-      {/*  onClick={handleNavigation}*/}
-      {/*  className="border px-6 py-2 my-4 ml-4 mr-4"*/}
-      {/*>*/}
-      {/*  Homepage*/}
-      {/*</button>*/}
-      {/*<button onClick={handleLogout} className="border px-6 py-2 my-4">*/}
-      {/*  Logout*/}
-      {/*</button>*/}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <h3 className="text-2xl py-4">Logout</h3>
+        <button onClick={handleLogout} className="border px-6 py-2 my-4">
+          Logout
+        </button>
+      </div>
+      <p>You can still use QuletQuest after logging out</p>
     </div>
   );
 };
