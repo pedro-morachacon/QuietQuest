@@ -88,7 +88,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter address"
+        placeholder="Starting Location"
       />
       {autocompleteResults.length > 0 && (
         <ul>

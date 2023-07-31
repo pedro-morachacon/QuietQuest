@@ -30,14 +30,19 @@ const Signup = () => {
       if (user) {
 
         // Add data to Cloud Firestore inside onAuthStateChanged
-        const usersCollectionRef = collection(db, "users", user.uid);
-        //const userDocRef = doc(usersCollectionRef, user.uid);
-        const routeColRef = collection(usersCollectionRef, "routes");
-        const linksColRef = collection(usersCollectionRef, "links");
+        const usersCollectionRef = collection(db, "users");
+        const userDocRef = doc(usersCollectionRef, user.uid);
+
+        // // Add data to Cloud Firestore inside onAuthStateChanged
+        // const usersCollectionRef = collection(db, "users", user.uid);
+        // const userDocRef = doc(usersCollectionRef, user.uid);
+        // const routeColRef = collection(usersCollectionRef, "routes");
+        // const linksColRef = collection(usersCollectionRef, "links");
 
         try {
-          await addDoc(routeColRef, "routes");
-          await addDoc(linksColRef, "links");
+          await setDoc(userDocRef, { UserEmail: email });
+          // await addDoc(routeColRef, "routes");
+          // await addDoc(linksColRef, "links");
           navigate("/firebaseauth/account");
         } catch (error) {
           setError(error.message);

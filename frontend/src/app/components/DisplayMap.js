@@ -72,6 +72,8 @@ const DisplayMap = ({ activeTab }) => {
   const [endLocation, setEndLocation] = useState(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [endInputValue, setEndInputValue] = useState("");
+  const [savedRouteAddress, setSavedRouteAddress] = useState("");
 
   useEffect(() => {
     if (currentLocation) {
@@ -273,9 +275,6 @@ const DisplayMap = ({ activeTab }) => {
           <div>
             {routingStatus && <RoutingLegend routingStatus={routingStatus} />}
           </div>
-          <div>
-        <SavedRoutes/>
-      </div>
 
           <div className="routing" style={{ display: "flex" }}>
             <div style={{ paddingBottom: "10px" }}>
@@ -283,7 +282,7 @@ const DisplayMap = ({ activeTab }) => {
                 setStartLocation={setStartLocation}
                 currentLocation={currentLocation}
               />
-              <EndSearchField setEndLocation={setEndLocation} />
+              <EndSearchField setEndLocation={setEndLocation} setEndInputValue={setEndInputValue} savedRouteAddress={savedRouteAddress} />
             </div>
             {/*<div>*/}
             {/*  <CurrentLocation setCurrentLocation={setCurrentLocation} />*/}
@@ -291,7 +290,7 @@ const DisplayMap = ({ activeTab }) => {
           </div>
 
           <div className="button-onclick2">
-            <CurrentLocation setCurrentLocation={setCurrentLocation} />
+            <CurrentLocation setCurrentLocation={setCurrentLocation} savedRouteAddress={savedRouteAddress} />
           </div>
 
           <div className="datetimepicker" id="datepicker">
@@ -328,6 +327,9 @@ const DisplayMap = ({ activeTab }) => {
             </a>
           </div>
         </div>
+        <div style={{ position: "relative", top:"800px"}}>
+        { <SavedRoutes endLocation={endLocation} endInputValue={endInputValue} setEndLocation={setEndLocation} setSavedRouteAddress={setSavedRouteAddress} />}
+      </div>
 
         <div className="item-right">
           <div id="map">

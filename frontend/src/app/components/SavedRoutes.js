@@ -1,86 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getFirestore, addDoc, collection, getDocs, query, where, getDoc } from "firebase/firestore";
+import { doc, setDoc, getFirestore, addDoc, collection, getDocs, query, where, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 
-const SavedRoutes = () => {
-  const [docData, setDocData] = useState(null);
-
-
+const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRouteAddress }) => {
+  const [routes, setRoutes] = useState([]); // Use state to store the routes
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
 
     // Using onAuthStateChanged for real-time listening
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const fetchRoutes = async () => {
       if (user) {
         try {
-          const usersCollectionRef = collection(db, "users");
-          const userDocRef = doc(usersCollectionRef, user.uid);
+          const usersCollectionRef = collection(db, "users", user.uid, "routes");
 
-          const doct = await getDoc(userDocRef);
-          if (!doct.exists) {
-            console.log('No such document!');
-          } else {
-            setDocData(doct.data());
-            console.log(docData);
-          }
+          const doct = await getDocs(usersCollectionRef);
+          const routesData = [];
+          doct.docs.forEach((doc) => {
+            routesData.push({
+              id: doc.id,
+              ...doc.data()
+            });
+          });
+          setRoutes(routesData);
         } catch (error) {
           console.error("Error fetching documents: ", error);
         }
       } else {
 
       }
+    };
+
+  // Using onAuthStateChanged for real-time listening
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchRoutes();
+      } else {
+        // User is logged out
+        setRoutes([]);
+      }
     });
     // Unsubscribe from the listener when the component is unmounted
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [auth, user]);
 
-  const displayList = () => {
+  const addRoute = async () => {
+    const usersCollectionRef = collection(db, "users", user.uid, "routes");
+    // add data to Cloud Firestore
+    const docRef = await addDoc(usersCollectionRef, {
+      coordinates: endLocation,
+      address: endInputValue
+    });
+    console.log("Document written with ID: ", docRef.id);
+    setRoutes((prevRoutes) => [
+      ...prevRoutes,
+      { id: docRef.id, coordinates: endLocation, address: endInputValue },
+    ]);
+  };
 
-};
+  const deleteRoute = async (routeId) => {
+    const routeDocRef = doc(db, "users", user.uid, "routes", routeId);
+    // Delete the route from Cloud Firestore
+    try {
+      await deleteDoc(routeDocRef);
+      console.log("Route deleted successfully");
+      setRoutes((prevRoutes) =>
+        prevRoutes.filter((route) => route.id !== routeId)
+      );
+    } catch (error) {
+      console.error("Error deleting route: ", error);
+    }
+  };
 
-  // const addRoute = () => {
-  //       const path = "users/" + userUid;
-  //       // add data to Cloud Firestore
-  //       const docRef = addDoc(collection(db, path), {
-  //           Test: "test",
-  //       });
-  //       console.log("Document written with ID: ", docRef.id);
-  //   };
-
-  const deleteRoute = () => {
-
+  const fillEndSearchField = async (routeAddress, routeCoordinates) => {
+    console.log(routeAddress);
+    console.log(routeCoordinates);
+    setSavedRouteAddress(routeAddress);
+    setEndLocation(routeCoordinates);
   };
 
   return (
     <div>
       <div>
-        <button onClick={displayList}>Saved Routes</button>
+        <button onClick={addRoute}>Save Route</button>
       </div>
       <div>
         <ul>
-          {/*<ul>*/}
-          {/*  <li>*/}
-          {/*    <button onClick={addRoute}>Save Route</button>*/}
-          {/*  </li>*/}
-          {/*</ul>*/}
-          <ul>
-            <li>Saved Route 1</li>
-            <li>
-              <button onClick={deleteRoute}>Delete Route</button>
+          {routes.map((route) => (
+            <li key={route.id}>
+              <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
+                {route.address}
+              </button>
+              <button onClick={() => deleteRoute(route.id)}>
+                Delete Route
+              </button>
             </li>
-          </ul>
-          <br />
-          <ul>
-            <li>Saved Route 2</li>
-            <li>
-              <button onClick={deleteRoute}>Delete Route</button>
-            </li>
-          </ul>
+          ))}
         </ul>
       </div>
     </div>

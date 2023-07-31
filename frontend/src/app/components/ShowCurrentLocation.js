@@ -14,7 +14,11 @@ const ShowCurrentLocation = ({ currentLocation }) => {
       popupAnchor: [1, -34],
     });
 
-    map.setView([currentLocation.lat, currentLocation.lng], 14);
+    if (!currentLocation) {
+        return null;
+    } else {
+        map.setView([currentLocation.lat, currentLocation.lng], 14);
+    }
 
     return (
         <Marker position={currentLocation} icon={blueIcon}>
