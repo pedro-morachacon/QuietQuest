@@ -327,8 +327,13 @@ const DisplayMap = ({ activeTab }) => {
             </a>
           </div>
         </div>
-        <div style={{ position: "relative", top:"800px"}}>
-        { <SavedRoutes endLocation={endLocation} endInputValue={endInputValue} setEndLocation={setEndLocation} setSavedRouteAddress={setSavedRouteAddress} />}
+        <div style={{position:"relative", top:"700px"}}>
+        <SavedRoutes
+        endLocation={endLocation}
+        endInputValue={endInputValue}
+        setEndLocation={setEndLocation}
+        setSavedRouteAddress={setSavedRouteAddress}
+      />
       </div>
 
         <div className="item-right">
