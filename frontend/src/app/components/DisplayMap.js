@@ -35,6 +35,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Sidebar from "@/app/sidebar/Sidebar";
 import "../sidebar/sidebar.css";
 import SavedRoutes from "@/app/components/SavedRoutes";
+import SavedLinks from "@/app/components/SavedLinks";
 import L from 'leaflet';
 
 const redIcon = L.icon({
@@ -334,6 +335,9 @@ const DisplayMap = ({ activeTab }) => {
         setEndLocation={setEndLocation}
         setSavedRouteAddress={setSavedRouteAddress}
       />
+      </div>
+        <div style={{position:"relative", top:"700px", left:"50px"}}>
+        < SavedLinks />
       </div>
 
         <div className="item-right">

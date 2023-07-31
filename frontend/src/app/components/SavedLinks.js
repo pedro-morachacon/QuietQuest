@@ -3,30 +3,27 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc, getFirestore, addDoc, collection, getDocs, query, where, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 
-const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRouteAddress }) => {
-  const [routes, setRoutes] = useState([]); // Use state to store the routes
+const SavedLinks = () => {
   const auth = getAuth();
   const user = auth.currentUser;
-
-  const [openRoutes, setOpenRoutes] = useState(false);
+  const [links, setLinks] = useState([]);
+  const [openLinks, setOpenLinks] = useState(false);
 
   useEffect(() => {
-
-    // Using onAuthStateChanged for real-time listening
-    const fetchRoutes = async () => {
+    const fetchLinks = async () => {
       if (user) {
         try {
-          const usersCollectionRef = collection(db, "users", user.uid, "routes");
+          const usersCollectionRef = collection(db, "users", user.uid, "links");
 
           const doct = await getDocs(usersCollectionRef);
-          const routesData = [];
+          const linksData = [];
           doct.docs.forEach((doc) => {
-            routesData.push({
+            linksData.push({
               id: doc.id,
               ...doc.data()
             });
           });
-          setRoutes(routesData);
+          setLinks(linksData);
         } catch (error) {
           console.error("Error fetching documents: ", error);
         }
@@ -38,10 +35,10 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
   // Using onAuthStateChanged for real-time listening
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        fetchRoutes();
+        fetchLinks();
       } else {
         // User is logged out
-        setRoutes([]);
+        setLinks([]);
       }
     });
     // Unsubscribe from the listener when the component is unmounted
@@ -50,41 +47,36 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
     };
   }, [auth, user]);
 
-  const addRoute = async () => {
-    const usersCollectionRef = collection(db, "users", user.uid, "routes");
+  const addLink = async () => {
+    const usersCollectionRef = collection(db, "users", user.uid, "links");
     // add data to Cloud Firestore
     const docRef = await addDoc(usersCollectionRef, {
-      coordinates: endLocation,
-      address: endInputValue
+        label: "test2",
+      link: "test"
     });
     console.log("Document written with ID: ", docRef.id);
-    setRoutes((prevRoutes) => [
-      ...prevRoutes,
-      { id: docRef.id, coordinates: endLocation, address: endInputValue },
+    setLinks((prevLinks) => [
+      ...prevLinks,
+      { id: docRef.id, label: "test2", link: "test" },
     ]);
   };
 
-  const deleteRoute = async (routeId) => {
-    const routeDocRef = doc(db, "users", user.uid, "routes", routeId);
+  const deleteLink = async (linkId) => {
+    const linkDocRef = doc(db, "users", user.uid, "routes", linkId);
     // Delete the route from Cloud Firestore
     try {
-      await deleteDoc(routeDocRef);
+      await deleteDoc(linkDocRef);
       console.log("Route deleted successfully");
-      setRoutes((prevRoutes) =>
-        prevRoutes.filter((route) => route.id !== routeId)
+      setLinks((prevLinks) =>
+        prevLinks.filter((link) => link.id !== linkId)
       );
     } catch (error) {
-      console.error("Error deleting route: ", error);
+      console.error("Error deleting link: ", error);
     }
   };
 
-  const fillEndSearchField = async (routeAddress, routeCoordinates) => {
-    setSavedRouteAddress(routeAddress);
-    setEndLocation(routeCoordinates);
-  };
-
   const toggleDropdown = () => {
-    setOpenRoutes((prevOpen) => !prevOpen);
+    setOpenLinks((prevOpen) => !prevOpen);
   };
 
   return (
@@ -94,21 +86,21 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
           onClick={toggleDropdown}
           className="flex items-center p-2 bg-white border rounded-md"
         >
-          <span className="mr-4">Dropdown Button</span>
+          <span className="mr-4">Links Dropdown Button</span>
         </button>
-        {openRoutes && (
+        {openLinks && (
           <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white">
-            <button onClick={addRoute}>Save Route</button>
+            <button onClick={addLink}>Save Link</button>
             <ul>
-              {routes.map((route) => (
+              {links.map((link) => (
                 <li
-                  key={route.id}
+                  key={link.id}
                   className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
                 >
-                  <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
-                    {route.address}
+                  <button>
+                    {link.label}
                   </button>
-                  <button onClick={() => deleteRoute(route.id)}>
+                  <button onClick={() => deleteLink(link.id)}>
                     Delete Route
                   </button>
                 </li>
@@ -121,4 +113,4 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
   );
 };
 
-export default SavedRoutes;
+export default SavedLinks;
