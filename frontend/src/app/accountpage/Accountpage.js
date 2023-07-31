@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import { UserAuth } from "@/app/firebaseauth/AuthContext";
 import FirebaseUserName from "@/app/components/FirebaseUserName";
 import DisplayNameSetter from "@/app/firebaseauth/DisplayNameSetter";
@@ -13,6 +13,18 @@ import AccountUserImage from "@/app/accountpage/AccountUserImage";
 
 import EditNameWithPopup from "@/app/accountpage/EditButtonWithPopup";
 import EditPhotoButtonWithPopup from "@/app/accountpage/EditPhotoButtonWithPopup";
+
+import AccountLogout from "@/app/accountpage/AccountLogout";
+import dynamic from "next/dynamic";
+import Signin from "@/app/firebaseauth/Signin";
+import Signup from "@/app/firebaseauth/Signup";
+import ProtectedRoute from "@/app/firebaseauth/ProtectedRoute";
+import Account from "@/app/firebaseauth/Account";
+const DynamicBrowserRouter = dynamic(
+  () => import('react-router-dom').then((mod) => mod.BrowserRouter),
+  { ssr: false }
+);
+
 
 const Accountpage = () => {
   // const {user, logout} = UserAuth();
@@ -83,9 +95,12 @@ const Accountpage = () => {
         }}
       >
         <h3 className="text-2xl py-4">Logout</h3>
-        <button onClick={handleLogout} className="border px-6 py-2 my-4">
-          Logout
-        </button>
+        {/*<button onClick={handleLogout} className="border px-6 py-2 my-4">*/}
+        {/*  Logout*/}
+        {/*</button>*/}
+          <DynamicBrowserRouter>
+              <AccountLogout/>
+              </DynamicBrowserRouter>
       </div>
       <p>You can still use QuletQuest after logging out</p>
     </div>
