@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import {GoogleProvider} from 'leaflet-geosearch';
 
 const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress }) => {
   const [inputValue, setInputValue] = useState(savedRouteAddress || '');
   const [autocompleteResults, setAutocompleteResults] = useState([]);
-  const provider = new OpenStreetMapProvider({
-    params: {
-      bounded: 1,
-      viewbox: [-74.25909, 40.477398, -73.700181, 40.917577], // Bounding box for New York City
-    },
+  const provider = new GoogleProvider({
+    apiKey:'AIzaSyB6QE55spfSZJU3WEDAsB28z4Y0_k_D7iE',
   });
 
   const inputRef = useRef(null); // Ref to hold the input element

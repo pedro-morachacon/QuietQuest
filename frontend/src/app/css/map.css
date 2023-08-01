@@ -25,7 +25,7 @@ body {
 }
 
 .leaflet-container {
-  margin: 30px auto;
+  /*margin: 30px auto;*/
   height: 640px;
   z-index: 0;
   overflow: hidden;
@@ -46,7 +46,9 @@ button {
 
 #map {
   height: 640px;
-  width: 800px;
+  width: 900px;
+  position: relative;
+  left: 300px;
 }
 
 * {
@@ -225,9 +227,9 @@ ul.nav li.active {
 
 
 /*container*/
-.container{
-   display:flex;
-}
+/*.container{*/
+/*   display:flex;*/
+/*}*/
 
 .item-right{
    flex:4;
@@ -237,3 +239,27 @@ ul.nav li.active {
    flex:1;
 }
 /*container*/
+/*MM*/
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding:0;
+}
+
+.top-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+/* Add these styles to adjust the dropdown position */
+.absolute {
+  /* Adjust the top value to control the distance from the button */
+  top: 40px;
+  /* Adjust the right value to control the horizontal position */
+  right: 0;
+  /* This will align the dropdown to the right side of the button */
+  transform: translateX(calc(100% + 50px));
+  z-index: 9999;
+}

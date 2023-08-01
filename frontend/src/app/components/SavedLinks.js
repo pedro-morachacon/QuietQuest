@@ -109,7 +109,7 @@ const SavedLinks = () => {
           onClick={toggleDropdown}
           className="flex items-center p-2 bg-white border rounded-md"
         >
-          <span className="mr-4">Links Dropdown Button</span>
+          <span className="mr-4">Saved Links</span>
         </button>
         {openLinks && (
           <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white">

@@ -237,6 +237,22 @@ const DisplayMap = ({ activeTab }) => {
   return (
     <div className="container">
       <BrowserRouter>
+
+        <div className="top-container">
+          <div className="saved-links">
+            <SavedLinks />
+          </div>
+          <div className="saved-routes">
+            <SavedRoutes
+              endLocation={endLocation}
+              endInputValue={endInputValue}
+              setEndLocation={setEndLocation}
+              setSavedRouteAddress={setSavedRouteAddress}
+            />
+          </div>
+        </div>
+
+
         <a href="/" className={"logo"}>
           <img
             src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
@@ -328,17 +344,6 @@ const DisplayMap = ({ activeTab }) => {
             </a>
           </div>
         </div>
-        <div style={{position:"relative", top:"700px"}}>
-        <SavedRoutes
-        endLocation={endLocation}
-        endInputValue={endInputValue}
-        setEndLocation={setEndLocation}
-        setSavedRouteAddress={setSavedRouteAddress}
-      />
-      </div>
-        <div style={{position:"relative", top:"700px", left:"50px"}}>
-        < SavedLinks />
-      </div>
 
         <div className="item-right">
           <div id="map">

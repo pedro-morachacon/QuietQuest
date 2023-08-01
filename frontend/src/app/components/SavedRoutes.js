@@ -95,7 +95,7 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
           onClick={toggleDropdown}
           className="flex items-center p-2 bg-white border rounded-md"
         >
-          <span className="mr-4">Dropdown Button</span>
+          <span className="mr-4">Saved Destinations</span>
         </button>
         {openRoutes && (
           <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white" style={{ zIndex: 1 }}>
