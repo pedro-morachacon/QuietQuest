@@ -68,10 +68,10 @@ const SavedLinks = () => {
 
   const deleteLink = async (linkId) => {
     const linkDocRef = doc(db, "users", user.uid, "links", linkId);
-    // Delete the route from Cloud Firestore
+    // Delete the link from Cloud Firestore
     try {
       await deleteDoc(linkDocRef);
-      console.log("Route deleted successfully");
+      console.log("Link deleted successfully");
       setLinks((prevLinks) =>
         prevLinks.filter((link) => link.id !== linkId)
       );
@@ -150,7 +150,31 @@ const SavedLinks = () => {
             </ul>
                   </React.Fragment>
             ) : (
-              <p>Please sign in to save more links.</p>
+                <React.Fragment>
+                    <p>Please sign in to save more links.</p>
+                      <ul>
+                        <li
+                          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
+                        >
+                          <a
+                            href="https://youtu.be/K-vfA4OmaRA"
+                            target="_blank"
+                          >
+                            Video1
+                          </a>
+                        </li>
+                        <li
+                        className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
+                      >
+                        <a
+                          href="https://youtu.be/cjaZOyBgJaU"
+                          target="_blank"
+                        >
+                          Video2
+                        </a>
+                      </li>
+                  </ul>
+                </React.Fragment>
                 )}
           </div>
         )}

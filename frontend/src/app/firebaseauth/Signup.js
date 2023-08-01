@@ -38,6 +38,20 @@ const Signup = () => {
       });
       console.log("Document written with ID: ", docRef.id);
 
+      const linksCollectionRef = collection(db, "users", user.uid, "links");
+      // add data to Cloud Firestore
+      const linksRef1 = await addDoc(linksCollectionRef, {
+        label: "Video1",
+        link: "https://youtu.be/K-vfA4OmaRA",
+      });
+      console.log("Document written with ID: ", linksRef1.id);
+
+      const linksRef2 = await addDoc(linksCollectionRef, {
+        label: "Video2",
+        link: "https://youtu.be/cjaZOyBgJaU",
+      });
+      console.log("Document written with ID: ", linksRef2.id);
+
       // Read data from Cloud Firestore
       const querySnapshot = await getDocs(collection(db, "users"));
       querySnapshot.forEach((doc) => {
