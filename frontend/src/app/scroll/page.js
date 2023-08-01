@@ -1,16 +1,19 @@
 "use client";
 import React from "react";
-import {ContactUs} from "@/app/contact/ContactUs";
-// import "../firebase/firebase.css";
-import WeatherCards from "@/app/weather/weather-cards";
-import WeatherCards2 from "@/app/weather/weather-cards2";
-import "./weather.css";
+import Scroll from "@/app/scroll/Scroll";
 
 function App() {
   return (
     <div className="App">
-        {/*<WeatherCards />*/}
-        <WeatherCards2 />
+      <Scroll />
+
+      <style jsx>{`
+        .App {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      `}</style>
     </div>
   );
 }
