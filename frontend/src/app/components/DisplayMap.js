@@ -8,12 +8,11 @@ import {
   Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-// import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import tileLayer from "./tileLayer";
 import axios from "axios";
 import Datetimepicker from "./Datepicker";
-// import L from 'leaflet';
-// import RoutingMachine from "@/app/components/RoutingMachine";
+import L from "leaflet";
+
 import CommunityDistricts from "../geojson/CommunityDistricts.json";
 import HeatMap from "@/app/components/HeatMap";
 import "../css/map.css";
@@ -28,8 +27,7 @@ import StartSearchField from "@/app/components/StartSearchField";
 import EndSearchField from "@/app/components/EndSearchField";
 import CurrentLocation from "@/app/components/CurrentLocation";
 import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
-import L from "leaflet";
-
+import MapOnly from "./MapOnly";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 
@@ -231,18 +229,6 @@ const DisplayMap = ({ activeTab }) => {
   return (
     <div className="container">
       <BrowserRouter>
-        <a href="/" className={"logo"}>
-          <img
-            src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
-            alt=" "
-            width="200"
-            height="200"
-          />
-        </a>
-
-        <div className={"user-image"}>
-          <FirebaseUserName />
-        </div>
 
         <div className="item-left">
 
@@ -279,9 +265,7 @@ const DisplayMap = ({ activeTab }) => {
               />
               <EndSearchField setEndLocation={setEndLocation} />
             </div>
-            {/*<div>*/}
-            {/*  <CurrentLocation setCurrentLocation={setCurrentLocation} />*/}
-            {/*</div>*/}
+
           </div>
 
           <div className="button-onclick2">
@@ -291,7 +275,26 @@ const DisplayMap = ({ activeTab }) => {
           <div className="datetimepicker" id="datepicker">
             <Datetimepicker setDate={setDate} setTime={setTime} />
           </div>
-
+          <div>
+            {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
+          </div>
+          <div>
+            {optimalInstructionsData !== null && (
+              <div>
+                <h2>Optimal Instructions:</h2>
+                <Instructions instructionsData={optimalInstructionsData} />
+              </div>
+            )}
+          </div>
+          <div>
+            {avoidanceInstructionsData !== null && (
+              <div>
+                <br />
+                <h2>Avoidance Instructions:</h2>
+                <Instructions instructionsData={avoidanceInstructionsData} />
+              </div>
+            )}
+          </div>
           <a href="/" className="logo-phone">
             <img
               src="https://imagizer.imageshack.com/img924/4390/Zm4dCd.png"
@@ -324,76 +327,7 @@ const DisplayMap = ({ activeTab }) => {
         </div>
 
         <div className="item-right">
-          <div id="map">
-            <MapContainer
-              center={[40.76657321777155, -73.9831392189498]}
-              zoom={12}
-            >
-              {/* Display start marker */}
-              {startMarkerPosition && (
-                <Marker position={startMarkerPosition} icon={redIcon}>
-                  <Popup>Start Location</Popup>
-                </Marker>
-              )}
-
-              {/* Display end marker */}
-              {endMarkerPosition && (
-                <Marker position={endMarkerPosition} icon={blueIcon}>
-                  <Popup>End Location</Popup>
-                </Marker>
-              )}
-
-              {/* Display currentLocation marker */}
-              {currentLocation && (
-                <ShowCurrentLocation currentLocation={currentLocation} />
-              )}
-              <TileLayer {...tileLayer} />
-              {/*<Routing setLocation={setLocation}/>*/}
-              {/*<Routing2 setLocation={setLocation} />*/}
-              <GeoJSON data={CommunityDistricts} style={setColor} />
-              {/*<LocateUserControl />*/}
-              {showHeatmap && <HeatMap heatmapData={heatmapData} />}
-              {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
-              {/*    <Popup>*/}
-              {/*      52.136096, 11.635208*/}
-              {/*    </Popup>*/}
-              {/*</Marker>*/}
-              {/* displays optimal route */}
-              {optimalDirections && (
-                <GeoJSON data={optimalDirections} color="purple" weight={5} />
-              )}
-              {/* displays route avoiding polygons*/}
-              {avoidanceDirections && (
-                <GeoJSON data={avoidanceDirections} color="white" weight={5} />
-              )}
-            </MapContainer>
-          </div>
-          <div>
-            {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
-          </div>
-          <div>
-            {optimalInstructionsData !== null && (
-              <div>
-                <h2>Optimal Instructions:</h2>
-                <Instructions instructionsData={optimalInstructionsData} />
-              </div>
-            )}
-          </div>
-          <div>
-            {avoidanceInstructionsData !== null && (
-              <div>
-                <br />
-                <h2>Avoidance Instructions:</h2>
-                <Instructions instructionsData={avoidanceInstructionsData} />
-              </div>
-            )}
-          </div>
-          {/*<div>*/}
-          {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
-          {/*</div>*/}
-          {/*<div className="weather-text">*/}
-          {/*    <WeatherCards2 />*/}
-          {/*</div>*/}
+         <MapOnly />
         </div>
       </BrowserRouter>
     </div>
