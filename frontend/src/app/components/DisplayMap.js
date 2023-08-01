@@ -230,19 +230,6 @@ const DisplayMap = ({ activeTab }) => {
   return (
     <div className="container">
       <BrowserRouter>
-        <a href="/" className={"logo"}>
-          <img
-            src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
-            alt=" "
-            width="200"
-            height="200"
-          />
-        </a>
-
-        <div className={"user-image"}>
-          <FirebaseUserName />
-        </div>
-
         <div className="item-left">
 
           <a href="/" className="logo-journey">
