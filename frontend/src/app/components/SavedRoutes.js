@@ -31,7 +31,8 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
           console.error("Error fetching documents: ", error);
         }
       } else {
-
+        // User is logged out
+        setRoutes([]);
       }
     };
 
@@ -97,23 +98,29 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
           <span className="mr-4">Dropdown Button</span>
         </button>
         {openRoutes && (
-          <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white">
-            <button onClick={addRoute}>Save Route</button>
-            <ul>
-              {routes.map((route) => (
-                <li
-                  key={route.id}
-                  className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
-                >
-                  <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
-                    {route.address}
-                  </button>
-                  <button onClick={() => deleteRoute(route.id)}>
-                    Delete Route
-                  </button>
-                </li>
-              ))}
-            </ul>
+          <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white" style={{ zIndex: 1 }}>
+            {user ? (
+              <React.Fragment>
+                <button onClick={addRoute}>Save Route</button>
+                <ul>
+                  {routes.map((route) => (
+                    <li
+                      key={route.id}
+                      className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
+                    >
+                      <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
+                        {route.address}
+                      </button>
+                      <button onClick={() => deleteRoute(route.id)}>
+                        Delete Route
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </React.Fragment>
+            ) : (
+              <p>Please sign in to save routes.</p>
+            )}
           </div>
         )}
       </div>

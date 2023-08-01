@@ -113,6 +113,8 @@ const SavedLinks = () => {
         </button>
         {openLinks && (
           <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white">
+            {user ? (
+                <React.Fragment>
             <button onClick={openYouTube}>Create Link</button>
             <input
               type="text"
@@ -146,6 +148,10 @@ const SavedLinks = () => {
                 </li>
               ))}
             </ul>
+                  </React.Fragment>
+            ) : (
+              <p>Please sign in to save more links.</p>
+                )}
           </div>
         )}
       </div>

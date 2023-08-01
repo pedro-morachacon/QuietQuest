@@ -15,7 +15,7 @@ const CurrentLocation = ({ setCurrentLocation, savedRouteAddress, startLocation 
     };
 
     useEffect(() => {
-        if (savedRouteAddress !== "" && startLocation) {
+        if (savedRouteAddress !== "" && !startLocation) {
             currentLocationClick();
         }
     }, [savedRouteAddress]);
