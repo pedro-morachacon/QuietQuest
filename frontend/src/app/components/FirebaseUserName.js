@@ -47,7 +47,7 @@ function FirebaseUserName() {
     ) : (
         <a href="/firebaseauth">
         <img
-          src="https://imagizer.imageshack.com/img922/1508/00uUdj.png"
+          src="/user.png"
           alt=" "
           width="50"
           height="50"
