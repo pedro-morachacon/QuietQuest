@@ -16,10 +16,8 @@ import Datetimepicker from "./Datepicker";
 // import RoutingMachine from "@/app/components/RoutingMachine";
 import CommunityDistricts from "../geojson/CommunityDistricts.json";
 import HeatMap from "@/app/components/HeatMap";
-import Datepicker from "./Datepicker";
 import "../css/map.css";
 
-import WeatherCards2 from "@/app/weather/weather-cards2";
 import "../weather/weather.css";
 import Instructions from "@/app/components/Instructions";
 import RoutingStatus from "@/app/components/RoutingStatus";
@@ -33,8 +31,7 @@ import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
 import L from "leaflet";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Sidebar from "@/app/sidebar/Sidebar";
-import "../sidebar/sidebar.css";
+
 
 const redIcon = L.icon({
   iconUrl:
