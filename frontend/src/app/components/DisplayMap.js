@@ -291,7 +291,7 @@ const DisplayMap = ({ activeTab }) => {
           </div>
 
           <div className="button-onclick2">
-            <CurrentLocation setCurrentLocation={setCurrentLocation} savedRouteAddress={savedRouteAddress} />
+            <CurrentLocation setCurrentLocation={setCurrentLocation} savedRouteAddress={savedRouteAddress} startLocation={startLocation} />
           </div>
 
           <div className="datetimepicker" id="datepicker">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CurrentLocation = ({ setCurrentLocation, savedRouteAddress }) => {
+const CurrentLocation = ({ setCurrentLocation, savedRouteAddress, startLocation }) => {
     const currentLocationClick = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -15,7 +15,7 @@ const CurrentLocation = ({ setCurrentLocation, savedRouteAddress }) => {
     };
 
     useEffect(() => {
-        if (savedRouteAddress !== "") {
+        if (savedRouteAddress !== "" && startLocation) {
             currentLocationClick();
         }
     }, [savedRouteAddress]);
