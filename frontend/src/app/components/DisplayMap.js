@@ -29,6 +29,7 @@ import CurrentLocation from "@/app/components/CurrentLocation";
 import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
 import MapOnly from "./MapOnly";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Sidebar from "./SideBar";
 
 
 const redIcon = L.icon({
@@ -231,99 +232,7 @@ const DisplayMap = ({ activeTab }) => {
       <BrowserRouter>
 
         <div className="item-left">
-
-          <a href="/" className="logo-journey">
-            <img
-              src="https://imagizer.imageshack.com/img922/9007/YYyyIi.png"
-              alt=" "
-              width="50"
-              height="50"
-            />
-          </a>
-          <div>
-            <a href="http://localhost:3000/contact" className="journey">
-              Journey Planner
-            </a>
-          </div>
-
-
-          <div>
-            <button className="button-onclick" onClick={routingClick}>
-              Routing
-            </button>
-          </div>
-
-          <div>
-            {routingStatus && <RoutingLegend routingStatus={routingStatus} />}
-          </div>
-
-          <div className="routing" style={{ display: "flex" }}>
-            <div style={{ paddingBottom: "10px" }}>
-              <StartSearchField
-                setStartLocation={setStartLocation}
-                currentLocation={currentLocation}
-              />
-              <EndSearchField setEndLocation={setEndLocation} />
-            </div>
-
-          </div>
-
-          <div className="button-onclick2">
-            <CurrentLocation setCurrentLocation={setCurrentLocation} />
-          </div>
-
-          <div className="datetimepicker" id="datepicker">
-            <Datetimepicker setDate={setDate} setTime={setTime} />
-          </div>
-          <div>
-            {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
-          </div>
-          <div>
-            {optimalInstructionsData !== null && (
-              <div>
-                <h2>Optimal Instructions:</h2>
-                <Instructions instructionsData={optimalInstructionsData} />
-              </div>
-            )}
-          </div>
-          <div>
-            {avoidanceInstructionsData !== null && (
-              <div>
-                <br />
-                <h2>Avoidance Instructions:</h2>
-                <Instructions instructionsData={avoidanceInstructionsData} />
-              </div>
-            )}
-          </div>
-          <a href="/" className="logo-phone">
-            <img
-              src="https://imagizer.imageshack.com/img924/4390/Zm4dCd.png"
-              alt=" "
-              width="50"
-              height="50"
-            />
-          </a>
-
-          <div>
-            <a href="http://localhost:3000/contact" className="contact">
-              Contact Us
-            </a>
-          </div>
-
-          <a href="/" className="logo-feedback">
-            <img
-              src="https://imagizer.imageshack.com/img924/1066/lJPbyv.png"
-              alt=" "
-              width="40"
-              height="40"
-            />
-          </a>
-
-          <div>
-            <a href="http://localhost:3000/feedback" className="feedback">
-              Feedback
-            </a>
-          </div>
+        <Sidebar />
         </div>
 
         <div className="item-right">
