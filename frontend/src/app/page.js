@@ -42,7 +42,7 @@ export default function App() {
       {/*</div>*/}
       <div><PageHeader /></div>
       <div className='main-body'>
-      <div>
+      <div className='tab-container'>
          <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
       </div>
       <div className="map-container">
@@ -53,13 +53,17 @@ export default function App() {
       </div>
       </div>
       <style jsx>{`
-        .App {
+        html, body {
+        height: 100vh;
+        width: 100vw;
+        }
+        .tab-container{
+          margin-top: 40px;
+        }
+        .main-body{
           display: flex;
           flex-direction: column;
           align-items: center;
-        }
-        .main-body{
-          margin-top: 40px;
         }
         .map-container {
           width: 95%;

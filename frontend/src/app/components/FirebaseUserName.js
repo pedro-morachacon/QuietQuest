@@ -37,7 +37,7 @@ function FirebaseUserName() {
     {userDetails ? (
       <div>
         <a href="/accountpage">
-        {userDetails.photoURL && <img src={userDetails.photoURL} alt="User's profile" style={{ width: "60px", height: "60px", borderRadius: "50%" }} />}
+        {userDetails.photoURL && <img src={userDetails.photoURL} alt="User's profile" style={{ width: "20px", height: "20px", borderRadius: "50%" }} />}
         </a>
         {/*<p><strong>Display Name:</strong> {userDetails.displayName}</p>*/}
         {/*<p><strong>Email:</strong> {userDetails.email}</p>*/}
