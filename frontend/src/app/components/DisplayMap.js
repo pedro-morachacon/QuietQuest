@@ -339,7 +339,7 @@ const DisplayMap = ({ activeTab }) => {
               {/*<Routing2 setLocation={setLocation} />*/}
               <GeoJSON data={CommunityDistricts} style={setColor} />
               {/*<LocateUserControl />*/}
-              {showHeatmap && <HeatMap heatmapData={heatmapData} />}
+              <HeatMap heatmapData={heatmapData} />
               {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
               {/*    <Popup>*/}
               {/*      52.136096, 11.635208*/}
