@@ -22,6 +22,8 @@ import ProtectedRoute from "@/app/firebaseauth/ProtectedRoute";
 import Account from "@/app/firebaseauth/Account";
 import DeleteAccountButton from "@/app/accountpage/DeleteAccountButton";
 
+import "./account.css";
+
 const DynamicBrowserRouter = dynamic(
   () => import("react-router-dom").then((mod) => mod.BrowserRouter),
   { ssr: false }
