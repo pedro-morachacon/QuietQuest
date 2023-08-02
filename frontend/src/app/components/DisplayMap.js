@@ -32,21 +32,20 @@ import L from "leaflet";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Weather from "@/app/weather2/Weather";
+import iconUrl from "./startRouteMarker.png";
 
-const redIcon = L.icon({
-  iconUrl:
-    "https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/red-pushpin.png",
-  iconSize: [26, 32],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+export const startPosIcon = L.divIcon({
+  html: `
+  <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35"><path d="M480-362.391q56 0 101-27.5t71-72.5q-35-29-79-44.5t-93-15.5q-49 0-93 15.5t-79 44.5q26 45 71 72.5t101 27.5Zm0-200q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0 490.522Q315.174-211.261 233.522-329.36q-81.653-118.097-81.653-223.598 0-153.28 98.952-244.227T480-888.131q130.227 0 229.179 90.947t98.952 244.227q0 105.501-81.653 223.598Q644.826-211.261 480-71.869Z"/></svg>
+`,
+  className: "svg-icon",
 });
 
-const blueIcon = L.icon({
-  iconUrl:
-    "https://maps.gstatic.com/intl/de_de/mapfiles/ms/micons/blue-pushpin.png",
-  iconSize: [26, 32],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+export const endPosIcon = L.divIcon({
+  html: `
+  <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35"><path d="M362.63-722.152h81.435v-81.435H362.63v81.435Zm162.87 0v-81.435h81.435v81.435H525.5ZM362.63-396.413v-81.435h81.435v81.435H362.63Zm325.74-162.87v-81.434h81.435v81.434H688.37Zm0 162.87v-81.435h81.435v81.435H688.37Zm-162.87 0v-81.435h81.435v81.435H525.5Zm162.87-325.739v-81.435h81.435v81.435H688.37Zm-244.305 81.435v-81.435H525.5v81.435h-81.435Zm-253.87 488.13v-651h91.001v81.435h81.434v81.435h-81.434v81.434h81.434v81.435h-81.434v325.261h-91.001Zm416.74-325.261v-81.435h81.435v81.435h-81.435Zm-162.87 0v-81.435H525.5v81.435h-81.435Zm-81.435-81.435v-81.434h81.435v81.434H362.63Zm162.87 0v-81.434h81.435v81.434H525.5Zm81.435-81.434v-81.435h81.435v81.435h-81.435Z"/></svg>
+  `,
+  className: "svg-icon",
 });
 
 const DisplayMap = ({ activeTab }) => {
@@ -318,14 +317,14 @@ const DisplayMap = ({ activeTab }) => {
             >
               {/* Display start marker */}
               {startMarkerPosition && (
-                <Marker position={startMarkerPosition} icon={redIcon}>
+                <Marker position={startMarkerPosition} icon={startPosIcon}>
                   <Popup>Start Location</Popup>
                 </Marker>
               )}
 
               {/* Display end marker */}
               {endMarkerPosition && (
-                <Marker position={endMarkerPosition} icon={blueIcon}>
+                <Marker position={endMarkerPosition} icon={endPosIcon}>
                   <Popup>End Location</Popup>
                 </Marker>
               )}
