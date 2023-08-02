@@ -221,6 +221,12 @@ ul.nav li.active {
   align-items: center;
 }
 
+.weather-icon{
+  position: absolute;
+  top: 25px;
+  right: 200px;
+}
+
 
 
 /*container*/

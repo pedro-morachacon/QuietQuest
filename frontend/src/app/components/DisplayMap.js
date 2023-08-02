@@ -31,6 +31,7 @@ import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
 import L from "leaflet";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Weather from "@/app/weather2/Weather";
 
 const redIcon = L.icon({
   iconUrl:
@@ -227,11 +228,12 @@ const DisplayMap = ({ activeTab }) => {
     }
   }, [activeTab, date, time]);
 
+  const [activeTab2, setActiveTab] = useState("Optimal");
+
   return (
     <div className="container">
       <BrowserRouter>
         <div className="item-left">
-
           <a href="/" className="logo-journey">
             <img
               src="https://imagizer.imageshack.com/img922/9007/YYyyIi.png"
@@ -245,7 +247,6 @@ const DisplayMap = ({ activeTab }) => {
               Journey Planner
             </a>
           </div>
-
 
           <div>
             <button className="button-onclick" onClick={routingClick}>
@@ -357,23 +358,51 @@ const DisplayMap = ({ activeTab }) => {
           <div>
             {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
           </div>
+
           <div>
-            {optimalInstructionsData !== null && (
+            {/* Tab buttons */}
+            <div style={{ marginBottom: "10px" }}>
+              <button
+                style={{
+                  marginRight: "10px",
+                  backgroundColor: activeTab2 === "Optimal" ? "#ddd" : "",
+                }}
+                onClick={() => setActiveTab("Optimal")}
+              >
+                Optimal Instructions
+              </button>
+              <button
+                style={{
+                  backgroundColor: activeTab2 === "Avoidance" ? "#ddd" : "",
+                }}
+                onClick={() => setActiveTab("Avoidance")}
+              >
+                Avoidance Instructions
+              </button>
+            </div>
+
+            {/* Instructions based on the active tab */}
+            {activeTab2 === "Optimal" && optimalInstructionsData !== null && (
               <div>
                 <h2>Optimal Instructions:</h2>
                 <Instructions instructionsData={optimalInstructionsData} />
               </div>
             )}
+
+            {activeTab2 === "Avoidance" &&
+              avoidanceInstructionsData !== null && (
+                <div>
+                  <h2>Avoidance Instructions:</h2>
+                  <Instructions instructionsData={avoidanceInstructionsData} />
+                </div>
+              )}
           </div>
-          <div>
-            {avoidanceInstructionsData !== null && (
-              <div>
-                <br />
-                <h2>Avoidance Instructions:</h2>
-                <Instructions instructionsData={avoidanceInstructionsData} />
-              </div>
-            )}
+
+          <div className={"weather-icon"}>
+            <Weather/>
           </div>
+
+
           {/*<div>*/}
           {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
           {/*</div>*/}
