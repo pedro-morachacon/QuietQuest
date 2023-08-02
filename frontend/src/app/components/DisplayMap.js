@@ -32,7 +32,6 @@ import L from "leaflet";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Weather from "@/app/weather2/Weather";
-import iconUrl from "./startRouteMarker.png";
 
 export const startPosIcon = L.divIcon({
   html: `
