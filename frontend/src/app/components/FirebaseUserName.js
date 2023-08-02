@@ -36,24 +36,38 @@ function FirebaseUserName() {
   <div>
     {userDetails ? (
       <div>
-        <a href="/accountpage">
+        <a className='user-part' href="/accountpage">
         {userDetails.photoURL && <img src={userDetails.photoURL} alt="User's profile" style={{ width: "20px", height: "20px", borderRadius: "50%" }} />}
         </a>
-        {/*<p><strong>Display Name:</strong> {userDetails.displayName}</p>*/}
-        {/*<p><strong>Email:</strong> {userDetails.email}</p>*/}
-        {/*<p><strong>Email Verified:</strong> {String(userDetails.emailVerified)}</p>*/}
-        {/*<p><strong>UID:</strong> {userDetails.uid}</p>*/}
       </div>
     ) : (
-        <a href="/firebaseauth">
-        <img
+        <a className='user-part' href="/firebaseauth">
+        login
+        <img className='user-part'
           src="/user.png"
-          alt=" "
-          width="50"
-          height="50"
-        />
+          alt="icon for no logged in user"
+          width="25"
+          height="25"
+          align="top"
+
+    /> 
       </a>
     )}
+
+<style jsx>{`
+        
+        
+        .user-part {
+          float: right;
+          color: D9D9D9;
+          align: cente;
+          display: inline-block;
+          margin-left: 10px;
+      
+        }
+              
+      
+            `}</style>
   </div>
 );
 }
