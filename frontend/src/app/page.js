@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Tabs from './components/Tabs';
 import "./weather/weather.css";
+import PageHeaderTable from './components/PageHeaderTable';
 
 
 const MapWithNoSSR = dynamic(() => import("./components/DisplayMap"), {
@@ -36,10 +37,10 @@ export default function App() {
   return (
       <main>
     <div className="App">
-      {/*<div className="search-params-container">*/}
-      {/*  <SearchParamsWithNoSSR />*/}
-      {/*</div>*/}
-      <div>
+
+      <div><PageHeaderTable /></div>
+      <div className='main-body'>
+      <div className='tab-container'>
          <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
       </div>
       <div className="map-container">
@@ -48,14 +49,20 @@ export default function App() {
       <div className="weather-text">
         <WeatherWithNoSSR />
       </div>
-
+      </div>
       <style jsx>{`
-        .App {
+        html, body {
+        height: 100vh;
+        width: 100vw;
+        }
+        .tab-container{
+          margin-top: 40px;
+        }
+        .main-body{
           display: flex;
           flex-direction: column;
           align-items: center;
         }
-
         .map-container {
           width: 95%;
           z-index: 1;
