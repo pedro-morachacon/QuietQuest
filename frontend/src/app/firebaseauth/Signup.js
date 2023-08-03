@@ -25,7 +25,8 @@ const Signup = () => {
       const user = userCredential.user;
 
       // Define a default avatar URL
-      const defaultAvatarURL = "https://imagizer.imageshack.com/img922/1508/00uUdj.png";
+      const defaultAvatarURL =
+        "https://imagizer.imageshack.com/img922/1508/00uUdj.png";
 
       // Update the user's photoURL with the default avatar URL
       await updateProfile(user, {
@@ -61,7 +62,6 @@ const Signup = () => {
       // Navigate to account page
       // navigate("/firebaseauth/account");
       window.location.href = "/accountpage";
-
     } catch (e) {
       setError(e.message);
       console.log(e.message);
@@ -70,8 +70,18 @@ const Signup = () => {
   };
 
   return (
-    <div className="max-w-[700px] mx-auto my-16 p-4">
+    <div className="max-w-[700px] mx-auto my-8 p-4">
       <div>
+        <div className="center-container">
+          <a href="/">
+            <img
+              src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
+              alt=" "
+              width="200"
+              height="200"
+            />
+          </a>
+        </div>
         <h1 className="text-2xl font-bold py-2">Sign up for an account</h1>
         <p className="py-2">
           Already have an account yet?{" "}
@@ -99,10 +109,17 @@ const Signup = () => {
             placeholder="Enter your password"
           />
         </div>
-        <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white">
+        <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white">
           Sign Up
         </button>
       </form>
+      <style jsx>{`
+        .center-container {
+          display: flex;
+          justify-content: center; /* Horizontally center */
+          align-items: center; /* Vertically center */
+        }
+      `}</style>
     </div>
   );
 };

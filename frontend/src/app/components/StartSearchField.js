@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleProvider } from 'leaflet-geosearch';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 const StartSearchField = ({ setStartLocation, currentLocation }) => {
   const [inputValue, setInputValue] = useState('');
   const [autocompleteResults, setAutocompleteResults] = useState([]);
-  const provider = new GoogleProvider({
-    apiKey:'AIzaSyB6QE55spfSZJU3WEDAsB28z4Y0_k_D7iE',
-    options: {
-      description: true,
-    }
+  const provider = new OpenStreetMapProvider({
+    params: {
+      bounded: 1,
+      viewbox: [-74.25909, 40.477398, -73.700181, 40.917577], // Bounding box for New York City
+      limit: 5,
+      addressdetails: [1],
+    },
   });
 
   const inputRef = useRef(null); // Ref to hold the input element
@@ -52,7 +54,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
   const handleListItemClick = (result) => {
     const { x: lng, y: lat } = result;
     setStartLocation([lng, lat]);
-    setInputValue(result.label);
+    setInputValue(result.label.split(', New York County')[0]);
     setAutocompleteResults([]); // Clear the autocomplete results after selecting an address
   };
 
@@ -74,7 +76,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         })
         .then(responseJson => {
           // Update the inputValue with the location name
-          setInputValue(responseJson.display_name);
+          setInputValue(responseJson.display_name.includes(', New York County') ? responseJson.display_name.split(', New York County')[0] : responseJson.display_name);
         })
         .catch(error => console.log('Reverse Geocode', error));
     }
@@ -82,19 +84,19 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
 
 
   return (
-    <form id="start-search-form">
-      <input
-        ref={inputRef} // Use the inputRef here
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Starting Location"
+    <form className="search_form">
+      <input className="search_input"
+          ref={inputRef} // Use the inputRef here
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Starting Location"
       />
       {autocompleteResults.length > 0 && (
         <ul>
-          {autocompleteResults.slice(0, 5).map((result, index) => (
-            <li key={index} onClick={() => handleListItemClick(result)}>
-              {result.label}
+          {autocompleteResults.map((result, index) => (
+            <li key={index} onClick={() => handleListItemClick(result)} >
+              {result.label.includes(', New York County') ? result.label.split(', New York County')[0] : result.label}
             </li>
           ))}
         </ul>
