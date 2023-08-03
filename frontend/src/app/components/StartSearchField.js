@@ -76,7 +76,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         })
         .then(responseJson => {
           // Update the inputValue with the location name
-          setInputValue(responseJson.label.split(', New York County')[0]);
+          setInputValue(responseJson.display_name.includes(', New York County') ? responseJson.display_name.split(', New York County')[0] : responseJson.display_name);
         })
         .catch(error => console.log('Reverse Geocode', error));
     }
@@ -84,21 +84,19 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
 
 
   return (
-    <form id="start-search-form" style={{ margin: '0 0 10px 2px' }}>
-      <input
-          className={"autoCompleteResults"}
+    <form className="search_form">
+      <input className="search_input"
           ref={inputRef} // Use the inputRef here
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Starting Location"
-          style={{ borderRadius: '5px', padding:'5px' }}
       />
       {autocompleteResults.length > 0 && (
-        <ul style={{ position: 'absolute', zIndex: '99' }}>
+        <ul>
           {autocompleteResults.map((result, index) => (
-            <li key={index} onClick={() => handleListItemClick(result)} style={{ backgroundColor: 'rgba(57,75,86,255)', color: 'white', border: '1px solid white', borderRadius: '5px', padding: '2px 2px 2px 4px', margin:'1px'}} >
-              {result.label.split(', New York County')[0]}
+            <li key={index} onClick={() => handleListItemClick(result)} >
+              {result.label.includes(', New York County') ? result.label.split(', New York County')[0] : result.label}
             </li>
           ))}
         </ul>

@@ -1,3 +1,23 @@
+html, body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.tab-container{
+    margin-top: 40px;
+}
+
+.main-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-container {
+    width: 100%;
+    z-index: 1;
+}
+
 /*!* global css rules for site *!*/
 /*@tailwind base;*/
 /*@tailwind components;*/
