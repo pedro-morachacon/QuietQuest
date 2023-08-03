@@ -122,13 +122,13 @@ button {
 .contact{
     position: relative;
     left: 280px;
-    bottom: 120px;
+    bottom: 100px;
     text-decoration: underline;
 }
 
 .reset-pwd{
     position: relative;
     left: 205px;
-    bottom: 120px;
+    bottom: 100px;
     text-decoration: underline;
 }

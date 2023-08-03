@@ -38,16 +38,18 @@ const Signin = () => {
   };
 
   return (
-    <div className="max-w-[700px] mx-auto my-16 p-4">
+    <div className="max-w-[700px] mx-auto my-8 p-4">
       <div>
-        <a href="/">
-        <img
-          src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
-          alt=" "
-          width="200"
-          height="200"
-        />
-      </a>
+        <div className="center-container">
+          <a href="/">
+            <img
+              src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
+              alt=" "
+              width="200"
+              height="200"
+            />
+          </a>
+        </div>
         <h1 className="text-2xl font-bold py-2">Sign in to your account</h1>
         {error && (
           <p style={{ color: "orange", fontWeight: "bold" }}>{error}</p>
@@ -81,7 +83,7 @@ const Signin = () => {
             placeholder="Enter your password"
           />
         </div>
-        <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white">
+        <button className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white">
           Sign In
         </button>
         <button
@@ -95,6 +97,13 @@ const Signin = () => {
         {/*<h1>{localStorage.getItem("email")}</h1>*/}
         {/*<img src={localStorage.getItem("profilePic")}/>*/}
       </form>
+      <style jsx>{`
+        .center-container {
+          display: flex;
+          justify-content: center; /* Horizontally center */
+          align-items: center; /* Vertically center */
+        }
+      `}</style>
     </div>
   );
 };

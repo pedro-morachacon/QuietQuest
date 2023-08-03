@@ -1,23 +1,38 @@
 "use client";
 import React from "react";
 import Accountpage from "@/app/accountpage/Accountpage";
-
 import "./account.css";
+import PageHeaderTable from "@/app/components/PageHeaderTable";
 
 function App() {
   return (
-    <div className="App">
-        <section>
-        <Accountpage />
+    <div className="outer-container">
+      <PageHeaderTable />
+      <div className="App">
+        <section className="account-section">
+          <Accountpage />
         </section>
 
-        <style jsx>{`
-          
-          //.App {
-          //  transform: scale(0.5);
-          //}
-          
-          section {
+        <style jsx global>{`
+          body, html {
+            overflow: hidden;
+          }
+
+          .outer-container {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+          }
+
+          .App {
+            overflow: hidden;
+          }
+
+          .account-section {
+            transform: scale(0.55);
+            transform-origin: top center;
+            margin-top: 110px;
+            
             width: 100%;
             max-width: 700px;
             min-height: 400px;
@@ -28,9 +43,10 @@ function App() {
             background-color: rgba(0, 0, 0, 0.4);
           }
         `}</style>
+      </div>
     </div>
-
   );
 }
+
 
 export default App;
