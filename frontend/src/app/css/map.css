@@ -151,12 +151,6 @@ ul.nav li.active {
   right: 20px;
 }
 
-.datetimepicker{
-  position: relative;
-  top: 100px;
-  right: 20px;
-}
-
 .logo-phone{
   position: absolute;
   bottom: 120px;
@@ -196,13 +190,12 @@ ul.nav li.active {
 #sidebar_map {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  border: 2px solid black;
+  overflow: hidden;
 }
 
 #closed_btn_icons {
   height: 100%;
-  padding: 8px;
+  padding: 0 8px 8px 8px;
 }
 
 #closed_icons {
@@ -217,15 +210,11 @@ ul.nav li.active {
 }
 
 #closed_top_icons > svg {
-  margin: 5px;
+  margin: 0 5px 10px 5px;
 }
 
 #closed_bottom_icons > svg {
-  margin: 5px;
-}
-
-#testId {
-  display: block;
+  margin: 0 5px 10px 5px;
 }
 
 #map {
@@ -237,7 +226,11 @@ ul.nav li.active {
   height: 100%;
   z-index: 0;
   overflow: hidden;
-  display: none;
+}
+
+#open_menu {
+  display: flex;
+  justify-content: flex-end;
 }
 
 #journey_title {
@@ -246,7 +239,45 @@ ul.nav li.active {
   color: #394B56;
 }
 
-#open_menu {
-  display: flex;
-  justify-content: flex-end;
+.search_form {
+   margin: 0 0 10px 2px;
 }
+
+.search_input {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.search_form > ul {
+  position: absolute;
+  z-index: 99;
+}
+
+.search_form > ul > li {
+  background-color: rgba(57,75,86,255);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 2px 2px 2px 4px;
+  margin: 1px;
+}
+
+#start_journey {
+  display: inline-flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+#date_picker {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#routing_button {
+  background-color: rgba(57,75,86,255);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+}
+

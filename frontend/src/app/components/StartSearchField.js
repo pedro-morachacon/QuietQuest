@@ -84,20 +84,18 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
 
 
   return (
-    <form id="start-search-form" style={{ margin: '0 0 10px 2px' }}>
-      <input
-          className={"autoCompleteResults"}
+    <form className="search_form">
+      <input className="search_input"
           ref={inputRef} // Use the inputRef here
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Starting Location"
-          style={{ borderRadius: '5px', padding:'5px' }}
       />
       {autocompleteResults.length > 0 && (
-        <ul style={{ position: 'absolute', zIndex: '99' }}>
+        <ul>
           {autocompleteResults.map((result, index) => (
-            <li key={index} onClick={() => handleListItemClick(result)} style={{ backgroundColor: 'rgba(57,75,86,255)', color: 'white', border: '1px solid white', borderRadius: '5px', padding: '2px 2px 2px 4px', margin:'1px'}} >
+            <li key={index} onClick={() => handleListItemClick(result)} >
               {result.label.split(', New York County')[0]}
             </li>
           ))}
