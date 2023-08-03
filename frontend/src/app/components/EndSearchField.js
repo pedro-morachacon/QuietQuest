@@ -8,6 +8,8 @@ const EndSearchField = ({ setEndLocation }) => {
     params: {
       bounded: 1,
       viewbox: [-74.25909, 40.477398, -73.700181, 40.917577], // Bounding box for New York City
+      limit: 5,
+      addressdetails: [1],
     },
   });
 
@@ -28,7 +30,7 @@ const EndSearchField = ({ setEndLocation }) => {
         timer = setTimeout(async () => {
           const results = await provider.search({ query: value });
           setAutocompleteResults(results);
-        }, 1000);
+        }, 250);
       } else {
         setAutocompleteResults([]);
       }
@@ -52,24 +54,25 @@ const EndSearchField = ({ setEndLocation }) => {
   const handleListItemClick = (result) => {
     const { x: lng, y: lat } = result;
     setEndLocation([lng, lat]);
-    setInputValue(result.label);
+    setInputValue(result.label.split(', New York County')[0]);
     setAutocompleteResults([]); // Clear the autocomplete results after selecting an address
   };
 
   return (
-    <form id="end-search-form">
+    <form id="end-search-form" style={{ margin: '0 0 10px 2px' }}>
       <input
         ref={inputRef} // Use the inputRef here
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter address"
+        placeholder="Destination"
+        style={{ borderRadius: '5px', padding:'5px' }}
       />
       {autocompleteResults.length > 0 && (
         <ul>
-          {autocompleteResults.slice(0, 5).map((result, index) => (
-            <li key={index} onClick={() => handleListItemClick(result)}>
-              {result.label}
+          {autocompleteResults.map((result, index) => (
+            <li key={index} onClick={() => handleListItemClick(result)} style={{ backgroundColor: 'rgba(57,75,86,255)', color: 'white', border: '1px solid white', borderRadius: '5px', padding: '2px 2px 2px 4px', marginBottom: '1px'}} >
+              {result.label.split(', New York County')[0]}
             </li>
           ))}
         </ul>

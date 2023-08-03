@@ -323,7 +323,7 @@ const DisplayMap = ({ activeTab }) => {
 
               {/* Display currentLocation marker */}
               {currentLocation && (
-                <ShowCurrentLocation currentLocation={currentLocation} />
+                <ShowCurrentLocation currentLocation={currentLocation} startPosIcon={startPosIcon}/>
               )}
               <TileLayer {...tileLayer} />
               <GeoJSON data={Manhattan} style={setColor} />
