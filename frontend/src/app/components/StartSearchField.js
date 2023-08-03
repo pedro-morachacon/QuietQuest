@@ -76,7 +76,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         })
         .then(responseJson => {
           // Update the inputValue with the location name
-          setInputValue(responseJson.label.split(', New York County')[0]);
+          setInputValue(responseJson.display_name.includes(', New York County') ? responseJson.display_name.split(', New York County')[0] : responseJson.display_name);
         })
         .catch(error => console.log('Reverse Geocode', error));
     }
@@ -96,7 +96,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         <ul>
           {autocompleteResults.map((result, index) => (
             <li key={index} onClick={() => handleListItemClick(result)} >
-              {result.label.split(', New York County')[0]}
+              {result.label.includes(', New York County') ? result.label.split(', New York County')[0] : result.label}
             </li>
           ))}
         </ul>

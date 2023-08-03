@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CurrentLocation = ({ setCurrentLocation}) => {
+const CurrentLocation = ({ setCurrentLocation }) => {
     const currentLocationClick = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(

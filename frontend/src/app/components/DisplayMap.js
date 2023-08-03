@@ -70,11 +70,13 @@ const DisplayMap = ({ activeTab }) => {
 
   useEffect(() => {
     if (startLocation) {
+      console.log(startLocation);
       setStartMarkerPosition({
         lng: startLocation[0],
         lat: startLocation[1],
       });
     }
+    console.log("test");
   }, [startLocation]);
 
   useEffect(() => {
