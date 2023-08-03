@@ -8,21 +8,15 @@ import {
   Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-// import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import tileLayer from "./tileLayer";
 import axios from "axios";
 import Datetimepicker from "./Datepicker";
-// import L from 'leaflet';
-// import RoutingMachine from "@/app/components/RoutingMachine";
-import CommunityDistricts from "../geojson/CommunityDistricts.json";
+import Manhattan from "../geojson/manhattan.json";
 import HeatMap from "@/app/components/HeatMap";
-
 import "../css/map.css";
-
 import Instructions from "@/app/components/Instructions";
 import RoutingStatus from "@/app/components/RoutingStatus";
 import RoutingLegend from "@/app/components/RoutingLegend";
-
 import FirebaseUserName from "@/app/components/FirebaseUserName";
 import StartSearchField from "@/app/components/StartSearchField";
 import EndSearchField from "@/app/components/EndSearchField";
@@ -31,7 +25,6 @@ import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
 import L from "leaflet";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Weather from "@/app/weather2/Weather";
 
 export const startPosIcon = L.divIcon({
   html: `
@@ -333,9 +326,7 @@ const DisplayMap = ({ activeTab }) => {
                 <ShowCurrentLocation currentLocation={currentLocation} />
               )}
               <TileLayer {...tileLayer} />
-              {/*<Routing setLocation={setLocation}/>*/}
-              {/*<Routing2 setLocation={setLocation} />*/}
-              <GeoJSON data={CommunityDistricts} style={setColor} />
+              <GeoJSON data={Manhattan} style={setColor} />
               {/*<LocateUserControl />*/}
               <HeatMap heatmapData={heatmapData} />
               {/*<Marker position={[52.136096, 11.635208]} icon={myIcon}>*/}
@@ -396,16 +387,8 @@ const DisplayMap = ({ activeTab }) => {
               )}
           </div>
 
-          <div className={"weather-icon"}>
-            <Weather/>
-          </div>
-
-
           {/*<div>*/}
           {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
-          {/*</div>*/}
-          {/*<div className="weather-text">*/}
-          {/*    <WeatherCards2 />*/}
           {/*</div>*/}
         </div>
       </BrowserRouter>

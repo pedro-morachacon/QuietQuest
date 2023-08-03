@@ -2,6 +2,8 @@
 import React from "react";
 import Accountpage from "@/app/accountpage/Accountpage";
 
+import "./account.css";
+
 function App() {
   return (
     <div className="App">
@@ -10,6 +12,11 @@ function App() {
         </section>
 
         <style jsx>{`
+          
+          //.App {
+          //  transform: scale(0.5);
+          //}
+          
           section {
             width: 100%;
             max-width: 700px;
