@@ -10,16 +10,10 @@ import UpdatePhotoURL from "@/app/firebaseauth/UpdatePhotoURL";
 import AccountUserName from "@/app/accountpage/AccountUserName";
 import AccountUserEmail from "@/app/accountpage/AccountUserEmail";
 import AccountUserImage from "@/app/accountpage/AccountUserImage";
-
 import EditNameWithPopup from "@/app/accountpage/EditButtonWithPopup";
 import EditPhotoButtonWithPopup from "@/app/accountpage/EditPhotoButtonWithPopup";
-
 import AccountLogout from "@/app/accountpage/AccountLogout";
 import dynamic from "next/dynamic";
-import Signin from "@/app/firebaseauth/Signin";
-import Signup from "@/app/firebaseauth/Signup";
-import ProtectedRoute from "@/app/firebaseauth/ProtectedRoute";
-import Account from "@/app/firebaseauth/Account";
 import DeleteAccountButton from "@/app/accountpage/DeleteAccountButton";
 
 import "./account.css";
