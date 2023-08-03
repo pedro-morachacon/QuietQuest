@@ -104,7 +104,8 @@ ul.nav li {
   transition: all 0.7s;
   padding-top: 20px;
   font-weight: bold;
-  color: white;
+  color: #d9d9d9;
+  float: right;
 }
 
 ul.nav li:first-child {
@@ -112,8 +113,8 @@ border-right-color: #d9d9d9;
 }
 
 ul.nav li:last-child {
-  border-bottom-right-radius: 2rem;
-  border-top-right-radius: 2rem;
+  border-right-color: #d9d9d9;
+
 }
 
 ul.nav li:hover {
@@ -135,10 +136,8 @@ ul.nav li.active {
 .tab-icon {
   width: 30px;
   height: 30px;
-  position: relative;
-  left: 150px;
-  bottom: 28px;
-  margin-right: 8px;
+
+
   margin-left: 5px;
 }
 
