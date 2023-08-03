@@ -51,15 +51,15 @@ const Accountpage = () => {
   // };
 
   return (
-    <div className="max-w-[600px] mx-auto my-16 p-4">
-      <a href="/">
-        <img
-          src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
-          alt=" "
-          width="400"
-          height="100"
-        />
-      </a>
+    <div className="max-w-[600px] mx-auto p-4">
+      {/*<a href="/">*/}
+      {/*  <img*/}
+      {/*    src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"*/}
+      {/*    alt=" "*/}
+      {/*    width="400"*/}
+      {/*    height="100"*/}
+      {/*  />*/}
+      {/*</a>*/}
 
       <div>
         <h3 className="text-2xl py-4">Username</h3>

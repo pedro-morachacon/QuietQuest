@@ -7,17 +7,23 @@ const PageHeaderTable = ({}) => {
   return (
     <div>
       <ul className="header-list">
-        <li >
-          <img src="/logo1.png" alt="QuietQuest Logo" width="145" height="40" />
+        <li>
+          <a href="/">
+            <img
+              src="/logo1.png"
+              alt="QuietQuest Logo"
+              width="145"
+              height="40"
+            />
+          </a>
         </li>
         <li className="right">
           <FirebaseUserName />
         </li>
         <li className="right">
           {/*<WeatherTemp />*/}
-            <Weather/>
+          <Weather />
         </li>
-
       </ul>
 
       <style jsx>{`
@@ -28,17 +34,18 @@ const PageHeaderTable = ({}) => {
           background-color: #394b56;
           position: fixed;
           width: 100%;
-          color: #D9D9D9;
+          color: #d9d9d9;
         }
+
         .header-list li {
           margin-right: 10px;
-          color: #D9D9D9;
+          color: #d9d9d9;
           float: left;
         }
-        .header-list li.right {
-            float: right;
-          }
 
+        .header-list li.right {
+          float: right;
+        }
       `}</style>
     </div>
   );
