@@ -7,10 +7,10 @@ const Tabs = ({ activeTab, onTabChange }) => {
     <div className='Tabs'>
         {/* Tab navigation */}
         <ul className="nav">
-            <TabNavItem title="Map" id="map-only" activeTab={activeTab} onTabChange={onTabChange} imageSrc="https://imagizer.imageshack.com/img922/1219/rTg6mE.png"/>
-            <TabNavItem title="Noise" id="noise" activeTab={activeTab} onTabChange={onTabChange} imageSrc="https://imagizer.imageshack.com/img922/2038/gg5i7n.png"/>
-            <TabNavItem title="Crowds" id="crowds" activeTab={activeTab} onTabChange={onTabChange} imageSrc="https://imagizer.imageshack.com/img923/5407/1avNiM.png"/>
-            <TabNavItem title="Both" id="both" activeTab={activeTab} onTabChange={onTabChange} imageSrc="https://imagizer.imageshack.com/img924/8051/NLl8cL.png"/>
+            <TabNavItem title="Map" id="map-only" activeTab={activeTab} onTabChange={onTabChange} imageSrc="./map1.svg"/>
+            <TabNavItem title="Noise" id="noise" activeTab={activeTab} onTabChange={onTabChange} imageSrc="./noise1.svg"/>
+            <TabNavItem title="Crowds" id="crowds" activeTab={activeTab} onTabChange={onTabChange} imageSrc="./crowds1.svvg"/>
+            <TabNavItem title="Both" id="both" activeTab={activeTab} onTabChange={onTabChange} imageSrc="./both1.svg"/>
         </ul>
         <div className="outlet">
            

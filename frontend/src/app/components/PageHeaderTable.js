@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FirebaseUserName from "./FirebaseUserName";
-import WeatherTemp from "./WeatherTemp";
+
 import Weather from "@/app/weather2/Weather";
 
 const PageHeaderTable = ({}) => {
@@ -14,8 +14,8 @@ const PageHeaderTable = ({}) => {
           <FirebaseUserName />
         </li>
         <li className="right">
-          {/*<WeatherTemp />*/}
-            <Weather/>
+     
+           {/* <Weather/> */}
         </li>
 
       </ul>
