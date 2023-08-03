@@ -222,6 +222,7 @@ ul.nav li.active {
 }
 
 .weather-icon{
+  display: none;
   position: absolute;
   top: 25px;
   right: 200px;

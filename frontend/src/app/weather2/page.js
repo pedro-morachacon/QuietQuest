@@ -5,9 +5,15 @@ import Weather from "./Weather";
 function App() {
   return (
     <div className="App">
-        <Weather />
+      <style>{`
+        svg {
+          fill: #b8cbd6;
+        }
+      `}</style>
+      <Weather />
     </div>
   );
 }
+
 
 export default App;
