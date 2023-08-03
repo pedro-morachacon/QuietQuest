@@ -8,6 +8,8 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
     params: {
       bounded: 1,
       viewbox: [-74.25909, 40.477398, -73.700181, 40.917577], // Bounding box for New York City
+      limit: 5,
+      addressdetails: [1],
     },
   });
 
@@ -28,7 +30,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         timer = setTimeout(async () => {
           const results = await provider.search({ query: value });
           setAutocompleteResults(results);
-        }, 1000);
+        }, 250);
       } else {
         setAutocompleteResults([]);
       }
@@ -52,7 +54,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
   const handleListItemClick = (result) => {
     const { x: lng, y: lat } = result;
     setStartLocation([lng, lat]);
-    setInputValue(result.label);
+    setInputValue(result.label.split(', New York County')[0]);
     setAutocompleteResults([]); // Clear the autocomplete results after selecting an address
   };
 
@@ -74,7 +76,7 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
         })
         .then(responseJson => {
           // Update the inputValue with the location name
-          setInputValue(responseJson.display_name);
+          setInputValue(responseJson.label.split(', New York County')[0]);
         })
         .catch(error => console.log('Reverse Geocode', error));
     }
@@ -84,17 +86,19 @@ const StartSearchField = ({ setStartLocation, currentLocation }) => {
   return (
     <form id="start-search-form">
       <input
-        ref={inputRef} // Use the inputRef here
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter address"
+          className={"autoCompleteResults"}
+          ref={inputRef} // Use the inputRef here
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Enter address"
+          style={{ marginLeft: '1px' }}
       />
       {autocompleteResults.length > 0 && (
-        <ul>
-          {autocompleteResults.slice(0, 5).map((result, index) => (
-            <li key={index} onClick={() => handleListItemClick(result)}>
-              {result.label}
+        <ul style={{ position: 'absolute', zIndex: '99', marginTop:'2px' }}>
+          {autocompleteResults.map((result, index) => (
+            <li key={index} onClick={() => handleListItemClick(result)} style={{ backgroundColor: 'rgba(57,75,86,255)', color: 'white', border: '1px solid white', borderRadius: '5px', padding: '2px 2px 2px 4px'}} >
+              {result.label.split(', New York County')[0]}
             </li>
           ))}
         </ul>
