@@ -7,7 +7,6 @@ const SavedLinks = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [links, setLinks] = useState([]);
-  const [openLinks, setOpenLinks] = useState(false);
   const [title, setTitle] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
 
@@ -98,87 +97,66 @@ const SavedLinks = () => {
     }
   };
 
-  const toggleDropdown = () => {
-    setOpenLinks((prevOpen) => !prevOpen);
-  };
-
   return (
     <div>
-      <div >
-        <button
-          onClick={toggleDropdown}
-          className="flex items-center p-2 bg-white border rounded-md"
-        >
-          <span className="mr-4">Saved Links</span>
-        </button>
-        {openLinks && (
-          <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white">
-            {user ? (
-                <React.Fragment>
-            <button onClick={openYouTube}>Create Link</button>
-            <input
-              type="text"
-              placeholder="Add Video Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Add Video URL"
-              value={linkUrl}
-              onChange={(e) => setLinkUrl(e.target.value)}
-            />
-            <button onClick={addLink}>Save Link</button>
-            <ul>
-              {links.map((link) => (
-                <li
-                  key={link.id}
-                  className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
-                >
+      {user ? (
+          <React.Fragment>
+      <button onClick={openYouTube}>Create Link</button>
+      <input
+        type="text"
+        placeholder="Add Video Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Add Video URL"
+        value={linkUrl}
+        onChange={(e) => setLinkUrl(e.target.value)}
+      />
+      <button onClick={addLink}>Save Link</button>
+      <ul>
+        {links.map((link) => (
+          <li
+            key={link.id}
+          >
+            <a
+              href={link.link}
+              target="_blank"
+              onClick={() => handleLinkClick(link.link)}
+            >
+              {link.label}
+            </a>
+            <button onClick={() => deleteLink(link.id)}>
+              Delete Link
+            </button>
+          </li>
+        ))}
+      </ul>
+            </React.Fragment>
+      ) : (
+          <React.Fragment>
+              <p>Please sign in to save more links.</p>
+                <ul>
+                  <li>
+                    <a
+                      href="https://youtu.be/K-vfA4OmaRA"
+                      target="_blank"
+                    >
+                      Video1
+                    </a>
+                  </li>
+                  <li>
                   <a
-                    href={link.link}
+                    href="https://youtu.be/cjaZOyBgJaU"
                     target="_blank"
-                    onClick={() => handleLinkClick(link.link)}
                   >
-                    {link.label}
+                    Video2
                   </a>
-                  <button onClick={() => deleteLink(link.id)}>
-                    Delete Link
-                  </button>
                 </li>
-              ))}
             </ul>
-                  </React.Fragment>
-            ) : (
-                <React.Fragment>
-                    <p>Please sign in to save more links.</p>
-                      <ul>
-                        <li
-                          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
-                        >
-                          <a
-                            href="https://youtu.be/K-vfA4OmaRA"
-                            target="_blank"
-                          >
-                            Video1
-                          </a>
-                        </li>
-                        <li
-                        className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
-                      >
-                        <a
-                          href="https://youtu.be/cjaZOyBgJaU"
-                          target="_blank"
-                        >
-                          Video2
-                        </a>
-                      </li>
-                  </ul>
-                </React.Fragment>
-                )}
-          </div>
-        )}
-      </div>
+          </React.Fragment>
+          )}
     </div>
   );
 };
