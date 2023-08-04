@@ -337,3 +337,45 @@ ul.nav li.active {
   align-content: center;
   color: #394B56;
 }
+
+/* Mobile CSS */
+
+#mobile_menu {
+  display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+  #sidebar_map {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+
+  /* Reorder specific boxes */
+  #item-left:nth-child(1) {
+    order: 2; /* This will move Box 1 to the end */
+  }
+
+  #item-right:nth-child(2) {
+    order: 1; /* This will move Box 2 to the beginning */
+  }
+
+  #closed_icons {
+    display: none;
+  }
+
+  #closed_btn_icons {
+    height: 100%;
+    width: 100%;
+  }
+
+  #mobile_menu {
+    display: flex;
+    justify-content: center;
+  }
+
+
+}
