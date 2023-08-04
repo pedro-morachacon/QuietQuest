@@ -20,7 +20,7 @@ const DynamicBrowserRouter = dynamic(
 function App() {
   return (
     <div className="App">
-      <section>
+      <section className="account-section">
         <AuthContextProvider>
           <DynamicBrowserRouter>
             <Routes>
@@ -48,6 +48,39 @@ function App() {
           </a>
         </div>
       </section>
+
+      <style jsx global>{`
+          body, html {
+            overflow: hidden;
+          }
+
+          .outer-container {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+          }
+
+          .App {
+            overflow: hidden;
+          }
+
+          .account-section {
+            transform: scale(0.8);
+            transform-origin: top center;
+            margin-top: 20px;
+            
+            width: 100%;
+            max-width: 500px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
+          }
+        `}</style>
+
+
     </div>
   );
 }

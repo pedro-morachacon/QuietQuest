@@ -10,17 +10,13 @@ import UpdatePhotoURL from "@/app/firebaseauth/UpdatePhotoURL";
 import AccountUserName from "@/app/accountpage/AccountUserName";
 import AccountUserEmail from "@/app/accountpage/AccountUserEmail";
 import AccountUserImage from "@/app/accountpage/AccountUserImage";
-
 import EditNameWithPopup from "@/app/accountpage/EditButtonWithPopup";
 import EditPhotoButtonWithPopup from "@/app/accountpage/EditPhotoButtonWithPopup";
-
 import AccountLogout from "@/app/accountpage/AccountLogout";
 import dynamic from "next/dynamic";
-import Signin from "@/app/firebaseauth/Signin";
-import Signup from "@/app/firebaseauth/Signup";
-import ProtectedRoute from "@/app/firebaseauth/ProtectedRoute";
-import Account from "@/app/firebaseauth/Account";
 import DeleteAccountButton from "@/app/accountpage/DeleteAccountButton";
+
+import "./account.css";
 
 const DynamicBrowserRouter = dynamic(
   () => import("react-router-dom").then((mod) => mod.BrowserRouter),
@@ -49,15 +45,15 @@ const Accountpage = () => {
   // };
 
   return (
-    <div className="max-w-[600px] mx-auto my-16 p-4">
-      <a href="/">
-        <img
-          src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
-          alt=" "
-          width="400"
-          height="100"
-        />
-      </a>
+    <div className="max-w-[600px] mx-auto p-4">
+      {/*<a href="/">*/}
+      {/*  <img*/}
+      {/*    src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"*/}
+      {/*    alt=" "*/}
+      {/*    width="400"*/}
+      {/*    height="100"*/}
+      {/*  />*/}
+      {/*</a>*/}
 
       <div>
         <h3 className="text-2xl py-4">Username</h3>

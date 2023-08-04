@@ -9,13 +9,10 @@ const HeatMap = ({ heatmapData }) => {
     const heatLayer = useRef(null); // Heatmap layer
 
     useEffect(() => {
-        if (!heatmapData) {
-            return;  // No data to create heatmap with
-        }
 
         if(heatLayer.current) { 
             // If a heatmap layer already exists, remove it
-            map.removeLayer(heatLayer.current); 
+            map.removeLayer(heatLayer.current);
         }
 
         const testData = {
@@ -45,14 +42,15 @@ const HeatMap = ({ heatmapData }) => {
             // customises thresholds and colours in the login gradient
             gradient: {0.25 : "cyan", 0.5: "blue", 0.75: "indigo", 1: "black"},
         };
+        if (heatmapData){
+            // Define newHeatLayer as the result of L.heatLayer().addTo(map)
+            const newHeatLayer = L.heatLayer(
+                testData.data[0].map((item) => [item.lat, item.long, item.count]),
+                cfg
+            ).addTo(map);
 
-        // Define newHeatLayer as the result of L.heatLayer().addTo(map)
-        const newHeatLayer = L.heatLayer(
-            testData.data[0].map((item) => [item.lat, item.long, item.count]),
-            cfg
-        ).addTo(map);
-
-        heatLayer.current = newHeatLayer;  
+            heatLayer.current = newHeatLayer;
+        }
 
     }, [heatmapData, map, heatLayer.current]);
 
