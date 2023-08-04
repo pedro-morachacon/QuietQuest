@@ -21,7 +21,7 @@
     "eslint-config-next": "^12.3.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.25.3",
-    "firebase": "^10.1.0",
+    "firebase": "^10.0.0",
     "heatmap.js": "^2.0.5",
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.4.0",
