@@ -11,7 +11,7 @@ function App() {
           <h1 className="text-2xl font-bold py-2">Reset Password</h1>
         <ResetPassword />
           <div>
-          <a href="http://localhost:3000/firebaseauth" className="home-page">
+          <a href="./firebaseauth" className="home-page">
             Back
           </a>
         </div>
