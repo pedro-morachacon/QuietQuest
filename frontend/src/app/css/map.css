@@ -193,6 +193,12 @@ ul.nav li.active {
   overflow: hidden;
 }
 
+.weather-icon{
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 200px;
+}
 #closed_btn_icons {
   height: 100%;
   padding: 0 8px 8px 8px;
