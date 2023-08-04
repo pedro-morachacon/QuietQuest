@@ -8,10 +8,17 @@ const TabNavItem = ({ id, title, activeTab, onTabChange, imageSrc }) => {
  };
  
 return (
-   <li onClick={handleClick} className={activeTab === id ? "active" : ""}>
-     { title }
-       {imageSrc && <img className={"tab-icon"} src={imageSrc} alt={title} />}
+   <div><li onClick={handleClick} className={activeTab === id ? "active" : ""}>
+    <div className="within-tab-text"> { title }</div>
+    <div className="within-tab-image">  {imageSrc && <img className={"tab-icon"} src={imageSrc} alt={title} />} </div>
    </li>
+
+   <style jsx>{`
+
+
+
+      `}</style>
+   </div>
  );
 };
 export default TabNavItem;
