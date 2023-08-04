@@ -230,9 +230,6 @@ ul.nav li.active {
   height: 100%;
 }
 
-#closed_icons {
-}
-
 #closed_top_icons > svg {
   margin: 0 5px 10px 5px;
 }
@@ -250,6 +247,18 @@ ul.nav li.active {
   height: 100%;
   z-index: 0;
   overflow: hidden;
+}
+
+#open_sidebar{
+  height: 100%;
+}
+
+#open_icons {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
 }
 
 #open_menu {
@@ -305,3 +314,26 @@ ul.nav li.active {
   padding: 5px;
 }
 
+#saved_routes_title {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+}
+
+#saved_links_title {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+}
+
+#contact_us {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+}
+
+#feedback {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+}

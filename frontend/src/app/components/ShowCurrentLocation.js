@@ -3,7 +3,7 @@ import React from "react";
 import L from "leaflet";
 import {startPosIcon} from "@/app/components/DisplayMap";
 
-const ShowCurrentLocation = ({ currentLocation}) => {
+const ShowCurrentLocation = ({ currentLocation }) => {
 
     const startPosIcon = L.divIcon({
   html: `
@@ -15,7 +15,11 @@ const ShowCurrentLocation = ({ currentLocation}) => {
 
     const map = useMap();
 
-    map.setView([currentLocation.lat, currentLocation.lng], 14);
+    if (!currentLocation) {
+        return null;
+    } else {
+        map.setView([currentLocation.lat, currentLocation.lng], 14);
+    }
 
     return (
         <Marker position={currentLocation} icon={startPosIcon}>

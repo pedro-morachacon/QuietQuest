@@ -22,7 +22,7 @@ const Account = () => {
   };
 
   const handleNavigation = () => {
-    window.location.href = "http://localhost:3000"; // Redirect to http://localhost:3000
+    window.location.href = "./"; // Redirect to http://localhost:3000
     // navigate("http://localhost:3000"); // Navigate to the root, which is usually the homepage
   };
 

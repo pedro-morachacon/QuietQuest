@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "./AuthContext";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+
+// Add a second document with a generated ID.
+import { doc, setDoc, getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
+// import "../firebase";
 import { db } from "@/app/firebase";
 import { updateProfile } from "firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -34,6 +38,20 @@ const Signup = () => {
         UserEmail: email,
       });
       console.log("Document written with ID: ", docRef.id);
+
+      const linksCollectionRef = collection(db, "users", user.uid, "links");
+      // add data to Cloud Firestore
+      const linksRef1 = await addDoc(linksCollectionRef, {
+        label: "Video1",
+        link: "https://youtu.be/K-vfA4OmaRA",
+      });
+      console.log("Document written with ID: ", linksRef1.id);
+
+      const linksRef2 = await addDoc(linksCollectionRef, {
+        label: "Video2",
+        link: "https://youtu.be/cjaZOyBgJaU",
+      });
+      console.log("Document written with ID: ", linksRef2.id);
 
       // Read data from Cloud Firestore
       const querySnapshot = await getDocs(collection(db, "users"));

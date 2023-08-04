@@ -10,7 +10,7 @@ function App() {
       <PageHeaderTable />
       <div className="App">
         <section className="account-section">
-            <iframe src="http://localhost:3000/rating"></iframe>
+            <iframe src="./rating"></iframe>
           <ContactUs />
         </section>
 
