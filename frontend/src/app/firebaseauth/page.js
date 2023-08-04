@@ -38,12 +38,12 @@ function App() {
           </DynamicBrowserRouter>
         </AuthContextProvider>
         <div>
-          <a href="http://localhost:3000/contact" className="contact">
+          <a href="./contact" className="contact">
             Contact Us
           </a>
         </div>
         <div>
-          <a href="http://localhost:3000/resetpwd" className="reset-pwd">
+          <a href="./resetpwd" className="reset-pwd">
             Forgot Password ?
           </a>
         </div>
