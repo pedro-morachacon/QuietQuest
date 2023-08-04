@@ -4,9 +4,7 @@ import axios from 'axios';
 
 const Weather = () => {
     const [weatherData, setWeatherData] = useState(null);
-    // replace ur api key here
-    // const apiKey = "...";
-    // const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+    const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
     const weatherIcons = {
         "Thunderstorm": <svg xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 640 512">
@@ -33,9 +31,10 @@ const Weather = () => {
     }
 
     useEffect(() => {
-        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=Manhattan&units=metric&appid=${apiKey}`)
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=Manhattan&units=imperial&appid=${apiKey}`)
             .then(response => {
                 setWeatherData(response.data);
+
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -67,7 +66,7 @@ const Weather = () => {
 
     return (
         <div style={containerStyle}>
-            <p style={paragraphStyle}>{temp}°C</p>
+            <p style={paragraphStyle}>{temp}°F</p>
             {weatherIcons[mainWeather]}
         </div>
     );

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Weather from "./Weather";
+import DirectionDropDown from "./Direction_drop_down"; // Make sure to update the path
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         }
       `}</style>
       <Weather />
+      <DirectionDropDown />
+
     </div>
   );
 }
