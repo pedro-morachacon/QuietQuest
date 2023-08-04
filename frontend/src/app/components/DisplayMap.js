@@ -239,6 +239,12 @@ useEffect(() => {
     case "open_sidebar":
       document.getElementById("closed_btn_icons").style.display = "none";
       document.getElementById("open_sidebar").style.display = "block";
+
+      // Check if the mobile_menu has display: flex
+      if (document.getElementById("mobile_menu").display === "flex") {
+        document.getElementById("open_sidebar").style.height = "70vh";
+      }
+
       break;
   }
 },[sidebarStatus]);

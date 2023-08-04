@@ -377,5 +377,18 @@ ul.nav li.active {
     justify-content: center;
   }
 
+  #sidebar_map {
+    position: relative; /* Set the container to be the positioning context */
+  }
+
+  #open_sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 70vh;
+    display: none;
+    z-index: 99;
+  }
+
 
 }
