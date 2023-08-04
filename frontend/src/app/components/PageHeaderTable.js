@@ -15,7 +15,7 @@ const PageHeaderTable = ({}) => {
         </li>
         <li className="right">
      
-           {/* <Weather/> */}
+           <Weather/> 
         </li>
 
       </ul>
