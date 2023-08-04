@@ -281,3 +281,9 @@ ul.nav li.active {
   padding: 5px;
 }
 
+#saved_routes_title {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+}
+

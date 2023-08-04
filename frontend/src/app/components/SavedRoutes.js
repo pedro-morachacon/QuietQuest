@@ -8,8 +8,6 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
   const auth = getAuth();
   const user = auth.currentUser;
 
-  const [openRoutes, setOpenRoutes] = useState(false);
-
   useEffect(() => {
 
     // Using onAuthStateChanged for real-time listening
@@ -84,46 +82,27 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
     setEndLocation(routeCoordinates);
   };
 
-  const toggleDropdown = () => {
-    setOpenRoutes((prevOpen) => !prevOpen);
-  };
-
   return (
-    <div className="flex justify-center mt-20">
-      <div className="relative">
-        <button
-          onClick={toggleDropdown}
-          className="flex items-center p-2 bg-white border rounded-md"
-        >
-          <span className="mr-4">Saved Destinations</span>
-        </button>
-        {openRoutes && (
-          <div className="absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white" style={{ zIndex: 1 }}>
-            {user ? (
-              <React.Fragment>
-                <button onClick={addRoute}>Save Route</button>
-                <ul>
-                  {routes.map((route) => (
-                    <li
-                      key={route.id}
-                      className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
-                    >
-                      <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
-                        {route.address}
-                      </button>
-                      <button onClick={() => deleteRoute(route.id)}>
-                        Delete Route
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </React.Fragment>
-            ) : (
-              <p>Please sign in to save routes.</p>
-            )}
-          </div>
+    <div>
+        {user ? (
+          <React.Fragment>
+            <button onClick={addRoute}>Save Route</button>
+            <ul>
+              {routes.map((route) => (
+                <li key={route.id} >
+                  <button onClick={() => fillEndSearchField(route.label.split(', New York County')[0], route.coordinates)}>
+                    {route.address}
+                  </button>
+                  <button onClick={() => deleteRoute(route.id)}>
+                    Delete Route
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </React.Fragment>
+        ) : (
+          <p>Please sign in to save routes.</p>
         )}
-      </div>
     </div>
   );
 };

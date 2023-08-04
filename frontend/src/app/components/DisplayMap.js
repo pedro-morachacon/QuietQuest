@@ -27,8 +27,6 @@ import CurrentLocation from "@/app/components/CurrentLocation";
 import ShowCurrentLocation from "@/app/components/ShowCurrentLocation";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Sidebar from "@/app/sidebar/Sidebar";
-import "../sidebar/sidebar.css";
 import SavedRoutes from "@/app/components/SavedRoutes";
 import SavedLinks from "@/app/components/SavedLinks";
 import L from 'leaflet';
@@ -68,7 +66,9 @@ const DisplayMap = ({ activeTab }) => {
   const [time, setTime] = useState("");
   const [endInputValue, setEndInputValue] = useState("");
   const [savedRouteAddress, setSavedRouteAddress] = useState("");
+
   const [sidebarDisplayed, setSidebarDisplayed] = useState(false);
+  const [savedLinksDisplayed, setSavedLinksDisplayed] = useState(true);
 
   useEffect(() => {
     if (currentLocation) {
@@ -239,37 +239,17 @@ const DisplayMap = ({ activeTab }) => {
     }
   };
 
+  const showSavedLinks = () => {
+    if(savedLinksDisplayed) {
+      setSavedLinksDisplayed(false);
+    }
+    else {
+      setSavedLinksDisplayed(true);
+    }
+  };
+
   return (
     <div>
-
-      <div className="top-container">
-          <div className="saved-links">
-            <SavedLinks />
-          </div>
-          <div className="saved-routes">
-            <SavedRoutes
-              endLocation={endLocation}
-              endInputValue={endInputValue}
-              setEndLocation={setEndLocation}
-              setSavedRouteAddress={setSavedRouteAddress}
-            />
-          </div>
-        </div>
-
-      <a href="/" className={"logo"}>
-          <img
-            src="https://imagizer.imageshack.com/img924/9498/pk6w5C.png"
-            alt=" "
-            width="200"
-            height="200"
-          />
-        </a>
-
-        <div className={"user-image"}>
-          <FirebaseUserName />
-        </div>
-
-
       <BrowserRouter>
         <div id="sidebar_map">
           <div id="item-left">
@@ -296,26 +276,49 @@ const DisplayMap = ({ activeTab }) => {
                 <h1>Journey Planner</h1>
               </div>
 
-              <div>
-                <div id="start_journey">
-                  <StartSearchField
-                    setStartLocation={setStartLocation}
-                    currentLocation={currentLocation}
-                  />
-                <CurrentLocation setCurrentLocation={setCurrentLocation} savedRouteAddress={savedRouteAddress} startLocation={startLocation} />
+              <div id="journey_fields" style={{ display: sidebarDisplayed ? 'block' : 'none' }} >
+                  <div id="start_journey">
+                    <StartSearchField
+                      setStartLocation={setStartLocation}
+                      currentLocation={currentLocation}
+                    />
+                  <CurrentLocation setCurrentLocation={setCurrentLocation} savedRouteAddress={savedRouteAddress} startLocation={startLocation} />
+                  </div>
+                    <EndSearchField setEndLocation={setEndLocation} setEndInputValue={setEndInputValue} savedRouteAddress={savedRouteAddress} />
+
+
+                <div id="date_picker">
+                  <Datetimepicker setDate={setDate} setTime={setTime} />
                 </div>
-                  <EndSearchField setEndLocation={setEndLocation} setEndInputValue={setEndInputValue} savedRouteAddress={savedRouteAddress} />
+
+                <div>
+                  <button id="routing_button" onClick={routingClick}>
+                    Search
+                  </button>
+                </div>
               </div>
 
-              <div id="date_picker">
-                <Datetimepicker setDate={setDate} setTime={setTime} />
+              <div id="saved_routes">
+                <div id="saved_routes_title">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M479.761-139.826q-16.152 0-32.446-5.837-16.293-5.837-28.967-18.272l-69.479-63.478q-105.521-96.283-191.26-192.62Q71.869-516.37 71.869-634q0-97.576 65.153-162.973 65.152-65.397 162.739-65.397 52.522 0 99.282 21.424 46.761 21.424 80.718 59.467 33.956-38.043 80.717-59.467 46.761-21.424 99.283-21.424 97.678 0 163.143 65.397Q888.37-731.576 888.37-634q0 117.63-85.598 214.467-85.598 96.837-193.12 193.359l-68.239 62.478q-12.674 12.435-29.087 18.153-16.413 5.717-32.565 5.717Zm-39.674-548.978q-27.565-39.566-60.924-61.066-33.359-21.5-79.337-21.5-58.696 0-97.826 39.164-39.13 39.163-39.13 98.206 0 51.541 36.64 109.524 36.641 57.983 87.64 112.497 51 54.514 104.971 102.09 53.97 47.576 87.64 78.302 33.761-31 87.83-78.554 54.07-47.554 105.163-102.044 51.094-54.489 87.855-112.272Q797.37-582.239 797.37-634q0-59.043-39.284-98.206-39.284-39.164-98.21-39.164-46.159 0-79.398 21.5t-60.804 61.066q-7.31 10.717-17.753 16.076-10.443 5.358-22.16 5.358-11.718 0-22.072-5.358-10.354-5.359-17.602-16.076ZM480-501.478Z"/></svg>
+                  <button onClick={showSavedLinks}>
+                    Saved Destinations
+                  </button>
+                </div>
+
+                <SavedRoutes
+                    endLocation={endLocation}
+                    endInputValue={endInputValue}
+                    setEndLocation={setEndLocation}
+                    setSavedRouteAddress={setSavedRouteAddress}
+                    style={{ display: savedLinksDisplayed ? 'none' : 'block' }}
+                />
               </div>
 
-              <div>
-                <button id="routing_button" onClick={routingClick}>
-                  Search
-                </button>
-              </div>
+
+                <div className="saved-links">
+                  <SavedLinks />
+                </div>
 
               <a href="/" className="logo-phone">
                 <img
@@ -394,6 +397,10 @@ const DisplayMap = ({ activeTab }) => {
             </div>
           </div>
         </div>
+
+        <div>
+            {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
+          </div>
 
           <div>
             {/* Tab buttons */}
