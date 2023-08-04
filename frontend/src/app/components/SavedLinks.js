@@ -103,8 +103,8 @@ const SavedLinks = () => {
   };
 
   return (
-    <div className="flex justify-center mt-20">
-      <div className="relative">
+    <div>
+      <div >
         <button
           onClick={toggleDropdown}
           className="flex items-center p-2 bg-white border rounded-md"
