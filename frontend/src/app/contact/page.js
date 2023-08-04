@@ -1,23 +1,50 @@
 "use client";
 import React from "react";
-
-import {ContactUs} from "@/app/contact/ContactUs";
-// import "../firebase/firebase.css";
+import { ContactUs } from "@/app/contact/ContactUs";
 import "./contact.css";
+import PageHeaderTable from "@/app/components/PageHeaderTable";
 
 function App() {
   return (
-    <div className="App">
-      <section>
-          <h1 className="text-2xl font-bold py-2">Contact Us</h1>
-          <iframe src="http://localhost:3000/rating"></iframe>
-        <ContactUs />
-          <div>
-          <a href="http://localhost:3000/firebaseauth" className="home-page">
-            Back
-          </a>
-        </div>
-      </section>
+    <div className="outer-container">
+      <PageHeaderTable />
+      <div className="App">
+        <section className="account-section">
+            <iframe src="http://localhost:3000/rating"></iframe>
+          <ContactUs />
+        </section>
+
+        <style jsx global>{`
+          body, html {
+            overflow: hidden;
+          }
+
+          .outer-container {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+          }
+
+          .App {
+            overflow: hidden;
+          }
+
+          .account-section {
+            transform: scale(0.7);
+            transform-origin: top center;
+            margin-top: 150px;
+            
+            width: 100%;
+            max-width: 700px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
+          }
+        `}</style>
+      </div>
     </div>
   );
 }

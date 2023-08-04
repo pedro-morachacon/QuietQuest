@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+h1, h2, h3, h4, h5, h6, p, body, ul, li, a, header, nav, footer, div, article, source, video, figure, html, main, body {
+    margin: 0;
+    padding: 0;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -19,63 +24,21 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: #3D4E59;
+  background-color: #829BA9;
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.leaflet-container {
-  margin: 30px auto;
-  height: 640px;
-  z-index: 0;
-  overflow: hidden;
-}
-
-iframe {
-  display: block;
-  width: 100vw;
-  border: 0;
-  height: 800px;
-}
-
-button {
-  position: relative;
-  left: 200px;
-  color: white;
-}
-
-#map {
-  height: 640px;
-}
+/*iframe {*/
+/*  display: block;*/
+/*  width: 100vw;*/
+/*  border: 0;*/
+/*  height: 800px;*/
+/*}*/
 
 * {
   box-sizing: border-box;
   color: #333;
-}
-
-
-.button-onclick {
-  background-color: darkcyan;
-  font-size: 10px;
-  color: white;
-  padding: 5px;
-  /*margin: 5px;*/
-  left: 195px;
-  top: 315px;
-  position: absolute;
-}
-
-.button-onclick2 {
-  /*background-color: darkcyan;*/
-  font-size: 10px;
-  color: white;
-  padding: 5px;
-  /*margin: 5px;*/
-  /*margin-left: 200px;*/
-  /*margin-top: 30px;*/
-  position: relative;
-  bottom: 175px;
-  left: 20px;
 }
 
 /* Tab Navigation */
@@ -153,11 +116,11 @@ ul.nav li.active {
   left: 20px;
 }
 
-.user-image{
-  position: absolute;
-  top: 30px;
-  right: 120px;
-}
+/*.user-image{*/
+/*  position: absolute;*/
+/*  top: 30px;*/
+/*  right: 120px;*/
+/*}*/
 
 .contact {
   position: absolute;
@@ -188,12 +151,6 @@ ul.nav li.active {
   right: 20px;
 }
 
-.datetimepicker{
-  position: relative;
-  top: 100px;
-  right: 20px;
-}
-
 .logo-phone{
   position: absolute;
   bottom: 120px;
@@ -206,33 +163,121 @@ ul.nav li.active {
   left: 10px;
 }
 
-.logo-journey{
+.weather-icon {
   position: absolute;
-  top: 168px;
-  left: 30px;
+  top: 25px;
+  right: 200px;
 }
 
-.journey {
+
+
+/*container*/
+/*.container{*/
+/*   display:flex;*/
+/*}*/
+
+/*.item-right{*/
+/*   flex:4;*/
+/*}*/
+
+/*.item-left{*/
+/*   flex:1;*/
+/*}*/
+/*container*/
+
+/*MM*/
+
+#sidebar_map {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+#closed_btn_icons {
+  height: 100%;
+  padding: 0 8px 8px 8px;
+}
+
+#closed_icons {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+#closed_icons {
+}
+
+#closed_top_icons > svg {
+  margin: 0 5px 10px 5px;
+}
+
+#closed_bottom_icons > svg {
+  margin: 0 5px 10px 5px;
+}
+
+#map {
+  height: 100vh;
+  width: 95vw;
+}
+
+.leaflet-container {
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#open_menu {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#journey_title {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+}
+
+.search_form {
+   margin: 0 0 10px 2px;
+}
+
+.search_input {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.search_form > ul {
   position: absolute;
-  top: 180px;
-  left: 70px;
+  z-index: 99;
+}
+
+.search_form > ul > li {
+  background-color: rgba(57,75,86,255);
   color: white;
-  font-size: 20px;
-  align-items: center;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 2px 2px 2px 4px;
+  margin: 1px;
 }
 
-
-
-/*container*/
-.container{
-   display:flex;
+#start_journey {
+  display: inline-flex;
+  justify-content: space-between;
+  align-content: center;
 }
 
-.item-right{
-   flex:4;
+#date_picker {
+  border-radius: 5px;
+  padding: 5px;
 }
 
-.item-left{
-   flex:1;
+#routing_button {
+  background-color: rgba(57,75,86,255);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
 }
-/*container*/
+
