@@ -21,7 +21,7 @@ const PageHeaderTable = ({}) => {
           <FirebaseUserName />
         </li>
         <li className="right">
- weather-icon
+
           <style>{`
             svg {
               fill: #b8cbd6;
