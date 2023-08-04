@@ -41,7 +41,7 @@ const Scroll = () => {
         >
           {dataSource.map((item, index) => {
             return (
-              <div style={style}>
+              <div key={index} style={style}>
                 This is a div #{index + 1} inside InfiniteScroll
               </div>
             );
