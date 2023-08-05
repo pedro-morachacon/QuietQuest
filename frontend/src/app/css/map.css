@@ -57,12 +57,6 @@ ul.nav {
 
 }
 
-@media (max-width: 768px) {
-  ul.nav {
-    width: 90%;
-  }
-}
-
 ul.nav li {
  
   list-style: none;
@@ -273,12 +267,14 @@ ul.nav li.active {
 }
 
 .search_form {
-   margin: 0 0 10px 2px;
+  margin: 0 0 10px 2px;
+  width: 90%;
 }
 
 .search_input {
   border-radius: 5px;
   padding: 5px;
+  width: 100%;
 }
 
 .search_form > ul {
@@ -346,6 +342,12 @@ ul.nav li.active {
 
 
 @media screen and (max-width: 768px) {
+
+  #map {
+    height: 80vh;
+    width: 100vw;
+  }
+
   #sidebar_map {
     display: flex;
     justify-content: space-between;
@@ -370,24 +372,30 @@ ul.nav li.active {
   #closed_btn_icons {
     height: 100%;
     width: 100%;
+    padding: 0;
   }
 
   #mobile_menu {
     display: flex;
     justify-content: center;
-  }
-
-  #sidebar_map {
-    position: relative; /* Set the container to be the positioning context */
+    height: 10vh;
   }
 
   #open_sidebar {
     position: absolute;
-    top: 0;
+    top: 30vh;
     right: 0;
     height: 70vh;
+    width: 100%;
     display: none;
-    z-index: 99;
+    z-index: 1;
+    background-color: #829BA9;
+  }
+
+  #start_journey {
+    width: 90%;
+    display: inline-flex;
+    justify-content: space-around;
   }
 
 

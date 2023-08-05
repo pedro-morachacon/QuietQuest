@@ -240,11 +240,6 @@ useEffect(() => {
       document.getElementById("closed_btn_icons").style.display = "none";
       document.getElementById("open_sidebar").style.display = "block";
 
-      // Check if the mobile_menu has display: flex
-      if (document.getElementById("mobile_menu").display === "flex") {
-        document.getElementById("open_sidebar").style.height = "70vh";
-      }
-
       break;
   }
 },[sidebarStatus]);
@@ -438,51 +433,51 @@ const toggleSidebarStatus = (sidebarStatus) => {
           </div>
         </div>
 
-        <div>
-            {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
-          </div>
+        {/*<div>*/}
+        {/*    {routingStatus && <RoutingStatus routingStatus={routingStatus} />}*/}
+        {/*  </div>*/}
 
-          <div>
-            {/* Tab buttons */}
-            <div style={{ marginBottom: "10px" }}>
-              <button
-                style={{
-                  marginRight: "10px",
-                  backgroundColor: activeTab2 === "Optimal" ? "#ddd" : "",
-                }}
-                onClick={() => setActiveTab("Optimal")}
-              >
-                Optimal Instructions
-              </button>
-              <button
-                style={{
-                  backgroundColor: activeTab2 === "Avoidance" ? "#ddd" : "",
-                }}
-                onClick={() => setActiveTab("Avoidance")}
-              >
-                Avoidance Instructions
-              </button>
-            </div>
+        {/*  <div>*/}
+        {/*    /!* Tab buttons *!/*/}
+        {/*    <div style={{ marginBottom: "10px" }}>*/}
+        {/*      <button*/}
+        {/*        style={{*/}
+        {/*          marginRight: "10px",*/}
+        {/*          backgroundColor: activeTab2 === "Optimal" ? "#ddd" : "",*/}
+        {/*        }}*/}
+        {/*        onClick={() => setActiveTab("Optimal")}*/}
+        {/*      >*/}
+        {/*        Optimal Instructions*/}
+        {/*      </button>*/}
+        {/*      <button*/}
+        {/*        style={{*/}
+        {/*          backgroundColor: activeTab2 === "Avoidance" ? "#ddd" : "",*/}
+        {/*        }}*/}
+        {/*        onClick={() => setActiveTab("Avoidance")}*/}
+        {/*      >*/}
+        {/*        Avoidance Instructions*/}
+        {/*      </button>*/}
+        {/*    </div>*/}
 
-            {/* Instructions based on the active tab */}
-            {activeTab2 === "Optimal" && optimalInstructionsData !== null && (
-              <div>
-                <h2>Optimal Instructions:</h2>
-                <Instructions instructionsData={optimalInstructionsData} />
-              </div>
-            )}
+        {/*    /!* Instructions based on the active tab *!/*/}
+        {/*    {activeTab2 === "Optimal" && optimalInstructionsData !== null && (*/}
+        {/*      <div>*/}
+        {/*        <h2>Optimal Instructions:</h2>*/}
+        {/*        <Instructions instructionsData={optimalInstructionsData} />*/}
+        {/*      </div>*/}
+        {/*    )}*/}
 
-            {activeTab2 === "Avoidance" &&
-              avoidanceInstructionsData !== null && (
-                <div>
-                  <h2>Avoidance Instructions:</h2>
-                  <Instructions instructionsData={avoidanceInstructionsData} />
-                </div>
-              )}
-          </div>
-        <div>
-          {routingStatus && <RoutingLegend routingStatus={routingStatus} />}
-        </div>
+        {/*    {activeTab2 === "Avoidance" &&*/}
+        {/*      avoidanceInstructionsData !== null && (*/}
+        {/*        <div>*/}
+        {/*          <h2>Avoidance Instructions:</h2>*/}
+        {/*          <Instructions instructionsData={avoidanceInstructionsData} />*/}
+        {/*        </div>*/}
+        {/*      )}*/}
+        {/*  </div>*/}
+        {/*<div>*/}
+        {/*  {routingStatus && <RoutingLegend routingStatus={routingStatus} />}*/}
+        {/*</div>*/}
 
           {/*<div>*/}
           {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}
