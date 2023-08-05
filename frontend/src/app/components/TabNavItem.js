@@ -15,12 +15,6 @@ return (
     <div className="within-tab-text"> { title }</div>
     <div className="within-tab-image">  {imageSrc && <img className={"tab-icon"} src={imgSource} alt={title} />} </div>
    </li>
-
-   <style jsx>{`
-
-
-
-      `}</style>
    </div>
  );
 };

@@ -57,12 +57,6 @@ ul.nav {
 
 }
 
-@media (max-width: 768px) {
-  ul.nav {
-    width: 90%;
-  }
-}
-
 ul.nav li {
  
   list-style: none;
@@ -273,12 +267,14 @@ ul.nav li.active {
 }
 
 .search_form {
-   margin: 0 0 10px 2px;
+  margin: 0 0 10px 2px;
+  width: 90%;
 }
 
 .search_input {
   border-radius: 5px;
   padding: 5px;
+  width: 100%;
 }
 
 .search_form > ul {
@@ -340,4 +336,71 @@ ul.nav li.active {
   display: flex;
   align-content: center;
   color: #394B56;
+}
+
+/* Mobile CSS */
+
+#mobile_menu {
+  display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  #map {
+    height: 80vh;
+    width: 100vw;
+  }
+
+  #sidebar_map {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+
+  /* Reorder specific boxes */
+  #item-left:nth-child(1) {
+    order: 2; /* This will move Box 1 to the end */
+  }
+
+  #item-right:nth-child(2) {
+    order: 1; /* This will move Box 2 to the beginning */
+  }
+
+  #closed_icons {
+    display: none;
+  }
+
+  #closed_btn_icons {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+  }
+
+  #mobile_menu {
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+  }
+
+  #open_sidebar {
+    position: absolute;
+    top: 30vh;
+    right: 0;
+    height: 70vh;
+    width: 100%;
+    display: none;
+    z-index: 1;
+    background-color: #829BA9;
+  }
+
+  #start_journey {
+    width: 90%;
+    display: inline-flex;
+    justify-content: space-around;
+  }
+
+
 }

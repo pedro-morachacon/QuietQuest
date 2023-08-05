@@ -10,12 +10,19 @@ const PageHeaderTable = ({}) => {
       <ul className="header-list">
         <li>
           <a href="/">
-            <img
+            <picture>
+              <source
+                  media="(max-width: 768px)"
+                  srcSet="/smallLogo1.png"
+                  width="30"
+                  height="20"/>
+              <img
               src="/logo1.png"
               alt="QuietQuest Logo"
               width="145"
               height="40"
             />
+            </picture>
           </a>
         </li>
         <li className="right">
