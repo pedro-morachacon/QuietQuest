@@ -302,6 +302,10 @@ ul.nav li.active {
   padding: 5px;
 }
 
+#radio_buttons > div {
+  display: block;
+}
+
 #routing_button {
   background-color: rgba(57,75,86,255);
   color: white;
