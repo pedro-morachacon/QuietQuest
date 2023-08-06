@@ -39,7 +39,9 @@ section {
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
-    background-color: rgba(0,0,0,0.4);
+    /*background-color: rgba(0,0,0,0.4);*/
+    background-color: #829BA9;
+            color: #394B56;
 }
 
 form {
@@ -110,8 +112,10 @@ textarea {
 
 button {
     padding: 0.5rem;
-    background-color: deepskyblue;
-    color: white;
+    /*background-color: deepskyblue;*/
+    background-color: #ECF0F2;
+    /*color: white;*/
+    color: #394B56;
     font-weight: bold;
 }
 

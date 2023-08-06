@@ -1,18 +1,22 @@
 "use client";
 import React from "react";
-import {ContactUs} from "@/app/contact/ContactUs";
-// import "../firebase/firebase.css";
-import WeatherCards from "@/app/weather/weather-cards";
-import WeatherCards2 from "@/app/weather/weather-cards2";
-import "./weather.css";
+import Weather from "./Weather";
+import DirectionDropDown from "./Direction_drop_down"; // Make sure to update the path
 
 function App() {
   return (
     <div className="App">
-        {/*<WeatherCards />*/}
-        <WeatherCards2 />
+      <style>{`
+        svg {
+          fill: #b8cbd6;
+        }
+      `}</style>
+      <Weather />
+      <DirectionDropDown />
+
     </div>
   );
 }
+
 
 export default App;

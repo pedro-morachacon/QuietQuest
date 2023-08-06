@@ -37,8 +37,7 @@ export const ContactUs = () => {
       <textarea name="message" />
       <button
         type="submit"
-        className="border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white"
-      >
+        className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white" style={{ backgroundColor: 'rgba(57,75,86,255)' }}>
         Send
       </button>
         {message && <p style={{ color: 'orange' }}>{message}</p>}

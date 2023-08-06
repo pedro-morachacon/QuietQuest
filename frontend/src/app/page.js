@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Tabs from './components/Tabs';
-import "./weather/weather.css";
 import "./globals.css"
 import PageHeaderTable from './components/PageHeaderTable';
 
@@ -12,10 +11,6 @@ import PageHeaderTable from './components/PageHeaderTable';
 const MapWithNoSSR = dynamic(() => import("./components/DisplayMap"), {
   ssr: false,
 });
-
-const WeatherWithNoSSR = dynamic(() => import("./weather/weather-cards2"),
-    { ssr: false,
-    });
 
 export default function App() {
 
@@ -46,9 +41,6 @@ export default function App() {
       </div>
       <div className='map-container'>
         <MapWithNoSSR activeTab={activeTab}/>
-      </div>
-      <div className="weather-text">
-        <WeatherWithNoSSR />
       </div>
       </div>
     </div>
