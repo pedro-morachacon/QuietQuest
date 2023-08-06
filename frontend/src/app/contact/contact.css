@@ -40,7 +40,9 @@ section {
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.4);
+    /*background-color: rgba(0, 0, 0, 0.4);*/
+    background-color: #829BA9;
+    color: #394B56;
 }
 
 form {

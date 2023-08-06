@@ -31,7 +31,7 @@ function App() {
           .account-section {
             transform: scale(0.55);
             transform-origin: top center;
-            margin-top: 110px;
+            margin-top: 60px;
             
             width: 100%;
             max-width: 700px;
@@ -40,7 +40,9 @@ function App() {
             flex-direction: column;
             justify-content: flex-start;
             padding: 1rem;
-            background-color: rgba(0, 0, 0, 0.4);
+            //background-color: rgba(0, 0, 0, 0.4);
+            background-color: #829BA9;
+            color: #394B56;
           }
         `}</style>
       </div>

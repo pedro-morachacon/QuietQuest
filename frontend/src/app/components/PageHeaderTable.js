@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FirebaseUserName from "./FirebaseUserName";
 
-import Weather from "../weather2/Weather";
+import Weather from "@/app/weather/Weather";
 
 
 const PageHeaderTable = ({}) => {
