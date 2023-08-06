@@ -11,8 +11,8 @@ function App() {
       <PageHeaderTable />
       <div className="App">
         <section className="account-section">
-            {/*<iframe src="./rating"></iframe>*/}
-            <RatingStar/>
+            <iframe src="./rating" scrolling="no"></iframe>
+            {/*<RatingStar/>*/}
           <ContactUs />
         </section>
 
@@ -35,7 +35,7 @@ function App() {
             transform: scale(0.7);
             transform-origin: top center;
             margin-top: 80px;
-            
+
             width: 100%;
             max-width: 700px;
             min-height: 400px;
@@ -47,6 +47,7 @@ function App() {
             background-color: #829BA9;
             color: #394B56;
           }
+          
         `}</style>
       </div>
     </div>
