@@ -428,5 +428,11 @@ ul.nav li.active {
     justify-content: space-around;
   }
 
+  #loading-circle {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+  }
+
 
 }
