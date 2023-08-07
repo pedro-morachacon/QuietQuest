@@ -231,7 +231,7 @@ ul.nav li.active {
 }
 
 #closed_top_icons > svg {
-  margin: 0 5px 10px 5px;
+  margin: 5px 5px 10px 5px;
 }
 
 #closed_bottom_icons > svg {
@@ -239,7 +239,7 @@ ul.nav li.active {
 }
 
 #map {
-  height: 100vh;
+  height: 90vh;
   width: 95vw;
 }
 
@@ -262,6 +262,7 @@ ul.nav li.active {
 }
 
 #open_menu {
+  padding-top: 5px;
   display: flex;
   justify-content: flex-end;
 }
@@ -355,7 +356,7 @@ ul.nav li.active {
 
   #map {
     height: 80vh;
-    width: 100vw;
+    width: 90vw;
   }
 
   #sidebar_map {
