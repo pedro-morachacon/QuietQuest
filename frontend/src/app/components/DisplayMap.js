@@ -84,6 +84,7 @@ const DisplayMap = ({ activeTab }) => {
         lng: startLocation[0],
         lat: startLocation[1],
       });
+      map.flyTo([startLocation[0], startLocation[1]], 14);
     }
   }, [startLocation]);
 
@@ -98,6 +99,7 @@ const DisplayMap = ({ activeTab }) => {
 
   // onclick, POST operation to backend django for api call
   const routingClick = () => {
+    document.getElementById("loading-circle").style.display = "block";
     const startTimeRouting = Date.now(); // start time
     setOptimalDirections(null);
     setAvoidanceDirections(null);
@@ -131,10 +133,15 @@ const DisplayMap = ({ activeTab }) => {
           const endTimeRouting = Date.now(); // end time
           const timeTaken = (endTimeRouting - startTimeRouting) / 1000; // time taken in seconds
           console.log(`Routing Time: ${timeTaken}'s`);
+          document.getElementById("loading-circle").style.display = "none";
         })
         .catch((error) => {
           console.error("Error:", error);
+          alert("Apologies! An Unforeseen Error Has Occurred, Please Try Creating A QuietQuest Again Later. " +
+              "Our Team of Wise Sages Have Been Notified And Will Endeavour To Work Their Mystical Magic!");
         });
+    } else {
+      alert("Please Start Location and Destination Information Before Requesting a QuietQuest");
     }
   };
 
@@ -142,6 +149,7 @@ const DisplayMap = ({ activeTab }) => {
   const [showHeatmap, setShowHeatmap] = useState(false);
 
   const noiseHeatmapClick = () => {
+    document.getElementById("loading-circle").style.display = "block";
     const startTimeNoise = Date.now();
     // gets noise login
     setHeatmapData(null); // Clear existing heatmap data
@@ -158,6 +166,7 @@ const DisplayMap = ({ activeTab }) => {
         const endTimeNoise = Date.now(); // end time
         const timeTaken = (endTimeNoise - startTimeNoise) / 1000; // time taken in seconds
         console.log(`Noise Time: ${timeTaken}'s`);
+        document.getElementById("loading-circle").style.display = "none";
       })
       .catch((error) => {
         console.error("Error fetching login data:", error);
@@ -165,6 +174,7 @@ const DisplayMap = ({ activeTab }) => {
   };
 
   const busynessHeatmapClick = () => {
+    document.getElementById("loading-circle").style.display = "block";
     const startTimeTaxi = Date.now(); // end time
     setHeatmapData(null); // Clear existing heatmap data
     setShowHeatmap(false);
@@ -181,6 +191,7 @@ const DisplayMap = ({ activeTab }) => {
         const endTimeTaxi = Date.now(); // end time
         const timeTaken = (endTimeTaxi - startTimeTaxi) / 1000; // time taken in seconds
         console.log(`Taxi Time: ${timeTaken}'s`);
+        document.getElementById("loading-circle").style.display = "none";
       })
       .catch((error) => {
         console.error("Error fetching login data:", error);
@@ -188,6 +199,7 @@ const DisplayMap = ({ activeTab }) => {
   };
 
   const combinedHeatmapClick = () => {
+    document.getElementById("loading-circle").style.display = "block";
     const startTimeCombined = Date.now();
     // gets combined heatmap
     setHeatmapData(null); // Clear existing heatmap data
@@ -204,6 +216,7 @@ const DisplayMap = ({ activeTab }) => {
         const endTimeCombined = Date.now(); // end time
         const timeTaken = (endTimeCombined - startTimeCombined) / 1000; // time taken in seconds
         console.log(`Combined Time: ${timeTaken}'s`);
+        document.getElementById("loading-circle").style.display = "none";
       })
       .catch((error) => {
         console.error("Error fetching heatmap data:", error);
@@ -399,6 +412,7 @@ const toggleSidebarStatus = (sidebarStatus) => {
                 center={[40.76657321777155, -73.9831392189498]}
                 zoom={12}
               >
+                <div id="loading-circle"></div>
                 {/* Display start marker */}
                 {startMarkerPosition && (
                   <Marker position={startMarkerPosition} icon={startPosIcon}>

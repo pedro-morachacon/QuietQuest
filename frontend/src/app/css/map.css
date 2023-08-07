@@ -338,6 +338,32 @@ ul.nav li.active {
   color: #394B56;
 }
 
+#loading-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #908B8B;
+    border-top-color: #394B56;
+    animation: spin 1s infinite linear;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 99999999;
+    display: none;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 /* Mobile CSS */
 
 #mobile_menu {
