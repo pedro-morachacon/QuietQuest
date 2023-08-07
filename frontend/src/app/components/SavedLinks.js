@@ -80,7 +80,7 @@ const SavedLinks = () => {
   };
 
   const openYouTube = () => {
-    const newWindow = window.open("https://www.youtube.com/", "_blank", "width=500,height=300");
+    const newWindow = window.open("https://www.youtube.com/", "_blank", "width=500,height=300,noopener,noreferrer");
   if (newWindow) {
     // Check if the window was successfully opened
     newWindow.focus(); // Focus the new window if it was opened
@@ -91,7 +91,7 @@ const SavedLinks = () => {
 
    // Function to handle clicking on a link item
   const handleLinkClick = (linkUrl) => {
-    const newWindow = window.open(linkUrl, "_blank", "width=500,height=300");
+    const newWindow = window.open(linkUrl, "_blank", "width=500,height=300,noopener,noreferrer");
     if (!newWindow) {
       alert("The popup was blocked. Please allow popups for this website.");
     }
@@ -123,6 +123,7 @@ const SavedLinks = () => {
             <a
               href={link.link}
               target="_blank"
+              rel="noopener noreferrer"
               onClick={() => handleLinkClick(link.link)}
             >
               {link.label}
@@ -136,12 +137,13 @@ const SavedLinks = () => {
             </React.Fragment>
       ) : (
           <React.Fragment>
-              <p>Please sign in to save more links.</p>
+              <p>Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save links</p>
                 <ul>
                   <li>
                     <a
                       href="https://youtu.be/K-vfA4OmaRA"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Video1
                     </a>
@@ -150,6 +152,7 @@ const SavedLinks = () => {
                   <a
                     href="https://youtu.be/cjaZOyBgJaU"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Video2
                   </a>
