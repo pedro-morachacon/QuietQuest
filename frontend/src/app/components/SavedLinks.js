@@ -123,6 +123,7 @@ const SavedLinks = () => {
             <a
               href={link.link}
               target="_blank"
+              rel="noopener noreferrer"
               onClick={() => handleLinkClick(link.link)}
             >
               {link.label}
