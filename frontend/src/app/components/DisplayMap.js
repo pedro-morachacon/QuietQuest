@@ -54,8 +54,7 @@ const DisplayMap = ({ activeTab }) => {
   const [optimalDirections, setOptimalDirections] = useState(null);
   const [avoidanceDirections, setAvoidanceDirections] = useState(null);
   const [optimalInstructionsData, setOptimalInstructionsData] = useState(null);
-  const [avoidanceInstructionsData, setAvoidanceInstructionsData] =
-    useState(null);
+  const [avoidanceInstructionsData, setAvoidanceInstructionsData] = useState(null);
   const [routingStatus, setRoutingStatus] = useState(null);
 
   const [startMarkerPosition, setStartMarkerPosition] = useState(null);
@@ -286,13 +285,11 @@ const DisplayMap = ({ activeTab }) => {
     setActiveSidebarOption(sidebarOptionTab);
   };
 
-
-
   const [directionTab, setDirectionTab] = useState(false);
 
-
-
-
+  useEffect( () => {
+    setActiveSidebarOption("journey_planner");
+  }, [endLocation]);
 
   return (
     <div>
@@ -601,9 +598,6 @@ const DisplayMap = ({ activeTab }) => {
         <div>
           {routingStatus && <RoutingStatus routingStatus={routingStatus} />}
         </div>
-
-
-
 
         <div>
           {/* Direction button */}
