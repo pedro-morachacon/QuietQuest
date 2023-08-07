@@ -286,7 +286,7 @@ const toggleSidebarStatus = (sidebarStatus) => {
   };
 
   useEffect( () => {
-    setEndLocation("journey_planner");
+    setActiveSidebarOption("journey_planner");
   }, [endLocation]);
 
   return (
