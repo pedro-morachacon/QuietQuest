@@ -136,7 +136,7 @@ const SavedLinks = () => {
             </React.Fragment>
       ) : (
           <React.Fragment>
-              <p>Please sign in to save more links.</p>
+              <p>Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save links</p>
                 <ul>
                   <li>
                     <a

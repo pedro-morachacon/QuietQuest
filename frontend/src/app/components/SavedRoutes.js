@@ -101,7 +101,7 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
             </ul>
           </React.Fragment>
         ) : (
-          <p>Please sign in to save routes.</p>
+          <p>Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save routes</p>
         )}
     </div>
   );

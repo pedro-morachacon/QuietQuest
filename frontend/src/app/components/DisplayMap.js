@@ -285,6 +285,10 @@ const toggleSidebarStatus = (sidebarStatus) => {
     setActiveSidebarOption(sidebarOptionTab);
   };
 
+  useEffect( () => {
+    setEndLocation("journey_planner");
+  }, [endLocation]);
+
   return (
     <div>
       <BrowserRouter>
