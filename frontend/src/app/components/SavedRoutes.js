@@ -90,7 +90,7 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
             <ul>
               {routes.map((route) => (
                 <li key={route.id} >
-                  <button onClick={() => fillEndSearchField(route.label.split(', New York County')[0], route.coordinates)}>
+                  <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
                     {route.address}
                   </button>
                   <button onClick={() => deleteRoute(route.id)}>
