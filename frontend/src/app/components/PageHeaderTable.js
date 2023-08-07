@@ -41,7 +41,7 @@ const PageHeaderTable = ({}) => {
 
       <style jsx>{`
         .header-list {
-          margin: 0;
+          margin: 0px;
           padding: 10px;
           padding-bottom: 5px;
           overflow: hidden;
@@ -49,6 +49,7 @@ const PageHeaderTable = ({}) => {
           position: fixed;
           width: 100%;
           color: #d9d9d9;
+          z-index: 1;
         }
 
         .header-list li {
