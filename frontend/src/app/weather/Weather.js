@@ -66,10 +66,12 @@ const Weather = () => {
 
     return (
         <div style={containerStyle}>
-            <p style={paragraphStyle}>{temp}°F</p>
-            {weatherIcons[mainWeather]}
+          <p style={paragraphStyle}>{temp}°F</p>
+          {weatherIcons[mainWeather] ? weatherIcons[mainWeather] : (
+            weatherIcons["Atmosphere"]
+          )}
         </div>
-    );
+      );
 }
 
 export default Weather;
