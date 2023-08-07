@@ -397,7 +397,7 @@ const toggleSidebarStatus = (sidebarStatus) => {
             <div id="map">
               <MapContainer
                 center={[40.76657321777155, -73.9831392189498]}
-                zoom={12}
+                zoom={13}
               >
                 {/* Display start marker */}
                 {startMarkerPosition && (

@@ -55,7 +55,7 @@ const Weather = () => {
     };
 
     const paragraphStyle = {
-        color: '#b8cbd6', // Sets the color of the text
+        color: '#d9d9d9', // Sets the color of the text
         fontSize: '18px', // Change this value to adjust the font size
         marginRight: '10px', // Adds space to the right of the text
         fontWeight: 'bold', // Makes the text bold
