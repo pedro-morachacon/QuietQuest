@@ -412,18 +412,23 @@ ul.nav li.active {
 
 /*direction*/
 .directions-button {
-  /*border: 1px solid #38c172; !* Green border *!*/
-  /*background-color: #394B56; !* Blue background *!*/
-  color: white; /* White text */
-  padding: 2px; /* Padding */
-  width: auto; /* Auto width */
-  margin-top: 2px; /* Top margin */
-  background-color: #908B8B; /* Custom background color */
-  transition: background-color 0.3s ease; /* Transition effect for hover */
-  /*position: absolute;*/
-  /*top:52px;*/
-  /*right: 10px;*/
-  font-weight: bold;
+  background-color: rgba(57,75,86,255);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  /*!*border: 1px solid #38c172; !* Green border *!*!*/
+  /*!*background-color: #394B56; !* Blue background *!*!*/
+  /*color: white; !* White text *!*/
+  /*padding: 2px; !* Padding *!*/
+  /*width: auto; !* Auto width *!*/
+  /*margin-top: 2px; !* Top margin *!*/
+  /*background-color: #908B8B; !* Custom background color *!*/
+  /*transition: background-color 0.3s ease; !* Transition effect for hover *!*/
+  /*!*position: absolute;*!*/
+  /*!*top:52px;*!*/
+  /*!*right: 10px;*!*/
+  /*font-weight: bold;*/
 }
 
 .directions-button:hover {
@@ -433,9 +438,9 @@ ul.nav li.active {
 
 
 .optimal-button{
-  position: absolute;
-  top:90px;
-  right: 190px;
+  /*position: absolute;*/
+  /*top:90px;*/
+  /*right: 190px;*/
   font-weight: bold;
   background-color: #908B8B;
   padding: 2px;
@@ -449,9 +454,9 @@ ul.nav li.active {
 }
 
 .avoidance-button {
-  position: absolute;
-  top: 90px;
-  right: 10px;
+  /*position: absolute;*/
+  /*top: 90px;*/
+  /*right: 10px;*/
   font-weight: bold;
   background-color: #836262;
   padding: 2px;
@@ -468,8 +473,8 @@ ul.nav li.active {
 
 
 .instructions-button{
-  position: absolute;
-  top: 120px;
-  right: 10px;
+  /*position: absolute;*/
+  /*top: 120px;*/
+  /*right: 10px;*/
   background-color: #B8CBD6;
 }
