@@ -1,10 +1,21 @@
-import pytest
-from django.http import JsonResponse
-from quietquestapp.models import NoiseLocations, TaxiWeekendLocations, NoisePolygons, TaxiWeekendPolygons
-from quietquestapp.views import directions_view, noise_heatmap_view, busyness_heatmap_view, combined_heatmap_view
-from django.test import RequestFactory
 import json
 from datetime import datetime
+
+import pytest
+from django.http import JsonResponse
+from django.test import RequestFactory
+from quietquestapp.models import (
+    NoiseLocations,
+    NoisePolygons,
+    TaxiWeekendLocations,
+    TaxiWeekendPolygons,
+)
+from quietquestapp.views import (
+    busyness_heatmap_view,
+    combined_heatmap_view,
+    directions_view,
+    noise_heatmap_view,
+)
 
 
 @pytest.mark.django_db

@@ -14,7 +14,8 @@ function App() {
         </section>
 
         <style jsx global>{`
-          body, html {
+          body,
+          html {
             overflow: hidden;
           }
 
@@ -32,7 +33,7 @@ function App() {
             transform: scale(0.55);
             transform-origin: top center;
             margin-top: 60px;
-            
+
             width: 100%;
             max-width: 700px;
             min-height: 400px;
@@ -41,14 +42,13 @@ function App() {
             justify-content: flex-start;
             padding: 1rem;
             //background-color: rgba(0, 0, 0, 0.4);
-            background-color: #829BA9;
-            color: #394B56;
+            background-color: #829ba9;
+            color: #394b56;
           }
         `}</style>
       </div>
     </div>
   );
 }
-
 
 export default App;

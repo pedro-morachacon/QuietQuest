@@ -83,7 +83,10 @@ const Signin = () => {
             placeholder="Enter your password"
           />
         </div>
-        <button className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white" style={{ backgroundColor: 'rgba(57,75,86,255)' }}>
+        <button
+          className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white"
+          style={{ backgroundColor: "rgba(57,75,86,255)" }}
+        >
           Sign In
         </button>
         <button

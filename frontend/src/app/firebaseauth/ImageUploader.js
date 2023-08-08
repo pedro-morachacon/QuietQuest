@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { getAuth } from 'firebase/auth';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import React, { useState } from "react";
+import { getAuth } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function ImageUploader() {
   const [image, setImage] = useState(null);
-  const [message, setMessage] = useState('');
-  const [uploadedImageURL, setUploadedImageURL] = useState('');
+  const [message, setMessage] = useState("");
+  const [uploadedImageURL, setUploadedImageURL] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -26,7 +26,10 @@ function ImageUploader() {
 
     if (user) {
       const storage = getStorage();
-      const storageRef = ref(storage, 'user-images/' + user.uid + '/' + image.name);
+      const storageRef = ref(
+        storage,
+        "user-images/" + user.uid + "/" + image.name
+      );
 
       try {
         await uploadBytes(storageRef, image);
@@ -46,19 +49,23 @@ function ImageUploader() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          onChange={handleImageChange}
-          required
-        />
-        <button type="submit" className="border px-6 py-2 my-4">Upload Image</button>
+        <input type="file" onChange={handleImageChange} required />
+        <button type="submit" className="border px-6 py-2 my-4">
+          Upload Image
+        </button>
       </form>
 
       {message && <p>{message}</p>}
 
       <div>
         <strong>Photo:</strong>
-        {uploadedImageURL && <img src={uploadedImageURL} alt="Uploaded" style={{width: '100px'}} />}
+        {uploadedImageURL && (
+          <img
+            src={uploadedImageURL}
+            alt="Uploaded"
+            style={{ width: "100px" }}
+          />
+        )}
       </div>
     </div>
   );

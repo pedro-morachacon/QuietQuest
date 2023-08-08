@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { getAuth, updateProfile } from 'firebase/auth';
+import React, { useState } from "react";
+import { getAuth, updateProfile } from "firebase/auth";
 
 function DisplayNameSetter() {
-  const [displayName, setDisplayName] = useState('');
-  const [message, setMessage] = useState('');
+  const [displayName, setDisplayName] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ function DisplayNameSetter() {
     if (user) {
       try {
         await updateProfile(user, {
-          displayName: displayName
+          displayName: displayName,
         });
         setMessage("Display name updated successfully!");
       } catch (err) {
@@ -30,11 +30,13 @@ function DisplayNameSetter() {
         <input
           type="text"
           value={displayName}
-          onChange={e => setDisplayName(e.target.value)}
+          onChange={(e) => setDisplayName(e.target.value)}
           placeholder="New Display Name"
           required
         />
-        <button type="submit" className="border px-6 py-2 my-4 black">Set Display Name</button>
+        <button type="submit" className="border px-6 py-2 my-4 black">
+          Set Display Name
+        </button>
       </form>
       {message && <p>{message}</p>}
     </div>

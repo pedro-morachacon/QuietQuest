@@ -11,13 +11,14 @@ function App() {
       <PageHeaderTable />
       <div className="App">
         <section className="account-section">
-            <iframe src="./rating" scrolling="no"></iframe>
-            {/*<RatingStar/>*/}
+          <iframe src="./rating" scrolling="no"></iframe>
+          {/*<RatingStar/>*/}
           <ContactUs />
         </section>
 
         <style jsx global>{`
-          body, html {
+          body,
+          html {
             overflow: hidden;
           }
 
@@ -44,10 +45,9 @@ function App() {
             justify-content: flex-start;
             padding: 1rem;
             //background-color: rgba(0, 0, 0, 0.4);
-            background-color: #829BA9;
-            color: #394B56;
+            background-color: #829ba9;
+            color: #394b56;
           }
-          
         `}</style>
       </div>
     </div>

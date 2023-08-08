@@ -35,7 +35,7 @@ const Account = () => {
       {/*</div>*/}
       {/*<DisplayNameSetter />*/}
       <FirebaseUserDetails />
-        <EditPhotoButtonWithPopup/>
+      <EditPhotoButtonWithPopup />
       <button
         onClick={handleNavigation}
         className="border px-6 py-2 my-4 ml-4 mr-4"

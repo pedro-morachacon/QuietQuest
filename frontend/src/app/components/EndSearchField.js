@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import React, { useState, useEffect, useRef } from "react";
+import { OpenStreetMapProvider } from "leaflet-geosearch";
 
-const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress }) => {
-  const [inputValue, setInputValue] = useState(savedRouteAddress || '');
+const EndSearchField = ({
+  setEndLocation,
+  setEndInputValue,
+  savedRouteAddress,
+}) => {
+  const [inputValue, setInputValue] = useState(savedRouteAddress || "");
   const [autocompleteResults, setAutocompleteResults] = useState([]);
   const provider = new OpenStreetMapProvider({
     params: {
@@ -26,7 +30,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
       const value = event.target.value;
       setInputValue(value);
 
-      if (value.trim() !== '') {
+      if (value.trim() !== "") {
         // Clear the previous timer to avoid making premature API requests
         clearTimeout(timer);
 
@@ -42,7 +46,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
 
     if (inputRef.current) {
       // Use the inputRef to add the event listener
-      inputRef.current.addEventListener('input', handleInputChange);
+      inputRef.current.addEventListener("input", handleInputChange);
     }
 
     // Cleanup function to remove the event listener when the component is unmounted
@@ -50,7 +54,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
       clearTimeout(timer); // Clear the timer when the component is unmounted
       if (inputRef.current) {
         // Use the inputRef to remove the event listener
-        inputRef.current.removeEventListener('input', handleInputChange);
+        inputRef.current.removeEventListener("input", handleInputChange);
       }
     };
   }, []); // Empty dependency array to run the effect only once during component mount
@@ -58,15 +62,15 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
   const handleListItemClick = (result) => {
     const { x: lng, y: lat } = result;
     setEndLocation([lng, lat]);
-    setEndInputValue(result.label.split(', New York County')[0]);
-    setInputValue(result.label.split(', New York County')[0]);
+    setEndInputValue(result.label.split(", New York County")[0]);
+    setInputValue(result.label.split(", New York County")[0]);
     setAutocompleteResults([]); // Clear the autocomplete results after selecting an address
   };
 
   return (
     <form className="search_form">
       <input
-          className="search_input"
+        className="search_input"
         ref={inputRef} // Use the inputRef here
         type="text"
         value={inputValue}
@@ -76,8 +80,8 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
       {autocompleteResults.length > 0 && (
         <ul>
           {autocompleteResults.map((result, index) => (
-            <li key={index} onClick={() => handleListItemClick(result)} >
-              {result.label.split(', New York County')[0]}
+            <li key={index} onClick={() => handleListItemClick(result)}>
+              {result.label.split(", New York County")[0]}
             </li>
           ))}
         </ul>

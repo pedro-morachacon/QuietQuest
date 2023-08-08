@@ -2,14 +2,15 @@
 # can ignore the warnings for the import statements if present
 # run with command: python manage.py runscript test_response
 
-from quietquestapp.models import TaxiWeekendPolygons
-import pandas as pd
-import numpy as np
-import time
 import pickle
+import time
+
+import numpy as np
+import pandas as pd
 from pyproj import Transformer
-from shapely.geometry import Polygon, mapping, Point
+from quietquestapp.models import TaxiWeekendPolygons
 from shapely import affinity
+from shapely.geometry import Point, Polygon, mapping
 
 
 def run():
@@ -25,7 +26,10 @@ def run():
         transformed_buffer = affinity.scale(point_buffer_proj, xfact=1, yfact=5)
 
         # Transform back to WGS84
-        poly_wgs = [transformer_utm32n_to_wgs84.transform(*point) for point in transformed_buffer.exterior.coords]
+        poly_wgs = [
+            transformer_utm32n_to_wgs84.transform(*point)
+            for point in transformed_buffer.exterior.coords
+        ]
         return poly_wgs
 
     def merge_intersecting_polygons(poly_list):
@@ -49,15 +53,17 @@ def run():
 
     # Read the CSV file using pandas with chunksize
     chunksize = 30000
-    for df_chunk in pd.read_csv('quietquestapp/Final_Weekend_Model_Data_NoWeather_Crime.csv', chunksize=chunksize):
+    for df_chunk in pd.read_csv(
+        "quietquestapp/Final_Weekend_Model_Data_NoWeather_Crime.csv",
+        chunksize=chunksize,
+    ):
         start2 = time.time()
 
         x_vars = []
         pred_outputs = []
         for _, row in df_chunk.iterrows():
-
-            lat = row['latitude']
-            long = row['longitude']
+            lat = row["latitude"]
+            long = row["longitude"]
 
             # Skip rows with blank values
             if pd.isnull(lat) or pd.isnull(long):
@@ -69,18 +75,22 @@ def run():
 
         # Convert x_vars to a numpy array
         x_vars_arr = np.array(x_vars)
-        df = pd.DataFrame(x_vars_arr, columns=['latitude', 'longitude', 'Hour', 'Day of Week'])
+        df = pd.DataFrame(
+            x_vars_arr, columns=["latitude", "longitude", "Hour", "Day of Week"]
+        )
 
         # Load the noise model from the pickle file
         # Load the noise model from the pickle file
-        with open("quietquestapp/final_crime_weekend_taxi_model.pkl", "rb") as pickle_file:
+        with open(
+            "quietquestapp/final_crime_weekend_taxi_model.pkl", "rb"
+        ) as pickle_file:
             weekend_model = pickle.load(pickle_file)
 
             # Make predictions using the noise model
             predictions = weekend_model.predict(df)
             pred_outputs.extend(predictions)
 
-            df['Count'] = pred_outputs
+            df["Count"] = pred_outputs
 
             end2 = time.time()
             print("Coordinate Chunk Time: " + str(end2 - start2))
@@ -90,12 +100,18 @@ def run():
     for hour in range(0, 24):
         for day in range(5, 7):
             start3 = time.time()
-            locations = list(df_high_count[(df_high_count["Hour"] == hour) & (df_high_count["Day of Week"] == day)]
-                             .values)
+            locations = list(
+                df_high_count[
+                    (df_high_count["Hour"] == hour)
+                    & (df_high_count["Day of Week"] == day)
+                ].values
+            )
 
             high_index_value_ls = []
             for location in locations:
-                point_buffer = Polygon(create_buffer_polygon((location[1], location[0])))
+                point_buffer = Polygon(
+                    create_buffer_polygon((location[1], location[0]))
+                )
                 high_index_value_ls.append(point_buffer)
 
             intersecting_polygons = merge_intersecting_polygons(high_index_value_ls)

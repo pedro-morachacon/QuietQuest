@@ -13,10 +13,8 @@ function App() {
       `}</style>
       <Weather />
       <DirectionDropDown />
-
     </div>
   );
 }
-
 
 export default App;

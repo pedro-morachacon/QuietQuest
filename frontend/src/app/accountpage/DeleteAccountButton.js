@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { getAuth, deleteUser } from "firebase/auth";
 
 function DeleteAccountButton() {
@@ -9,20 +9,20 @@ function DeleteAccountButton() {
     if (user) {
       deleteUser(user)
         .then(() => {
-          alert('Account successfully deleted!');
+          alert("Account successfully deleted!");
           window.location.href = "/firebaseauth/";
         })
         .catch((error) => {
-          alert('An error occurred while deleting the account: ' + error.message);
+          alert(
+            "An error occurred while deleting the account: " + error.message
+          );
         });
     } else {
-      alert('No user is currently logged in.');
+      alert("No user is currently logged in.");
     }
   };
 
-  return (
-    <button onClick={handleDeleteAccount}>Delete</button>
-  );
+  return <button onClick={handleDeleteAccount}>Delete</button>;
 }
 
 export default DeleteAccountButton;

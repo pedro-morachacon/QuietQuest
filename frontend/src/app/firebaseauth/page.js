@@ -9,13 +9,12 @@ import ProtectedRoute from "./ProtectedRoute";
 import "./firebaseauth.css";
 import "./googleLogin.css";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 const DynamicBrowserRouter = dynamic(
-  () => import('react-router-dom').then((mod) => mod.BrowserRouter),
+  () => import("react-router-dom").then((mod) => mod.BrowserRouter),
   { ssr: false }
 );
-
 
 function App() {
   return (
@@ -50,39 +49,38 @@ function App() {
       </section>
 
       <style jsx global>{`
-          body, html {
-            overflow: hidden;
-          }
+        body,
+        html {
+          overflow: hidden;
+        }
 
-          .outer-container {
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
-          }
+        .outer-container {
+          overflow: hidden;
+          width: 100vw;
+          height: 100vh;
+        }
 
-          .App {
-            overflow: hidden;
-          }
+        .App {
+          overflow: hidden;
+        }
 
-          .account-section {
-            transform: scale(0.8);
-            transform-origin: top center;
-            margin-top: 20px;
-            
-            width: 100%;
-            max-width: 500px;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 1rem;
-            //background-color: rgba(0, 0, 0, 0.4);
-            background-color: #829BA9;
-            color: #394B56;
-          }
-        `}</style>
+        .account-section {
+          transform: scale(0.8);
+          transform-origin: top center;
+          margin-top: 20px;
 
-
+          width: 100%;
+          max-width: 500px;
+          min-height: 400px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          padding: 1rem;
+          //background-color: rgba(0, 0, 0, 0.4);
+          background-color: #829ba9;
+          color: #394b56;
+        }
+      `}</style>
     </div>
   );
 }

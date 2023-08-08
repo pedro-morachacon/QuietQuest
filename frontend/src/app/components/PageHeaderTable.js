@@ -3,7 +3,6 @@ import FirebaseUserName from "./FirebaseUserName";
 
 import Weather from "@/app/weather/Weather";
 
-
 const PageHeaderTable = ({}) => {
   return (
     <div>
@@ -12,16 +11,17 @@ const PageHeaderTable = ({}) => {
           <a href="/">
             <picture>
               <source
-                  media="(max-width: 768px)"
-                  srcSet="/smallLogo1.png"
-                  width="30"
-                  height="20"/>
+                media="(max-width: 768px)"
+                srcSet="/smallLogo1.png"
+                width="30"
+                height="20"
+              />
               <img
-              src="/logo1.png"
-              alt="QuietQuest Logo"
-              width="145"
-              height="40"
-            />
+                src="/logo1.png"
+                alt="QuietQuest Logo"
+                width="145"
+                height="40"
+              />
             </picture>
           </a>
         </li>

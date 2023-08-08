@@ -54,7 +54,8 @@ const DisplayMap = ({ activeTab }) => {
   const [optimalDirections, setOptimalDirections] = useState(null);
   const [avoidanceDirections, setAvoidanceDirections] = useState(null);
   const [optimalInstructionsData, setOptimalInstructionsData] = useState(null);
-  const [avoidanceInstructionsData, setAvoidanceInstructionsData] = useState(null);
+  const [avoidanceInstructionsData, setAvoidanceInstructionsData] =
+    useState(null);
   const [routingStatus, setRoutingStatus] = useState(null);
 
   const [startMarkerPosition, setStartMarkerPosition] = useState(null);
@@ -287,7 +288,7 @@ const DisplayMap = ({ activeTab }) => {
 
   const [directionTab, setDirectionTab] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     setActiveSidebarOption("journey_planner");
   }, [endLocation]);
 
@@ -601,7 +602,10 @@ const DisplayMap = ({ activeTab }) => {
 
         <div>
           {/* Direction button */}
-          <button onClick={() => setDirectionTab(!directionTab)} className="directions-button">
+          <button
+            onClick={() => setDirectionTab(!directionTab)}
+            className="directions-button"
+          >
             Directions
           </button>
 
@@ -631,27 +635,29 @@ const DisplayMap = ({ activeTab }) => {
               </div>
 
               <div className="instructions-button">
-              {/* Instructions based on the active tab */}
-              {activeTab2 === "Optimal" && optimalInstructionsData !== null && (
-                <div>
-                  <h2>Optimal Instructions:</h2>
-                  <Instructions instructionsData={optimalInstructionsData}/>
-                </div>
-              )}
-                </div>
+                {/* Instructions based on the active tab */}
+                {activeTab2 === "Optimal" &&
+                  optimalInstructionsData !== null && (
+                    <div>
+                      <h2>Optimal Instructions:</h2>
+                      <Instructions
+                        instructionsData={optimalInstructionsData}
+                      />
+                    </div>
+                  )}
+              </div>
 
               <div className="instructions-button">
-              {activeTab2 === "Avoidance" &&
-                avoidanceInstructionsData !== null && (
-                  <div>
-                    <h2>Avoidance Instructions:</h2>
-                    <Instructions
-                      instructionsData={avoidanceInstructionsData}
-                    />
-                  </div>
-                )}
-                </div>
-
+                {activeTab2 === "Avoidance" &&
+                  avoidanceInstructionsData !== null && (
+                    <div>
+                      <h2>Avoidance Instructions:</h2>
+                      <Instructions
+                        instructionsData={avoidanceInstructionsData}
+                      />
+                    </div>
+                  )}
+              </div>
             </div>
           )}
 
@@ -659,8 +665,6 @@ const DisplayMap = ({ activeTab }) => {
             {routingStatus && <RoutingLegend routingStatus={routingStatus} />}
           </div>
         </div>
-
-
 
         {/*<div>*/}
         {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}

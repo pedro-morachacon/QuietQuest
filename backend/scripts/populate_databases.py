@@ -1,15 +1,19 @@
-from quietquestapp.models import NoiseLocations, NoisePolygons
-from quietquestapp.models import TaxiWeekdayLocations, TaxiWeekdayPolygons
-from quietquestapp.models import TaxiWeekendLocations, TaxiWeekendPolygons
+import json
+import time
 
 import pandas as pd
-import time
-from shapely.geometry import shape, mapping
-import json
+from quietquestapp.models import (
+    NoiseLocations,
+    NoisePolygons,
+    TaxiWeekdayLocations,
+    TaxiWeekdayPolygons,
+    TaxiWeekendLocations,
+    TaxiWeekendPolygons,
+)
+from shapely.geometry import mapping, shape
 
 
 def run():
-
     # Delete all objects currently stored in the Noise models
     NoiseLocations.objects.all().delete()
     NoisePolygons.objects.all().delete()
@@ -24,21 +28,30 @@ def run():
 
     # Read the CSV file using pandas with chunksize
     chunksize = 30000
-    for df_chunk in pd.read_csv('quietquestapp/quietquestapp_noiselocations.csv', chunksize=chunksize):
+    for df_chunk in pd.read_csv(
+        "quietquestapp/quietquestapp_noiselocations.csv", chunksize=chunksize
+    ):
         start = time.time()
         values = []
 
         for _, row in df_chunk.iterrows():
-            long = row['long']
-            lat = row['lat']
-            hour = row['hour']
-            weekday = row['weekday']
-            weekend = row['weekend']
-            count = row['count']
+            long = row["long"]
+            lat = row["lat"]
+            hour = row["hour"]
+            weekday = row["weekday"]
+            weekend = row["weekend"]
+            count = row["count"]
 
             # Create Locations objects for bulk_create
             values.append(
-                NoiseLocations(long=long, lat=lat, hour=hour, weekday=weekday, weekend=weekend, count=count)
+                NoiseLocations(
+                    long=long,
+                    lat=lat,
+                    hour=hour,
+                    weekday=weekday,
+                    weekend=weekend,
+                    count=count,
+                )
             )
 
         # Bulk create the Locations objects
@@ -48,22 +61,29 @@ def run():
 
     # Read the CSV file using pandas with chunksize
     chunksize = 30000
-    for df_chunk in pd.read_csv('quietquestapp/quietquestapp_noisepolygons.csv', chunksize=chunksize):
+    for df_chunk in pd.read_csv(
+        "quietquestapp/quietquestapp_noisepolygons.csv", chunksize=chunksize
+    ):
         start = time.time()
         values = []
 
         for _, row in df_chunk.iterrows():
-            polygon = row['polygon']
-            hour = row['hour']
-            weekday = row['weekday']
-            weekend = row['weekend']
+            polygon = row["polygon"]
+            hour = row["hour"]
+            weekday = row["weekday"]
+            weekend = row["weekend"]
 
             polygon_data = json.loads(polygon)
             polygon_geometry = shape(polygon_data)
 
             # Create Locations objects for bulk_create
             values.append(
-                NoisePolygons(polygon=mapping(polygon_geometry), hour=hour, weekday=weekday, weekend=weekend)
+                NoisePolygons(
+                    polygon=mapping(polygon_geometry),
+                    hour=hour,
+                    weekday=weekday,
+                    weekend=weekend,
+                )
             )
 
         # Bulk create the Locations objects
@@ -73,20 +93,25 @@ def run():
 
     # Read the CSV file using pandas with chunksize
     chunksize = 30000
-    for df_chunk in pd.read_csv('quietquestapp/quietquestapp_taxiweekdaylocations-1000000.csv', chunksize=chunksize):
+    for df_chunk in pd.read_csv(
+        "quietquestapp/quietquestapp_taxiweekdaylocations-1000000.csv",
+        chunksize=chunksize,
+    ):
         start = time.time()
         values = []
 
         for _, row in df_chunk.iterrows():
-            long = row['long']
-            lat = row['lat']
-            hour = row['hour']
-            day = row['day']
-            count = row['count']
+            long = row["long"]
+            lat = row["lat"]
+            hour = row["hour"]
+            day = row["day"]
+            count = row["count"]
 
             # Create Locations objects for bulk_create
             values.append(
-                TaxiWeekdayLocations(long=long, lat=lat, hour=hour, day=day, count=count)
+                TaxiWeekdayLocations(
+                    long=long, lat=lat, hour=hour, day=day, count=count
+                )
             )
 
         # Bulk create the Locations objects
@@ -96,21 +121,25 @@ def run():
 
     # Read the CSV file using pandas with chunksize
     chunksize = 30000
-    for df_chunk in pd.read_csv('quietquestapp/quietquestapp_taxiweekdaypolygons.csv', chunksize=chunksize):
+    for df_chunk in pd.read_csv(
+        "quietquestapp/quietquestapp_taxiweekdaypolygons.csv", chunksize=chunksize
+    ):
         start = time.time()
         values = []
 
         for _, row in df_chunk.iterrows():
-            polygon = row['polygon']
-            hour = row['hour']
-            day = row['day']
+            polygon = row["polygon"]
+            hour = row["hour"]
+            day = row["day"]
 
             polygon_data = json.loads(polygon)
             polygon_geometry = shape(polygon_data)
 
             # Create Locations objects for bulk_create
             values.append(
-                TaxiWeekdayPolygons(polygon=mapping(polygon_geometry), hour=hour, day=day)
+                TaxiWeekdayPolygons(
+                    polygon=mapping(polygon_geometry), hour=hour, day=day
+                )
             )
 
         # Bulk create the Locations objects

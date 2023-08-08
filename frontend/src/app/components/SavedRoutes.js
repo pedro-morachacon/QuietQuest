@@ -1,27 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getFirestore, addDoc, collection, getDocs, query, where, getDoc, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getFirestore,
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "@/app/firebase";
 
-const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRouteAddress }) => {
+const SavedRoutes = ({
+  endLocation,
+  endInputValue,
+  setEndLocation,
+  setSavedRouteAddress,
+}) => {
   const [routes, setRoutes] = useState([]); // Use state to store the routes
   const auth = getAuth();
   const user = auth.currentUser;
 
   useEffect(() => {
-
     // Using onAuthStateChanged for real-time listening
     const fetchRoutes = async () => {
       if (user) {
         try {
-          const usersCollectionRef = collection(db, "users", user.uid, "routes");
+          const usersCollectionRef = collection(
+            db,
+            "users",
+            user.uid,
+            "routes"
+          );
 
           const doct = await getDocs(usersCollectionRef);
           const routesData = [];
           doct.docs.forEach((doc) => {
             routesData.push({
               id: doc.id,
-              ...doc.data()
+              ...doc.data(),
             });
           });
           setRoutes(routesData);
@@ -34,7 +54,7 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
       }
     };
 
-  // Using onAuthStateChanged for real-time listening
+    // Using onAuthStateChanged for real-time listening
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         fetchRoutes();
@@ -54,7 +74,7 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
     // add data to Cloud Firestore
     const docRef = await addDoc(usersCollectionRef, {
       coordinates: endLocation,
-      address: endInputValue
+      address: endInputValue,
     });
     console.log("Document written with ID: ", docRef.id);
     setRoutes((prevRoutes) => [
@@ -84,25 +104,35 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
 
   return (
     <div>
-        {user ? (
-          <React.Fragment>
-            <button onClick={addRoute}>Save Route</button>
-            <ul>
-              {routes.map((route) => (
-                <li key={route.id} >
-                  <button onClick={() => fillEndSearchField(route.address, route.coordinates)}>
-                    {route.address}
-                  </button>
-                  <button onClick={() => deleteRoute(route.id)}>
-                    Delete Route
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </React.Fragment>
-        ) : (
-          <p>Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save routes</p>
-        )}
+      {user ? (
+        <React.Fragment>
+          <button onClick={addRoute}>Save Route</button>
+          <ul>
+            {routes.map((route) => (
+              <li key={route.id}>
+                <button
+                  onClick={() =>
+                    fillEndSearchField(route.address, route.coordinates)
+                  }
+                >
+                  {route.address}
+                </button>
+                <button onClick={() => deleteRoute(route.id)}>
+                  Delete Route
+                </button>
+              </li>
+            ))}
+          </ul>
+        </React.Fragment>
+      ) : (
+        <p>
+          Please{" "}
+          <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">
+            Login In or Sign Up
+          </a>{" "}
+          to save routes
+        </p>
+      )}
     </div>
   );
 };

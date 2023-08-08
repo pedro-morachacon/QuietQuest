@@ -5,7 +5,7 @@ import RatingStar from "@/app/rating/RatingStar";
 function App() {
   return (
     <div className="App">
-        <RatingStar />
+      <RatingStar />
     </div>
   );
 }

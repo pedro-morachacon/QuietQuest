@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 export const ContactUs = () => {
   const form = useRef();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ export const ContactUs = () => {
         (result) => {
           console.log(result.text);
           console.log("message send");
-          setMessage('Email Send!');
+          setMessage("Email Send!");
         },
         (error) => {
           console.log(error.text);
@@ -37,10 +37,12 @@ export const ContactUs = () => {
       <textarea name="message" />
       <button
         type="submit"
-        className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white" style={{ backgroundColor: 'rgba(57,75,86,255)' }}>
+        className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white"
+        style={{ backgroundColor: "rgba(57,75,86,255)" }}
+      >
         Send
       </button>
-        {message && <p style={{ color: 'orange' }}>{message}</p>}
+      {message && <p style={{ color: "orange" }}>{message}</p>}
     </form>
   );
 };

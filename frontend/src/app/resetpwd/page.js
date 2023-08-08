@@ -8,9 +8,9 @@ function App() {
   return (
     <div className="App">
       <section>
-          <h1 className="text-2xl font-bold py-2">Reset Password</h1>
+        <h1 className="text-2xl font-bold py-2">Reset Password</h1>
         <ResetPassword />
-          <div>
+        <div>
           <a href="./firebaseauth" className="home-page">
             Back
           </a>

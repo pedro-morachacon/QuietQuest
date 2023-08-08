@@ -1,13 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "./AuthContext";
 
 // Add a second document with a generated ID.
-import { doc, setDoc, getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getFirestore,
+  addDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 // import "../firebase";
 import { db } from "@/app/firebase";
 import { updateProfile } from "firebase/auth";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -109,7 +116,10 @@ const Signup = () => {
             placeholder="Enter your password"
           />
         </div>
-        <button className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white" style={{ backgroundColor: 'rgba(57,75,86,255)' }}>
+        <button
+          className="border border-green-600 bg-blue-600 hover:bg-blue-500 w-full my-2 text-white"
+          style={{ backgroundColor: "rgba(57,75,86,255)" }}
+        >
           Sign Up
         </button>
       </form>

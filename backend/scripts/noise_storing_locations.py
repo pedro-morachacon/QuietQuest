@@ -2,11 +2,12 @@
 # can ignore the warnings for the import statements if present
 # run with command: python manage.py runscript test_response
 
-from quietquestapp.models import NoiseLocations
-import pandas as pd
-import numpy as np
-import time
 import pickle
+import time
+
+import numpy as np
+import pandas as pd
+from quietquestapp.models import NoiseLocations
 
 
 def run():
@@ -18,14 +19,15 @@ def run():
     # Read the CSV file using pandas with chunksize
     chunksize = 30000
 
-    for df_chunk in pd.read_csv('quietquestapp/Final_Noise_Model_Data_WD_WE.csv', chunksize=chunksize):
+    for df_chunk in pd.read_csv(
+        "quietquestapp/Final_Noise_Model_Data_WD_WE.csv", chunksize=chunksize
+    ):
         start2 = time.time()
 
         x_vars = []
         for _, row in df_chunk.iterrows():
-
-            lat = row['Latitude']
-            long = row['Longitude']
+            lat = row["Latitude"]
+            long = row["Longitude"]
 
             # Skip rows with blank values
             if pd.isnull(lat) or pd.isnull(long):
@@ -37,7 +39,9 @@ def run():
 
         # Convert x_vars to a numpy array
         x_vars_arr = np.array(x_vars)
-        df = pd.DataFrame(x_vars_arr, columns=['Latitude', 'Longitude', 'Hour', 'Weekend', 'Weekday'])
+        df = pd.DataFrame(
+            x_vars_arr, columns=["Latitude", "Longitude", "Hour", "Weekend", "Weekday"]
+        )
 
         # Load the noise model from the pickle file
         with open("quietquestapp/finalised_noise_model.pkl", "rb") as pickle_file:
@@ -48,8 +52,14 @@ def run():
 
             # Create Locations objects for bulk_create
             values = [
-                NoiseLocations(long=x_var[1], lat=x_var[0], hour=x_var[2], weekday=x_var[4],
-                               weekend=x_var[3], count=prediction.item())
+                NoiseLocations(
+                    long=x_var[1],
+                    lat=x_var[0],
+                    hour=x_var[2],
+                    weekday=x_var[4],
+                    weekend=x_var[3],
+                    count=prediction.item(),
+                )
                 for x_var, prediction in zip(x_vars, predictions)
             ]
 
