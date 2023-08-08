@@ -520,6 +520,13 @@ const DisplayMap = ({ activeTab }) => {
                     >
                       <SavedLinks />
                     </div>
+
+                    <button
+                      onClick={() => setDirectionTab(!directionTab)}
+                      className="directions-button"
+                    >
+                      Directions
+                    </button>
                   </div>
                 </div>
 
@@ -608,66 +615,77 @@ const DisplayMap = ({ activeTab }) => {
 
         <div>
           {/* Direction button */}
-          <button onClick={() => setDirectionTab(!directionTab)} className="directions-button">
-            Directions
-          </button>
+          {/*<button*/}
+          {/*  onClick={() => setDirectionTab(!directionTab)}*/}
+          {/*  className="directions-button"*/}
+          {/*>*/}
+          {/*  Directions*/}
+          {/*</button>*/}
 
-          {directionTab && (
-            <div>
-              {/* Tab buttons */}
-              <div style={{ marginBottom: "10px" }}>
-                <button
-                  style={{
-                    marginRight: "10px",
-                    backgroundColor: activeTab2 === "Optimal" ? "active" : "",
-                  }}
-                  onClick={() => setActiveTab("Optimal")}
-                  className="optimal-button"
-                >
-                  Optimal Instructions
-                </button>
-                <button
-                  style={{
-                    backgroundColor: activeTab2 === "Avoidance" ? "active" : "",
-                  }}
-                  onClick={() => setActiveTab("Avoidance")}
-                  className="avoidance-button"
-                >
-                  Avoidance Instructions
-                </button>
+          {directionTab &&
+            (optimalInstructionsData !== null ||
+              avoidanceInstructionsData !== null) && (
+              <div>
+                {/* Tab buttons */}
+                <div style={{ marginBottom: "10px" }}>
+                  {optimalInstructionsData !== null && (
+                    <button
+                      style={{
+                        marginRight: "10px",
+                        backgroundColor:
+                          activeTab2 === "Optimal" ? "active" : "",
+                      }}
+                      onClick={() => setActiveTab("Optimal")}
+                      className="optimal-button"
+                    >
+                      Optimal Instructions
+                    </button>
+                  )}
+                  {avoidanceInstructionsData !== null && (
+                    <button
+                      style={{
+                        backgroundColor:
+                          activeTab2 === "Avoidance" ? "active" : "",
+                      }}
+                      onClick={() => setActiveTab("Avoidance")}
+                      className="avoidance-button"
+                    >
+                      Avoidance Instructions
+                    </button>
+                  )}
+                </div>
+
+                <div className="instructions-button">
+                  {/* Instructions based on the active tab */}
+                  {activeTab2 === "Optimal" &&
+                    optimalInstructionsData !== null && (
+                      <div>
+                        <h2>Optimal Instructions:</h2>
+                        <Instructions
+                          instructionsData={optimalInstructionsData}
+                        />
+                      </div>
+                    )}
+                </div>
+
+                <div className="instructions-button">
+                  {activeTab2 === "Avoidance" &&
+                    avoidanceInstructionsData !== null && (
+                      <div>
+                        <h2>Avoidance Instructions:</h2>
+                        <Instructions
+                          instructionsData={avoidanceInstructionsData}
+                        />
+                      </div>
+                    )}
+                </div>
               </div>
-
-              <div className="instructions-button">
-              {/* Instructions based on the active tab */}
-              {activeTab2 === "Optimal" && optimalInstructionsData !== null && (
-                <div>
-                  <h2>Optimal Instructions:</h2>
-                  <Instructions instructionsData={optimalInstructionsData}/>
-                </div>
-              )}
-                </div>
-
-              <div className="instructions-button">
-              {activeTab2 === "Avoidance" &&
-                avoidanceInstructionsData !== null && (
-                  <div>
-                    <h2>Avoidance Instructions:</h2>
-                    <Instructions
-                      instructionsData={avoidanceInstructionsData}
-                    />
-                  </div>
-                )}
-                </div>
-
-            </div>
-          )}
+            )}
 
           <div>
             {routingStatus && <RoutingLegend routingStatus={routingStatus} />}
           </div>
         </div>
-
-
 
         {/*<div>*/}
         {/*    <iframe src="https://weather-app-live.netlify.app"></iframe>*/}

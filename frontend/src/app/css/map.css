@@ -420,9 +420,9 @@ ul.nav li.active {
   margin-top: 2px; /* Top margin */
   background-color: #908B8B; /* Custom background color */
   transition: background-color 0.3s ease; /* Transition effect for hover */
-  position: absolute;
-  top:52px;
-  right: 10px;
+  /*position: absolute;*/
+  /*top:52px;*/
+  /*right: 10px;*/
   font-weight: bold;
 }
 
