@@ -234,12 +234,12 @@ ul.nav li.active {
   height: 100%;
   padding-top: 0px;
   padding-left: 0px;
-  background-color: #9BBFD4;
+  background-color: #B8CBD6;
 }
 #closed_top_icons {
   padding-left: 10px;
   padding-top: 10px;
-  background-color: #9BBFD4;
+  background-color: #B8CBD6;
 
 }
 #closed_top_icons > svg {
@@ -267,7 +267,7 @@ ul.nav li.active {
 }
 @media screen and (min-width: 700px) {
   #open_sidebar{
-    width: 270px;
+    width: 320px;
     
   }
 }
@@ -336,7 +336,7 @@ ul.nav li.active {
 }
 .search_form {
   margin: 0 5px 10px 2px;
-  width: 210px;
+  width: 250px;
 
   
 }
@@ -363,8 +363,8 @@ ul.nav li.active {
 
 #start_journey {
   display: inline-flex;
-  justify-content: space-between;
-  align-content: center;
+  justify-content: left;
+  align-content: left;
 }
 
 #date_picker {
@@ -440,10 +440,13 @@ ul.nav li.active {
   padding: 5px;
   padding-bottom: 3px;;
   margin-bottom: 5px;
+  margin-top: 5px;
   font-weight: 550;
+  margin-left: 5px;
 }
 
 #feedback {
+  margin-left: 5px;
   display: flex;
   align-content: center;
   color: #394B56;
@@ -511,12 +514,25 @@ ul.nav li.active {
     z-index: 1;
     background-color: #829BA9;
   }
-
+  #open_menu_div {
+    width: 200px;
+    background-color: #829BA9;
+  }
   #start_journey {
     width: 90%;
     display: inline-flex;
-    justify-content: space-around;
+    justify-content: left;
   }
+  @media screen and (max-width: 600px) { 
+
+    .search_form {
+      margin: 0 5px 10px 2px;
+      width: 320px;
+    
+      
+    }
+    
+    }
 
 
 }
