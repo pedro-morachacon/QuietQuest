@@ -287,6 +287,13 @@ const DisplayMap = ({ activeTab }) => {
 
   const [directionTab, setDirectionTab] = useState(false);
 
+  const feedbackbutton = () => {
+    window.location.href = "./feedback";
+  };
+
+
+
+
   useEffect( () => {
     setActiveSidebarOption("journey_planner");
   }, [endLocation]);

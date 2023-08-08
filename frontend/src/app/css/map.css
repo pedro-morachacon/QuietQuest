@@ -233,7 +233,7 @@ ul.nav li.active {
 }
 
 #map {
-  height: 87vh;
+  height: 87.5vh;
   width: 95vw;
   overflow: hidden;
 }
@@ -421,7 +421,7 @@ ul.nav li.active {
   background-color: #908B8B; /* Custom background color */
   transition: background-color 0.3s ease; /* Transition effect for hover */
   position: absolute;
-  top:50px;
+  top:52px;
   right: 10px;
   font-weight: bold;
 }
