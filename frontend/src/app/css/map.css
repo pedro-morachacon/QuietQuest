@@ -228,6 +228,8 @@ ul.nav li.active {
   justify-content: space-between;
   flex-direction: column;
   height: 100%;
+  padding-top: 5px;
+  padding-left: 10px;
 }
 
 #closed_top_icons > svg {
@@ -254,7 +256,7 @@ ul.nav li.active {
 }
 
 #open_icons {
-  margin: 0;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -266,16 +268,42 @@ ul.nav li.active {
   display: flex;
   justify-content: flex-end;
 }
+.sidebar_wrapper {
+  background-color: #B8CBD6;
+  margin-left: 10px;
+  display: -ms-inline-grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
 
+}
 #journey_title {
   display: flex;
   align-content: center;
   color: #394B56;
+  padding-top: 5px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  padding-left: 5px;;
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  background-color: #B8CBD6;
+  border-right:#829BA9;
+  
 }
 
+#journey_fields {
+  color: #394B56;
+ 
+  background-color: #B8CBD6;
+  padding: 5px;
+  margin-top: 0px;
+
+}
 .search_form {
   margin: 0 0 10px 2px;
   width: 90%;
+  
 }
 
 .search_input {
@@ -306,7 +334,11 @@ ul.nav li.active {
 
 #date_picker {
   border-radius: 5px;
-  padding: 5px;
+  padding-left: 2.5px;
+  padding-bottom: 5px;
+
+}
+#sidebar-icon{
 }
 
 #radio_buttons > div {
@@ -318,21 +350,36 @@ ul.nav li.active {
   color: white;
   border: 1px solid white;
   border-radius: 5px;
-  padding: 5px;
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 5px;
 }
 
 #saved_routes_title {
   display: flex;
   align-content: center;
   color: #394B56;
+  background-color: #B8CBD6;
+  margin-top: 5px;
+
 }
 
 #saved_links_title {
   display: flex;
   align-content: center;
   color: #394B56;
-}
+  background-color: #B8CBD6;
+  margin-top: 5px;
+  padding-left: 10px;
 
+}
+#saved-routes {
+  color: #394B56;
+  background-color: #B8CBD6;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 #contact_us {
   display: flex;
   align-content: center;
@@ -394,9 +441,9 @@ ul.nav li.active {
 
   #open_sidebar {
     position: absolute;
-    top: 30vh;
+    top: 29vh;
     right: 0;
-    height: 70vh;
+    height: 65vh;
     width: 100%;
     display: none;
     z-index: 1;
