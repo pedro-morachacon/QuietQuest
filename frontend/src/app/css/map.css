@@ -251,8 +251,9 @@ ul.nav li.active {
 }
 
 #map {
-  height: 90vh;
+  height: 87.5vh;
   width: 95vw;
+  overflow: hidden;
 }
 
 .leaflet-container {
@@ -466,6 +467,12 @@ ul.nav li.active {
 
 @media screen and (max-width: 768px) {
 
+  .search_form {
+    margin: 0 5px 10px 2px;
+    width: 320px;
+  
+  }
+
   #map {
     height: 80vh;
     width: 90vw;
@@ -523,16 +530,6 @@ ul.nav li.active {
     display: inline-flex;
     justify-content: left;
   }
-  @media screen and (max-width: 600px) { 
-
-    .search_form {
-      margin: 0 5px 10px 2px;
-      width: 320px;
-    
-      
-    }
-    
-    }
 
 
 }
