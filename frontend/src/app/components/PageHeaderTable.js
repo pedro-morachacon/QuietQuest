@@ -43,7 +43,6 @@ const PageHeaderTable = ({}) => {
         .header-list {
           margin: 0px;
           padding: 10px;
-          padding-bottom: 5px;
           overflow: hidden;
           background-color: #394b56;
           position: fixed;
