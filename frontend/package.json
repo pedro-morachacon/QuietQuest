@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "quietquest",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -58,5 +58,9 @@
     "webpack": "^5.88.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
-  }
+  },
+  "description": "Sensory app for navigating Manhattan",
+  "main": "next.config.js",
+  "author": "",
+  "license": "ISC"
 }
