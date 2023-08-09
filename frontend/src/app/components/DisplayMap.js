@@ -549,6 +549,7 @@ const DisplayMap = ({ activeTab }) => {
                     </div>
                   </div>
 
+
                   <div id="saved_links">
                     <div id="saved_links_title">
                       <svg
@@ -574,6 +575,7 @@ const DisplayMap = ({ activeTab }) => {
                       </div>
                     </div>
 
+
                     <div
                       id="saved_list"
                       style={{
@@ -583,6 +585,11 @@ const DisplayMap = ({ activeTab }) => {
                             : "none",
                       }}
                     >
+                      <style>{`
+                        #saved_list svg {
+                          fill: black;
+                        }
+                      `}</style>                      
                       <SavedLinks />
                     </div>
 
