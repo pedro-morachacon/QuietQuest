@@ -131,6 +131,8 @@ const DisplayMap = ({ activeTab }) => {
           const endTimeRouting = Date.now(); // end time
           const timeTaken = (endTimeRouting - startTimeRouting) / 1000; // time taken in seconds
           console.log(`Routing Time: ${timeTaken}'s`);
+          document.getElementById("journey_fields").style.display = "none";
+          document.getElementById("instructions_ls").style.display = "block";
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -253,27 +255,35 @@ const DisplayMap = ({ activeTab }) => {
   useEffect(() => {
     switch (activeSidebarOption) {
       case "journey_planner":
-        // Show journey_fields and hide SavedRoutes
         document.getElementById("journey_fields").style.display = "block";
         document.getElementById("destination_list").style.display = "none";
         document.getElementById("saved_list").style.display = "none";
+        document.getElementById("instructions_ls").style.display = "none";
         break;
       case "destinations":
-        // Show SavedRoutes and hide journey_fields
         document.getElementById("journey_fields").style.display = "none";
         document.getElementById("destination_list").style.display = "block";
         document.getElementById("saved_list").style.display = "none";
+        document.getElementById("instructions_ls").style.display = "none";
         break;
       case "saved_list":
         document.getElementById("journey_fields").style.display = "none";
         document.getElementById("destination_list").style.display = "none";
         document.getElementById("saved_list").style.display = "block";
+        document.getElementById("instructions_ls").style.display = "none";
+        break;
+        case "instructions_ls":
+        document.getElementById("journey_fields").style.display = "none";
+        document.getElementById("destination_list").style.display = "none";
+        document.getElementById("saved_list").style.display = "none";
+        document.getElementById("instructions_ls").style.display = "block";
         break;
       case "none":
         // Hide both components
         document.getElementById("journey_fields").style.display = "none";
         document.getElementById("destination_list").style.display = "none";
         document.getElementById("saved_list").style.display = "none";
+        document.getElementById("instructions_ls").style.display = "none";
         break;
       default:
         break;
@@ -284,8 +294,6 @@ const DisplayMap = ({ activeTab }) => {
   const toggleSidebarOptionTab = (sidebarOptionTab) => {
     setActiveSidebarOption(sidebarOptionTab);
   };
-
-  const [directionTab, setDirectionTab] = useState(false);
 
   const feedbackbutton = () => {
     window.location.href = "./feedback";
@@ -319,7 +327,7 @@ const DisplayMap = ({ activeTab }) => {
                   <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 -960 960 960" width="30"><path d="M479.761-139.826q-16.152 0-32.446-5.837-16.293-5.837-28.967-18.272l-69.479-63.478q-105.521-96.283-191.26-192.62Q71.869-516.37 71.869-634q0-97.576 65.153-162.973 65.152-65.397 162.739-65.397 52.522 0 99.282 21.424 46.761 21.424 80.718 59.467 33.956-38.043 80.717-59.467 46.761-21.424 99.283-21.424 97.678 0 163.143 65.397Q888.37-731.576 888.37-634q0 117.63-85.598 214.467-85.598 96.837-193.12 193.359l-68.239 62.478q-12.674 12.435-29.087 18.153-16.413 5.717-32.565 5.717Zm-39.674-548.978q-27.565-39.566-60.924-61.066-33.359-21.5-79.337-21.5-58.696 0-97.826 39.164-39.13 39.163-39.13 98.206 0 51.541 36.64 109.524 36.641 57.983 87.64 112.497 51 54.514 104.971 102.09 53.97 47.576 87.64 78.302 33.761-31 87.83-78.554 54.07-47.554 105.163-102.044 51.094-54.489 87.855-112.272Q797.37-582.239 797.37-634q0-59.043-39.284-98.206-39.284-39.164-98.21-39.164-46.159 0-79.398 21.5t-60.804 61.066q-7.31 10.717-17.753 16.076-10.443 5.358-22.16 5.358-11.718 0-22.072-5.358-10.354-5.359-17.602-16.076ZM480-501.478Z" fill="#394B56"/></svg>
 
                   <svg width="28px" height="28px" viewBox="-3 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.46484 3.92349C4.79896 3.5739 4 4.05683 4 4.80888V19.1911C4 19.9432 4.79896 20.4261 5.46483 20.0765L19.1622 12.8854C19.8758 12.5108 19.8758 11.4892 19.1622 11.1146L5.46484 3.92349ZM2 4.80888C2 2.55271 4.3969 1.10395 6.39451 2.15269L20.0919 9.34382C22.2326 10.4677 22.2325 13.5324 20.0919 14.6562L6.3945 21.8473C4.39689 22.8961 2 21.4473 2 19.1911V4.80888Z" fill="#394B56"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M5.46484 3.92349C4.79896 3.5739 4 4.05683 4 4.80888V19.1911C4 19.9432 4.79896 20.4261 5.46483 20.0765L19.1622 12.8854C19.8758 12.5108 19.8758 11.4892 19.1622 11.1146L5.46484 3.92349ZM2 4.80888C2 2.55271 4.3969 1.10395 6.39451 2.15269L20.0919 9.34382C22.2326 10.4677 22.2325 13.5324 20.0919 14.6562L6.3945 21.8473C4.39689 22.8961 2 21.4473 2 19.1911V4.80888Z" fill="#394B56"/>
 </svg>
                 </div>
                 <div id="closed_bottom_icons">
@@ -341,16 +349,17 @@ const DisplayMap = ({ activeTab }) => {
               <div id="journey_title">
                 <svg className="normal_icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" ><path d="M480-440q-17 0-28.5-11.5T440-480q0-17 11.5-28.5T480-520q17 0 28.5 11.5T520-480q0 17-11.5 28.5T480-440Zm0 368.13q-84.913 0-159.345-32.117-74.432-32.118-129.491-87.177-55.059-55.059-87.177-129.491Q71.869-395.087 71.869-480t32.118-159.345q32.118-74.432 87.177-129.491 55.059-55.059 129.491-87.177Q395.087-888.131 480-888.131t159.345 32.118q74.432 32.118 129.491 87.177 55.059 55.059 87.177 129.491Q888.131-564.913 888.131-480t-32.118 159.345q-32.118 74.432-87.177 129.491-55.059 55.059-129.491 87.177Q564.913-71.869 480-71.869Zm0-91q133.043 0 225.087-92.043Q797.13-346.957 797.13-480t-92.043-225.087Q613.043-797.13 480-797.13t-225.087 92.043Q162.87-613.043 162.87-480t92.043 225.087Q346.957-162.87 480-162.87ZM480-480ZM297.717-277.957l248.805-112.456q7.435-3.478 13.511-9.554 6.076-6.076 9.554-13.511l112.456-248.805q4.761-9.76-2.619-17.141-7.381-7.38-17.141-2.619L413.478-569.587q-7.435 3.478-13.511 9.554-6.076 6.076-9.554 13.511L277.957-297.717q-4.761 9.76 2.619 17.141 7.381 7.38 17.141 2.619Z" fill="#394B56"/></svg>
                  <div id="sidebar-button" ><button onClick={() => toggleSidebarOptionTab("journey_planner")}>Journey Planner</button>
-                 </div></div>
+                 </div>
+              </div>
 
                   <div
                     id="journey_fields"
                     style={{
-                      display:
-                        activeSidebarOption === "journey_planner"
-                          ? "none"
-                          : "block",
-                    }}
+                        display:
+                          activeSidebarOption === "journey_planner"
+                            ? "block"
+                            : "none",
+                      }}
                   >
                     <div id="start_journey">
                       <StartSearchField
@@ -419,9 +428,12 @@ const DisplayMap = ({ activeTab }) => {
                 <div id="saved_links">
                   <div id="saved_links_title">
                   <svg width="26px" height="26px" viewBox="-3 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.46484 3.92349C4.79896 3.5739 4 4.05683 4 4.80888V19.1911C4 19.9432 4.79896 20.4261 5.46483 20.0765L19.1622 12.8854C19.8758 12.5108 19.8758 11.4892 19.1622 11.1146L5.46484 3.92349ZM2 4.80888C2 2.55271 4.3969 1.10395 6.39451 2.15269L20.0919 9.34382C22.2326 10.4677 22.2325 13.5324 20.0919 14.6562L6.3945 21.8473C4.39689 22.8961 2 21.4473 2 19.1911V4.80888Z" fill="#394B56"/>
 </svg>            <div id="sidebar-button" >
                     <button onClick={() => toggleSidebarOptionTab("saved_list")}>
+
+
                       Saved Links
                     </button>
                     </div>
@@ -454,75 +466,81 @@ const DisplayMap = ({ activeTab }) => {
                     <div>
                       {/*Direction button*/}
                       <button
-                        onClick={() => setDirectionTab(!directionTab)}
+                        onClick={() => toggleSidebarOptionTab("instructions_ls")}
                         className="directions-button"
                       >
                         Directions
                       </button>
 
-                      {directionTab &&
-                        (optimalInstructionsData !== null ||
-                          avoidanceInstructionsData !== null) && (
-                          <div>
-                            {/* Tab buttons */}
-                            <div style={{ marginBottom: "10px" }}>
-                              {optimalInstructionsData !== null && (
-                                <button
-                                  style={{
-                                    marginRight: "10px",
-                                    backgroundColor:
-                                      activeTab2 === "Optimal" ? "active" : "",
-                                  }}
-                                  onClick={() => setActiveTab("Optimal")}
-                                  className="optimal-button"
-                                >
-                                  Optimal
-                                </button>
-                              )}
-                              {avoidanceInstructionsData !== null && (
-                                <button
-                                  style={{
-                                    backgroundColor:
-                                      activeTab2 === "Avoidance"
-                                        ? "active"
-                                        : "",
-                                  }}
-                                  onClick={() => setActiveTab("Avoidance")}
-                                  className="avoidance-button"
-                                >
-                                  Avoidance
-                                </button>
-                              )}
-                            </div>
-
-                            <div className="instructions-button">
-                              {/* Instructions based on the active tab */}
-                              {activeTab2 === "Optimal" &&
-                                optimalInstructionsData !== null && (
-                                  <div>
-                                    <h2>Optimal Instructions:</h2>
-                                    <Instructions
-                                      instructionsData={optimalInstructionsData}
-                                    />
-                                  </div>
+                      <div id="instructions_ls" style={{
+                        display:
+                          activeSidebarOption === "instructions_ls"
+                            ? "block"
+                            : "none",
+                      }}>
+                        {(optimalInstructionsData !== null ||
+                            avoidanceInstructionsData !== null) && (
+                            <div>
+                              {/* Tab buttons */}
+                              <div style={{ marginBottom: "10px" }}>
+                                {optimalInstructionsData !== null && (
+                                  <button
+                                    style={{
+                                      marginRight: "10px",
+                                      backgroundColor:
+                                        activeTab2 === "Optimal" ? "active" : "",
+                                    }}
+                                    onClick={() => setActiveTab("Optimal")}
+                                    className="optimal-button"
+                                  >
+                                    Optimal
+                                  </button>
                                 )}
-                            </div>
-
-                            <div className="instructions-button">
-                              {activeTab2 === "Avoidance" &&
-                                avoidanceInstructionsData !== null && (
-                                  <div>
-                                    <h2>Avoidance Instructions:</h2>
-                                    <Instructions
-                                      instructionsData={
-                                        avoidanceInstructionsData
-                                      }
-                                    />
-                                  </div>
+                                {avoidanceInstructionsData !== null && (
+                                  <button
+                                    style={{
+                                      backgroundColor:
+                                        activeTab2 === "Avoidance"
+                                          ? "active"
+                                          : "",
+                                    }}
+                                    onClick={() => setActiveTab("Avoidance")}
+                                    className="avoidance-button"
+                                  >
+                                    Avoidance
+                                  </button>
                                 )}
+                              </div>
+
+                              <div className="instructions-button">
+                                {/* Instructions based on the active tab */}
+                                {activeTab2 === "Optimal" &&
+                                  optimalInstructionsData !== null && (
+                                    <div>
+                                      <h2>Optimal Instructions:</h2>
+                                      <Instructions
+                                        instructionsData={optimalInstructionsData}
+                                      />
+                                    </div>
+                                  )}
+                              </div>
+
+                              <div className="instructions-button">
+                                {activeTab2 === "Avoidance" &&
+                                  avoidanceInstructionsData !== null && (
+                                    <div>
+                                      <h2>Avoidance Instructions:</h2>
+                                      <Instructions
+                                        instructionsData={
+                                          avoidanceInstructionsData
+                                        }
+                                      />
+                                    </div>
+                                  )}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
 
                       <div>
                         {routingStatus && (
