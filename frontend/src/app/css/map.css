@@ -119,6 +119,12 @@ ul.nav li.active {
   padding-bottom: 5px;
 
 }
+
+@media screen and (max-width: 600px) { 
+
+  .within-tab-image  { display: none; }  
+  
+  }
 /* Tab Navigation End*/
 
 
