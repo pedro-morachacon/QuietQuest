@@ -3,20 +3,20 @@ const RoutingStatus = ({ routingStatus }) => {
   if (routingStatus === "no_rerouting") {
     return (
       <div>
-        <p>No Separate Route Was Necessary For This Journey. Best of Luck on Your Quiet Quest!</p><br/>
+        <p>No separate route was necessary for this journey. Best of luck on your QuietQuest!</p><br/>
       </div>
     );
   } else if (routingStatus === "rerouting_success") {
     return (
       <div>
-        <p>A QuietQuest Has Been Created. Best of Luck on Your Quiet Quest!</p><br/>
+        <p>A QuietQuest has been created. Best of luck on your QuietQuest!</p><br/>
       </div>
     );
   } else {
     return (
       <div>
-        <p>Apologies! An Unforeseen Error Has Occurred, Please Try Creating A QuietQuest Again Later.</p>
-        <p>Our Team of Wise Sages Have Been Notified And Will Endeavour To Work Their Mystical Magic!</p><br/>
+        <p>Apologies! An unforeseen error has occurred, please try creating a QuietQuest again later.</p>
+        <p>Our team of wise sages have been notified and will endeavour to work their mystical magic!</p><br/>
       </div>
     );
   }

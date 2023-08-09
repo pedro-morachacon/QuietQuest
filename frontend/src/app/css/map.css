@@ -398,7 +398,19 @@ ul.nav li.active {
 .svg-icon {
   padding-bottom: 2px;
 }
+#directions-div {
+  display: flex;
+  align-content: center;
+  color: #394B56;
+  background-color: #B8CBD6;
+  margin-top: 5px;
+  padding-left: 3px;;
+  margin-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  font-weight: 550;
 
+}
 #saved_routes_title {
   display: flex;
   align-content: center;
@@ -602,4 +614,9 @@ ul.nav li.active {
   /*top: 120px;*/
   /*right: 10px;*/
   background-color: #B8CBD6;
+}
+
+#routing-status {
+  margin: 10px;
+  color: #0F2029;
 }
