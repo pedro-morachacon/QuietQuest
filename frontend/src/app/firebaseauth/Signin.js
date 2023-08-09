@@ -69,7 +69,7 @@ const Signin = () => {
           <label className="py-2 font-medium">Email Address</label>
           <input
             onChange={(e) => setEmail(e.target.value)}
-            className="border p-3"
+            className="b  order p-3"
             type="email"
             placeholder="Enter your email"
           />
