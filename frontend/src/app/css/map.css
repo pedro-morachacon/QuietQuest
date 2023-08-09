@@ -390,11 +390,6 @@ ul.nav li.active {
   margin-top: 5px;
   font-weight: bold;
 }
-#routing_button:hover {
-  background-color: #394B56; /* Blue color on hover */
-  color: #B8CBD6;
-}
-
 .svg-icon {
   padding-bottom: 2px;
 }
@@ -545,20 +540,28 @@ ul.nav li.active {
 
 /*direction*/
 .directions-button {
-  background-color: #9BBFD4;
-  color: #0F2029;
-  border: 2px solid #394B56;
+  background-color: rgba(57,75,86,255);
+  color: white;
+  border: 1px solid white;
   border-radius: 5px;
-  padding: 3px;
-  padding-left: 4px;
-  padding-right: 4px;
-  margin-top: 5px;
-  font-weight: bold;
+  padding: 5px;
+  /*!*border: 1px solid #38c172; !* Green border *!*!*/
+  /*!*background-color: #394B56; !* Blue background *!*!*/
+  /*color: white; !* White text *!*/
+  /*padding: 2px; !* Padding *!*/
+  /*width: auto; !* Auto width *!*/
+  /*margin-top: 2px; !* Top margin *!*/
+  /*background-color: #908B8B; !* Custom background color *!*/
+  /*transition: background-color 0.3s ease; !* Transition effect for hover *!*/
+  /*!*position: absolute;*!*/
+  /*!*top:52px;*!*/
+  /*!*right: 10px;*!*/
+  /*font-weight: bold;*/
 }
 
 .directions-button:hover {
-  background-color: #394B56; /* Blue color on hover */
-  color: #B8CBD6;
+  background-color: #B8CBD6; /* Blue color on hover */
+  color: black;
 }
 
 
