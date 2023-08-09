@@ -4,19 +4,23 @@ html, body {
 }
 
 .tab-container{
-    margin-top: 45px;
-    margin-bottom: -6px;
+    margin-top: 40px;
+    position: fixed;
+    z-index: 1;
+
 }
 
 .main-body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 0;
 }
 
 .map-container {
+    padding-top: 80px;
     width: 100%;
-    z-index: 1;
+    z-index: 0;
 }
 
 /*!* global css rules for site *!*/

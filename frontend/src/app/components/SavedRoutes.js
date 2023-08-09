@@ -86,6 +86,7 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
     <div>
         {user ? (
           <React.Fragment>
+            <div id="saved-routes">
             <button onClick={addRoute}>Save Route</button>
             <ul>
               {routes.map((route) => (
@@ -99,9 +100,10 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
                 </li>
               ))}
             </ul>
+            </div>
           </React.Fragment>
         ) : (
-          <p>Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save routes</p>
+          <p id="saved-routes">Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save routes</p>
         )}
     </div>
   );
