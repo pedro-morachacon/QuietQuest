@@ -16,7 +16,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
   const inputRef = useRef(null); // Ref to hold the input element
 
   useEffect(() => {
-    setInputValue(savedRouteAddress || '');
+    setInputValue(savedRouteAddress || "");
   }, [savedRouteAddress]);
 
   useEffect(() => {
@@ -58,6 +58,7 @@ const EndSearchField = ({ setEndLocation, setEndInputValue, savedRouteAddress })
   const handleListItemClick = (result) => {
     const { x: lng, y: lat } = result;
     setEndLocation([lng, lat]);
+    setEndInputValue(result.label.split(', New York County')[0]);
     setInputValue(result.label.split(', New York County')[0]);
     setAutocompleteResults([]); // Clear the autocomplete results after selecting an address
   };

@@ -69,7 +69,7 @@ const Accountpage = () => {
 
       <h3 className="text-2xl py-4">Email</h3>
       <AccountUserEmail />
-      <p>Change the email linked to your account</p>
+      {/*<p>Change the email linked to your account</p>*/}
       <p>-----------------------------------------------------</p>
 
       <div>
