@@ -625,12 +625,12 @@ fill="#000000" stroke="none">
                               )}
                             </div>
 
-                            <div className="instructions-button">
+                            <div className="instructions-list-container">
                               {/* Instructions based on the active tab */}
                               {activeTab2 === "Optimal" &&
                                 optimalInstructionsData !== null && (
-                                  <div>
-                                    <h2>Optimal Instructions:</h2>
+                                  <div >
+                                   
                                     <Instructions
                                       instructionsData={optimalInstructionsData}
                                     />

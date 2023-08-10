@@ -328,9 +328,6 @@ ul.nav li.active {
   padding-left: 5px;
 }
 
-#instructions-button {
-  padding-left: 5px;
-}
 
 #journey_fields {
   color: #394B56;
@@ -453,6 +450,22 @@ ul.nav li.active {
   font-weight: 550;
   padding-left: 2px;
 }
+
+.instructions-list {
+  padding-left: 0px;
+  background-color: #B8CBD6;
+  padding-top: 5px;
+  margin-top: 0px;
+
+}
+
+
+.instructions-list-container{
+  margin-left: 5px;
+  margin-top: 0px;
+  background-color: #B8CBD6;
+}
+
 
 #saved-links {
   color: #394B56;
@@ -593,13 +606,6 @@ ul.nav li.active {
 
 
 .optimal-button{
-  /*!*position: absolute;*!*/
-  /*!*top:90px;*!*/
-  /*!*right: 190px;*!*/
-  /*font-weight: bold;*/
-  /*background-color: #908B8B;*/
-  /*padding: 2px;*/
-  /*color: #D9D9D9;*/
 
 
   color: #394B56;
@@ -644,14 +650,6 @@ ul.nav li.active {
 }
 /*direction*/
 
-
-
-.instructions-button{
-  /*position: absolute;*/
-  /*top: 120px;*/
-  /*right: 10px;*/
-  background-color: #B8CBD6;
-}
 
 #routing-status {
   margin: 10px;

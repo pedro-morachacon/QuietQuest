@@ -36,9 +36,9 @@ const Instructions = ({ instructionsData }) => {
         // height={500}  // Set the scroll height to 500 pixels
       >
         <div>
-          <ul>
+          <ul className="instructions-list">
             {instructionSteps.map((step, index) => (
-              <li key={index}>
+              <li id= "instructions-list-item" key={index}>
                 {index + 1}. {step.instruction}
                 {index !== instructionSteps.length - 1 &&
                   ` and continue for ${step.distance}m`}
