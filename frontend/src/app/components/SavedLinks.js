@@ -237,20 +237,29 @@ const SavedLinks = () => {
           <ul>
             <li>
               <a
-                href="https://youtu.be/K-vfA4OmaRA"
+                href="https://youtu.be/aNXKjGFUlMs"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Video1
+                Breathing Exercise
               </a>
             </li>
             <li>
               <a
-                href="https://youtu.be/cjaZOyBgJaU"
+                href="https://youtu.be/DqewBvd-bAA"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Video2
+                Nature Sounds
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://youtu.be/qe3NVV096wI"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                White Noise
               </a>
             </li>
           </ul>

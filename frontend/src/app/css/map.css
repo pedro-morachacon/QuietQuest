@@ -299,13 +299,12 @@ ul.nav li.active {
   padding-left: 5px;
   padding-right: 0px;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   margin-left: 5px;
   background-color: #B8CBD6;
   margin-bottom: 5px;
   width: 98.5%;
   margin-right: 10px;
-  display: flex;
   align-content: center;
 }
 .sidebar_wrapper {
@@ -488,6 +487,12 @@ ul.nav li.active {
   padding-right: 10px;
   margin-left: 5px;
 }
+
+/*Saved Links Border*/
+/*#saved-links > ul > li {*/
+/*  border-bottom: #3c3c3c solid 1px;*/
+/*}*/
+
 #saved-routes {
   color: #394B56;
   background-color: #B8CBD6;
@@ -585,8 +590,6 @@ ul.nav li.active {
   
   }
 
-
-
   #map {
     height: 80vh;
     width: 100vw;
@@ -621,7 +624,10 @@ ul.nav li.active {
 
   #mobile_menu {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-content: center;
+    flex-wrap: wrap ;
     height: 10vh;
   }
 
@@ -638,7 +644,7 @@ ul.nav li.active {
   }
   #open_menu {
     display: flex;
-    width: 100%;
+    width: 98.5%;
     justify-content: center;
     align-content: center;
 

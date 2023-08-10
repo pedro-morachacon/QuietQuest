@@ -42,16 +42,22 @@ const Signup = () => {
       const linksCollectionRef = collection(db, "users", user.uid, "links");
       // add data to Cloud Firestore
       const linksRef1 = await addDoc(linksCollectionRef, {
-        label: "Video1",
-        link: "https://youtu.be/K-vfA4OmaRA",
+        label: "Breathing Exercise",
+        link: "https://youtu.be/aNXKjGFUlMs",
       });
       console.log("Document written with ID: ", linksRef1.id);
 
       const linksRef2 = await addDoc(linksCollectionRef, {
-        label: "Video2",
-        link: "https://youtu.be/cjaZOyBgJaU",
+        label: "Nature Sounds",
+        link: "https://youtu.be/DqewBvd-bAA",
       });
       console.log("Document written with ID: ", linksRef2.id);
+
+      const linksRef3 = await addDoc(linksCollectionRef, {
+        label: "White Noise",
+        link: "https://youtu.be/qe3NVV096wI",
+      });
+      console.log("Document written with ID: ", linksRef3.id);
 
       // Read data from Cloud Firestore
       const querySnapshot = await getDocs(collection(db, "users"));
