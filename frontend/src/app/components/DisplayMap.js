@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   MapContainer,
   GeoJSON,
@@ -164,6 +164,13 @@ const DisplayMap = ({ activeTab }) => {
       .then((res) => {
         setHeatmapData(res.data);
         setShowHeatmap(true);
+
+        // Check if map is available and set zoom level
+  if (mapRef.current) {
+    mapRef.current.setZoom(13);
+  }
+
+
         // Calculate Time
         const endTimeNoise = Date.now(); // end time
         const timeTaken = (endTimeNoise - startTimeNoise) / 1000; // time taken in seconds
@@ -189,6 +196,13 @@ const DisplayMap = ({ activeTab }) => {
       .then((res) => {
         setHeatmapData(res.data);
         setShowHeatmap(true);
+
+        // Check if map is available and set zoom level
+  if (mapRef.current) {
+    mapRef.current.setZoom(13);
+  }
+
+
         // Calculate Time
         const endTimeTaxi = Date.now(); // end time
         const timeTaken = (endTimeTaxi - startTimeTaxi) / 1000; // time taken in seconds
@@ -315,6 +329,9 @@ const DisplayMap = ({ activeTab }) => {
   useEffect(() => {
     setActiveSidebarOption("journey_planner");
   }, [endLocation]);
+
+  const mapRef = useRef(null);
+
 
   return (
     <div>
@@ -701,7 +718,7 @@ const DisplayMap = ({ activeTab }) => {
                         <button
                           onClick={() => toggleSidebarOptionTab("saved_list")}
                         >
-                          Saved Links
+                          Peaceful Playlist
                         </button>
                       </div>
                     </div>
@@ -770,6 +787,7 @@ const DisplayMap = ({ activeTab }) => {
           <div id="item-right">
             <div id="map">
               <MapContainer
+                  ref={mapRef}
                 center={[40.76657321777155, -73.9831392189498]}
                 zoom={13}
               >
