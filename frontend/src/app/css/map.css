@@ -451,6 +451,7 @@ ul.nav li.active {
   padding-top: 3px;
   padding-bottom: 1px;
   font-weight: 550;
+  padding-left: 2px;
 }
 
 #saved-links {
