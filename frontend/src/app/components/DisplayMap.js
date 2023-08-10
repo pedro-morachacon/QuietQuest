@@ -595,7 +595,7 @@ fill="#000000" stroke="none">
                           avoidanceInstructionsData !== null) && (
                           <div>
                             {/* Tab buttons */}
-                            <div style={{ marginBottom: "10px" }}>
+                            <div style={{ marginBottom: "0px" }}>
                               {optimalInstructionsData !== null && (
                                 <button
                                   style={{
