@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   MapContainer,
   GeoJSON,
@@ -84,7 +84,7 @@ const DisplayMap = ({ activeTab }) => {
         lng: startLocation[0],
         lat: startLocation[1],
       });
-      map.flyTo([startLocation[0], startLocation[1]], 14);
+      // map.flyTo([startLocation[0], startLocation[1]], 14);
     }
   }, [startLocation]);
 
@@ -164,6 +164,13 @@ const DisplayMap = ({ activeTab }) => {
       .then((res) => {
         setHeatmapData(res.data);
         setShowHeatmap(true);
+
+        // Check if map is available and set zoom level
+  if (mapRef.current) {
+    mapRef.current.setZoom(13);
+  }
+
+
         // Calculate Time
         const endTimeNoise = Date.now(); // end time
         const timeTaken = (endTimeNoise - startTimeNoise) / 1000; // time taken in seconds
@@ -189,6 +196,13 @@ const DisplayMap = ({ activeTab }) => {
       .then((res) => {
         setHeatmapData(res.data);
         setShowHeatmap(true);
+
+        // Check if map is available and set zoom level
+  if (mapRef.current) {
+    mapRef.current.setZoom(13);
+  }
+
+
         // Calculate Time
         const endTimeTaxi = Date.now(); // end time
         const timeTaken = (endTimeTaxi - startTimeTaxi) / 1000; // time taken in seconds
@@ -315,6 +329,9 @@ const DisplayMap = ({ activeTab }) => {
   useEffect(() => {
     setActiveSidebarOption("journey_planner");
   }, [endLocation]);
+
+  const mapRef = useRef(null);
+
 
   return (
     <div>
@@ -617,6 +634,12 @@ fill="#000000" stroke="none">
                         }
                       `}</style>
 
+                        <div>
+                        {routingStatus && (
+                          <RoutingLegend routingStatus={routingStatus} />
+                        )}
+                      </div>
+
 
                         {(optimalInstructionsData !== null ||
                           avoidanceInstructionsData !== null) && (
@@ -682,11 +705,6 @@ fill="#000000" stroke="none">
                         )}
                       </div>
 
-                      <div>
-                        {routingStatus && (
-                          <RoutingLegend routingStatus={routingStatus} />
-                        )}
-                      </div>
                     </div>
 
 
@@ -829,6 +847,7 @@ fill="#000000" stroke="none">
           <div id="item-right">
             <div id="map">
               <MapContainer
+                  ref={mapRef}
                 center={[40.76657321777155, -73.9831392189498]}
                 zoom={13}
               >

@@ -84,6 +84,8 @@ ul.nav li:last-child {
 
 ul.nav li:hover {
   background: #394b56;
+  user-select: none;
+  cursor: default;
 }
 ul.nav li.active {
   background: #B8CBD6 !important;
