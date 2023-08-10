@@ -733,7 +733,7 @@ fill="#000000" stroke="none">
                         <button
                           onClick={() => toggleSidebarOptionTab("saved_list")}
                         >
-                          Saved Links
+                          Chill Out Videos
                         </button>
                       </div>
                     </div>
