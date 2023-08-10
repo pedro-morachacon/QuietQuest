@@ -84,7 +84,7 @@ const DisplayMap = ({ activeTab }) => {
         lng: startLocation[0],
         lat: startLocation[1],
       });
-      map.flyTo([startLocation[0], startLocation[1]], 14);
+      // map.flyTo([startLocation[0], startLocation[1]], 14);
     }
   }, [startLocation]);
 
@@ -557,6 +557,12 @@ const DisplayMap = ({ activeTab }) => {
                         }
                       `}</style>
 
+                        <div>
+                        {routingStatus && (
+                          <RoutingLegend routingStatus={routingStatus} />
+                        )}
+                      </div>
+
 
                         {(optimalInstructionsData !== null ||
                           avoidanceInstructionsData !== null) && (
@@ -622,11 +628,6 @@ const DisplayMap = ({ activeTab }) => {
                         )}
                       </div>
 
-                      <div>
-                        {routingStatus && (
-                          <RoutingLegend routingStatus={routingStatus} />
-                        )}
-                      </div>
                     </div>
 
 
