@@ -772,7 +772,9 @@ const DisplayMap = ({ activeTab }) => {
                 center={[40.76657321777155, -73.9831392189498]}
                 zoom={13}
               >
-                <div id="loading-circle"></div>
+                <div id="loading-circle">
+                  <img src="https://imagizer.imageshack.com/img922/3338/QsQwjC.png" alt="" />
+                </div>
                 {/* Display start marker */}
                 {startMarkerPosition && (
                   <Marker position={startMarkerPosition} icon={startPosIcon}>
