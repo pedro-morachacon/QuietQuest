@@ -295,12 +295,16 @@ ul.nav li.active {
 #open_menu {
   padding-top: 10px;
   padding-left: 5px;
-  padding-right: 5px;
+  padding-right: 0px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: left;
   margin-left: 5px;
   background-color: #B8CBD6;
   margin-bottom: 5px;
+  width: 98.5%;
+  margin-right: 10px;
+  display: flex;
+  align-content: center;
 }
 .sidebar_wrapper {
   background-color: #B8CBD6;
@@ -480,7 +484,7 @@ ul.nav li.active {
   background-color: #B8CBD6;
   padding-left: 12px;
   padding-right: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 #saved-routes {
   color: #394B56;
@@ -529,6 +533,8 @@ ul.nav li.active {
   
   }
 
+
+
   #map {
     height: 80vh;
     width: 100vw;
@@ -576,11 +582,17 @@ ul.nav li.active {
     display: none;
     z-index: 1;
     background-color: #829BA9;
+
   }
-  #open_menu_div {
-    width: 200px;
-    background-color: #829BA9;
+  #open_menu {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+
+ 
   }
+
   #start_journey {
     width: 90%;
     display: inline-flex;

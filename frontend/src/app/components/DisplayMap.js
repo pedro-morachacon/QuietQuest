@@ -452,6 +452,7 @@ fill="#000000" stroke="none">
                     id="open_menu"
                     onClick={() => toggleSidebarStatus("closed_sidebar")}
                   >
+                    <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="24"
@@ -463,6 +464,7 @@ fill="#000000" stroke="none">
                         fill="#394B56"
                       />
                     </svg>
+                    </div>
                   </button>
                   <div id="journey_title">
                     
@@ -733,7 +735,7 @@ fill="#000000" stroke="none">
                         <button
                           onClick={() => toggleSidebarOptionTab("saved_list")}
                         >
-                          Chill Out Videos
+                          Peaceful Playlist
                         </button>
                       </div>
                     </div>
