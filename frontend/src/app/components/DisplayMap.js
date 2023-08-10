@@ -606,7 +606,7 @@ fill="#000000" stroke="none">
                                   onClick={() => setActiveTab("Optimal")}
                                   className="optimal-button"
                                 >
-                                  Optimal
+                                  Fastest Route
                                 </button>
                               )}
                               {avoidanceInstructionsData !== null && (
@@ -620,7 +620,7 @@ fill="#000000" stroke="none">
                                   onClick={() => setActiveTab("Avoidance")}
                                   className="avoidance-button"
                                 >
-                                  Avoidance
+                                  Quietest Route
                                 </button>
                               )}
                             </div>
@@ -637,12 +637,12 @@ fill="#000000" stroke="none">
                                   </div>
                                 )}
                             </div>
-
-                            <div className="instructions-button">
+                            
+                            <div className="instructions-list-container">
                               {activeTab2 === "Avoidance" &&
                                 avoidanceInstructionsData !== null && (
                                   <div>
-                                    <h2>Avoidance Instructions:</h2>
+                                    
                                     <Instructions
                                       instructionsData={
                                         avoidanceInstructionsData
