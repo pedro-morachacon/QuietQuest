@@ -31,7 +31,7 @@ const RoutingStatus = ({ routingStatus }) => {
   // Styling for a center popup
   const popupStyle = {
     position: 'fixed',
-    top: '50%',
+    top: '17%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: "#B8CBD6",
