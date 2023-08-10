@@ -84,7 +84,7 @@ const Signup = () => {
         </div>
         <h1 className="text-2xl font-bold py-2">Sign up for an account</h1>
         <p className="py-2">
-          Already have an account yet?{" "}
+          Already have an account?{" "}
           <Link to="/firebaseauth" className="underline">
             Sign in.
           </Link>
