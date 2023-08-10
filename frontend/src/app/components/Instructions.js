@@ -27,7 +27,7 @@ const Instructions = ({ instructionsData }) => {
   };
 
   return (
-    <div id="parentScrollDiv" style={{ height: 200, overflow: "auto" }}>
+    <div id="parentScrollDiv" style={{ height: 205, overflow: "auto" }}>
       <InfiniteScroll
         dataLength={instructionSteps.length}
         next={fetchMoreData}
@@ -39,7 +39,7 @@ const Instructions = ({ instructionsData }) => {
           <ul>
             {instructionSteps.map((step, index) => (
               <li key={index}>
-                {step.instruction}
+                {index + 1}. {step.instruction}
                 {index !== instructionSteps.length - 1 &&
                   ` and continue for ${step.distance}m`}
               </li>
@@ -52,20 +52,3 @@ const Instructions = ({ instructionsData }) => {
 };
 
 export default Instructions;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

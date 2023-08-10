@@ -86,22 +86,28 @@ const SavedRoutes = ({ endLocation, endInputValue, setEndLocation, setSavedRoute
     <div>
         {user ? (
           <React.Fragment>
-            <button onClick={addRoute}>Save Route</button>
+            <div id="saved-routes">
+            <button onClick={addRoute} style={{ display: 'flex', alignItems: 'center' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" style={{ marginRight: '10px' }}><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+              Save Destination
+            </button>
             <ul>
               {routes.map((route) => (
-                <li key={route.id} >
-                  <button onClick={() => fillEndSearchField(route.label.split(', New York County')[0], route.coordinates)}>
-                    {route.address}
-                  </button>
+                <li key={route.id} style={{ display: 'flex', alignItems: 'center' }}>
                   <button onClick={() => deleteRoute(route.id)}>
-                    Delete Route
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" style={{ marginRight: '10px' }}><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                  </button>
+                  <button onClick={() => fillEndSearchField(route.address, route.coordinates)} style={{ display: 'flex', alignItems: 'center' }}>
+                    {/*<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" style={{ marginRight: '10px' }}><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>*/}
+                    {route.address}
                   </button>
                 </li>
               ))}
             </ul>
+            </div>
           </React.Fragment>
         ) : (
-          <p>Please sign in to save routes.</p>
+          <p id="saved-routes">Please <a href="./firebaseauth" target="_blank" rel="noopener noreferrer">Login In or Sign Up</a> to save routes</p>
         )}
     </div>
   );

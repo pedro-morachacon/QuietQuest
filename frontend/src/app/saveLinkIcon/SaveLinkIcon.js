@@ -55,7 +55,7 @@ const Weather = () => {
     };
 
     const paragraphStyle = {
-        color: '#d9d9d9', // Sets the color of the text
+        color: '#b8cbd6', // Sets the color of the text
         fontSize: '18px', // Change this value to adjust the font size
         marginRight: '10px', // Adds space to the right of the text
         fontWeight: 'bold', // Makes the text bold
@@ -64,14 +64,22 @@ const Weather = () => {
     // The toFixed method is used here to round the temperature to 0 decimal places
     const temp = weatherData.main.temp.toFixed(0);
 
+      // style for icons 
+    const svgStyle = {
+      fill: 'black',
+      width: '24px',
+      height: '24px',
+      // any other styles you want to apply
+    };
+
     return (
         <div style={containerStyle}>
-          <p style={paragraphStyle}>{temp}°F</p>
-          {weatherIcons[mainWeather] ? weatherIcons[mainWeather] : (
-            weatherIcons["Atmosphere"]
-          )}
+
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+          </svg>
         </div>
       );
+      
 }
-
 export default Weather;
