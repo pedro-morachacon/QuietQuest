@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "weekDay": "Sunday",
+      "date": "July 23th",
+      "year": 2023,
+      "temperature": 22,
+      "tempInWords": "Clear Sky",
+      "url": "http://openweathermap.org/img/wn/01d@2x.png"
+    },
+    {
+      "id": 2,
+      "weekDay": "Monday",
+      "date": "July 24th",
+      "year": 2023,
+      "temperature": 23,
+      "tempInWords": "Broken Clouds",
+      "url": "http://openweathermap.org/img/wn/03d@2x.png"
+    },
+    {
+      "id": 3,
+      "weekDay": "Tuesday",
+      "date": "July 25th",
+      "year": 2023,
+      "temperature": 23,
+      "tempInWords": "Rain",
+      "url": "http://openweathermap.org/img/wn/10d@2x.png"
+    },
+    {
+      "id": 4,
+      "weekDay": "Wednesday",
+      "date": "July 26th",
+      "year": 2023,
+      "temperature": 23,
+      "tempInWords": "Clear Sky",
+      "url": "http://openweathermap.org/img/wn/01d@2x.png"
+    },
+    {
+      "id": 5,
+      "weekDay": "Thursday",
+      "date": "July 27th",
+      "year": 2023,
+      "temperature": 24,
+      "tempInWords": "Clear Sky",
+      "url": "http://openweathermap.org/img/wn/01d@2x.png"
+    },
+    {
+      "id": 6,
+      "weekDay": "Friday",
+      "date": "July 28th",
+      "year": 2023,
+      "temperature": 23,
+      "tempInWords": "Thunderstrom",
+      "url": "http://openweathermap.org/img/wn/11d@2x.png"
+    },
+    {
+      "id": 7,
+      "weekDay": "Saturday",
+      "date": "July 29th",
+      "year": 2023,
+      "temperature": 25,
+      "tempInWords": "Light Rain",
+      "url": "http://openweathermap.org/img/wn/10d@2x.png"
+    }
+  ]
+}

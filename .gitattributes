@@ -1,0 +1,4 @@
+*.pickle filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+quietquestapp/test_noise_model.pkl !text !filter !merge !diff
+*.csv filter=lfs diff=lfs merge=lfs -text
