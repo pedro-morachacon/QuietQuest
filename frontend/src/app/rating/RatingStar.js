@@ -56,7 +56,7 @@ function RatingStar() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/ratings/", {
+      const response = await axios.post("/ratings/", {
         rating: currentValue,
       });
 

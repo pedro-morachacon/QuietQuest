@@ -18,6 +18,7 @@ from itertools import chain
 import json
 from django.core import serializers
 from shapely import affinity
+from django.shortcuts import render
 
 
 # Expects POST operation from react front end, request contains the coordinates of the start and destination
@@ -302,3 +303,53 @@ def ratings_view(request):
     rating = Ratings(ratings=request.data['rating'])
     rating.save()
     return JsonResponse({'message': 'Rating Recorded Successfully.'})
+
+
+def front_page(request):
+    context = {}
+    return render(request, "index.html", context)
+
+
+def firebaseauth_page(request):
+    context = {}
+    return render(request, "firebaseauth.html", context)
+
+
+def account_page(request):
+    context = {}
+    return render(request, "accountpage.html", context)
+
+
+def contact_page(request):
+    context = {}
+    return render(request, "contact.html", context)
+
+
+def feedback_page(request):
+    context = {}
+    return render(request, "feedback.html", context)
+
+
+def rating_page(request):
+    context = {}
+    return render(request, "rating.html", context)
+
+
+def resetpwd_page(request):
+    context = {}
+    return render(request, "resetpwd.html", context)
+
+
+def save_link_icon_page(request):
+    context = {}
+    return render(request, "saveLinkIcon.html", context)
+
+
+def weather_page(request):
+    context = {}
+    return render(request, "weather.html", context)
+
+
+def error_page(request):
+    context = {}
+    return render(request, "404.html", context)

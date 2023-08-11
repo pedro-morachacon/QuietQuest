@@ -121,7 +121,7 @@ const DisplayMap = ({ activeTab }) => {
 
     if (startLocation && endLocation) {
       axios
-        .post("http://localhost:8000/directions/", {
+        .post("/directions/", {
           // fixed locations values at the moment, should come from start and end points inputted into GeoSearch
           locations: [startLocation, endLocation],
           time: time, // time goes here e.g. "09:40:52"
@@ -159,6 +159,7 @@ const DisplayMap = ({ activeTab }) => {
         });
     } else {
       alert("Please Start Location and Destination Information Before Requesting a QuietQuest");
+      document.getElementById("loading-circle").style.display = "none";
     }
   };
 
@@ -172,7 +173,7 @@ const DisplayMap = ({ activeTab }) => {
     setHeatmapData(null); // Clear existing heatmap data
     setShowHeatmap(false);
     axios
-      .post("http://localhost:8000/noiseheatmap/", {
+      .post("/noiseheatmap/", {
         time: time, // time goes here e.g. "09:40:52"
         date: date, // date goes here e.g. "04/07/2023"
       })
@@ -205,7 +206,7 @@ const DisplayMap = ({ activeTab }) => {
     setShowHeatmap(false);
     // gets busyness heatmap
     axios
-      .post("http://localhost:8000/busynessheatmap/", {
+      .post("/busynessheatmap/", {
         time: time, // time goes here e.g. "09:40:52"
         date: date, // date goes here e.g. "04/07/2023"
       })
@@ -238,7 +239,7 @@ const DisplayMap = ({ activeTab }) => {
     setHeatmapData(null); // Clear existing heatmap data
     setShowHeatmap(false);
     axios
-      .post("http://localhost:8000/combinedheatmap/", {
+      .post("/combinedheatmap/", {
         time: time, // time goes here e.g. "09:40:52"
         date: date, // date goes here e.g. "04/07/2023"
       })
@@ -550,7 +551,7 @@ fill="#000000" stroke="none">
                     </div>
                   </button>
                   <div id="journey_title">
-                    
+
                   <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="30" height="24" viewBox="0 0 500.000000 400.000000"
  preserveAspectRatio="xMidYMid meet">

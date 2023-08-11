@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from "react";
 import {useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
-import axios from 'axios';
 
 const HeatMap = ({ heatmapData }) => {
     const map = useMap();

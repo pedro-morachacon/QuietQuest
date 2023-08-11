@@ -1,11 +1,14 @@
 import pytest
 from django.http import JsonResponse
+from django.apps import apps
 from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, Accounts, NoisePolygons, TaxiWeekdayPolygons, Ratings
 from quietquestapp.views import directions_view, noise_heatmap_view, busyness_heatmap_view, combined_heatmap_view, \
-    register_view, login_view, ratings_view
+    register_view, login_view, ratings_view, front_page, firebaseauth_page, account_page, contact_page, feedback_page, \
+    rating_page, resetpwd_page, save_link_icon_page, weather_page, error_page
 from django.test import RequestFactory
 import json
 from datetime import datetime
+from django.urls import reverse
 
 
 @pytest.mark.django_db
@@ -634,3 +637,70 @@ def test_ratings_view():
 
     # Assert the expected behavior of the function
     assert isinstance(response, JsonResponse)
+
+@pytest.mark.django_db
+def test_home_page_view(client):
+    url = reverse(front_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_firebaseauth_page_view(client):
+    url = reverse(firebaseauth_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_account_page(client):
+    url = reverse(account_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_contact_page(client):
+    url = reverse(contact_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_feedback_page(client):
+    url = reverse(feedback_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_rating_page(client):
+    url = reverse(rating_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_resetpwd_page(client):
+    url = reverse(resetpwd_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_save_link_icon_page(client):
+    url = reverse(save_link_icon_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_weather_page(client):
+    url = reverse(weather_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_error_page(client):
+    url = reverse(error_page)
+    response = client.get(url)
+    assert response.status_code == 200

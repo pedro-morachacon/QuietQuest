@@ -11,7 +11,7 @@ function App() {
       <PageHeaderTable />
       <div className="App">
         <section className="account-section">
-            <iframe src="./rating" scrolling="no"></iframe>
+            {/*<iframe src="../rating" scrolling="no"></iframe>*/}
             {/*<RatingStar/>*/}
           <ContactUs />
         </section>
