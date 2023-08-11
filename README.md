@@ -7,8 +7,24 @@ On the first run, you might have to install all the node modules. Inside the *fr
 
 ### `npm install`
 
-Also in the *backend/quietquestapp* directory, you will need a file called *info.py* that has the API key for open
+In the *backend/quietquestapp* directory, you will need a file called *info.py* that has the API key for open
 route service in the format: ors_key = "API_KEY"
+
+Also in the *front/quietquestapp* directory, you will need a file called *.env* that has the API key for Firebase for the user accounts, the API key for OpenWeatherAPI and the API key for StadiaMap in the followingformat: 
+
+Firebase:
+REACT_APP_FIREBASE_API_KEY=...
+REACT_APP_FIREBASE_AUTH_DOMAIN=...
+REACT_APP_FIREBASE_PROJECT_ID=...
+REACT_APP_FIREBASE_STORAGE_BUCKET=...
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=...
+REACT_APP_FIREBASE_APP_ID=...
+
+OpenWeatherAPI:
+REACT_APP_WEATHER_API_KEY=...
+
+StadiaMap:
+REACT_APP_TILELAYER_API_KEY=...
 
 ## Running Production
 
@@ -16,7 +32,7 @@ Inside the *frontend* directory of the project, run:
 
 ### `npm run build`
 
-Inside the *backend* directory of the project, run:
+Then, inside the *backend* directory of the project, run:
 
 ### `python manage.py collectstatic`
 
