@@ -55,34 +55,42 @@ const Accountpage = () => {
       {/*  />*/}
       {/*</a>*/}
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <h3 className="text-2xl py-4">Username</h3>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <AccountUserName />
-          <div style={{ marginLeft: "250px" }}>
-            <EditNameWithPopup />
-          </div>
+          <EditNameWithPopup />
         </div>
-        <p>Change the username linked to your account</p>
       </div>
-      <p>-----------------------------------------------------</p>
+        <AccountUserName />
+      <p>Change the username linked to your account</p>
+      <p>-----------------------------</p>
 
       <h3 className="text-2xl py-4">Email</h3>
       <AccountUserEmail />
       {/*<p>Change the email linked to your account</p>*/}
-      <p>-----------------------------------------------------</p>
+      <p>-----------------------------</p>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <h3 className="text-2xl py-4">Profile Image</h3>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <AccountUserImage />
-          <div style={{ marginLeft: "380px" }}>
-            <EditPhotoButtonWithPopup />
-          </div>
+          <EditPhotoButtonWithPopup />
         </div>
-        <p>Change the profile image linked to your account</p>
       </div>
-      <p>-----------------------------------------------------</p>
+        <AccountUserImage />
+      <p>Change the profile image linked to your account</p>
+      <p>-----------------------------</p>
 
       <div
         style={{
@@ -95,7 +103,7 @@ const Accountpage = () => {
         <DeleteAccountButton />
       </div>
       <p>Permanently delete your account</p>
-      <p>-----------------------------------------------------</p>
+      <p>-----------------------------</p>
 
       <div
         style={{

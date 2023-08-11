@@ -34,8 +34,8 @@ function App() {
             margin-top: 60px;
             
             width: 100%;
-            max-width: 700px;
-            min-height: 400px;
+            //max-width: 700px;
+            //min-height: 400px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
