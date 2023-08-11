@@ -128,7 +128,7 @@ button {
     /*left: 280px;*/
     /*bottom: 100px;*/
     text-decoration: underline;
-    text-align: right;
+    text-align: center;
 }
 
 .reset-pwd{
@@ -136,5 +136,5 @@ button {
     /*left: 205px;*/
     /*bottom: 100px;*/
     text-decoration: underline;
-    text-align: right;
+    text-align: center;
 }
