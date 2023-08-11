@@ -97,9 +97,21 @@ const DisplayMap = ({ activeTab }) => {
     }
   }, [endLocation]);
 
+  const [showPopup, setShowPopup] = useState(false);
+
   // onclick, POST operation to backend django for api call
   const routingClick = () => {
     document.getElementById("loading-circle").style.display = "block";
+
+    if (!startLocation || !endLocation) {
+            setShowPopup(true);
+            setTimeout(() => {
+                setShowPopup(false);
+            }, 5000);
+            document.getElementById("loading-circle").style.display = "none";
+            return null;
+        }
+
     const startTimeRouting = Date.now(); // start time
     setOptimalDirections(null);
     setAvoidanceDirections(null);
@@ -355,6 +367,25 @@ const toggleSidebarOptionTab = (sidebarOptionTab) => {
 
   return (
     <div>
+      {showPopup &&
+            <div style={{
+                display: 'block',
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                padding: '20px',
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                color: 'white',
+                borderRadius: '5px',
+                zIndex: 9999
+            }}>
+                Please enter the start location and destination
+            </div>
+        }
+
+
+
       <BrowserRouter>
         <div id="sidebar_map">
           <div id="item-left">
