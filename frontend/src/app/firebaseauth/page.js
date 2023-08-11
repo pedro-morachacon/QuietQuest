@@ -37,16 +37,16 @@ function App() {
             </Routes>
           </DynamicBrowserRouter>
         </AuthContextProvider>
-        <div>
-          <a href="./contact" className="contact">
-            Contact Us
-          </a>
-        </div>
-        <div>
-          <a href="./resetpwd" className="reset-pwd">
-            Forgot Password ?
-          </a>
-        </div>
+        {/*<div>*/}
+        {/*  <a href="./contact" className="contact">*/}
+        {/*    Contact Us*/}
+        {/*  </a>*/}
+        {/*</div>*/}
+        {/*<div>*/}
+        {/*  <a href="./resetpwd" className="reset-pwd">*/}
+        {/*    Forgot Password ?*/}
+        {/*  </a>*/}
+        {/*</div>*/}
       </section>
 
       <style jsx global>{`

@@ -97,6 +97,19 @@ const Signin = () => {
         {/*<h1>{localStorage.getItem("email")}</h1>*/}
         {/*<img src={localStorage.getItem("profilePic")}/>*/}
       </form>
+
+      <div className="contact">
+          <a href="./contact">
+            Contact Us
+          </a>
+        </div>
+        <div className="reset-pwd">
+          <a href="./resetpwd">
+            Forgot Password ?
+          </a>
+        </div>
+
+
       <style jsx>{`
         .center-container {
           display: flex;
