@@ -25,7 +25,11 @@ template_path = os.path.join(current_path, "../", 'productionfiles')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#o0kq+300)ybr!^()meddaetl%lwvjc!@zo@)@t^-e@cbegpe_'
+try:
+    SECRET_KEY = os. getenv("SECRET_KEY")
+except KeyError as e:
+    raise RuntimeError("Could not find a SECRET_KEY in environment") from e
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
