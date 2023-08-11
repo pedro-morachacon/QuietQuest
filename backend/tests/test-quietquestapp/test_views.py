@@ -1,11 +1,14 @@
 import pytest
 from django.http import JsonResponse
+from django.apps import apps
 from quietquestapp.models import NoiseLocations, TaxiWeekdayLocations, Accounts, NoisePolygons, TaxiWeekdayPolygons, Ratings
 from quietquestapp.views import directions_view, noise_heatmap_view, busyness_heatmap_view, combined_heatmap_view, \
-    register_view, login_view, ratings_view
+    register_view, login_view, ratings_view, front_page, firebaseauth_page, account_page, contact_page, feedback_page, \
+    rating_page, resetpwd_page, save_link_icon_page, weather_page, error_page
 from django.test import RequestFactory
 import json
 from datetime import datetime
+from django.urls import reverse
 
 
 @pytest.mark.django_db
@@ -634,3 +637,272 @@ def test_ratings_view():
 
     # Assert the expected behavior of the function
     assert isinstance(response, JsonResponse)
+
+
+@pytest.mark.django_db
+def test_combined_heatmap_view_no_model():
+    noise_locations_objects = []
+    taxi_locations_objects = []
+
+    taxi_weekday_locations = apps.get_model('quietquestapp', 'TaxiWeekdayLocations_1_1')
+    noise_locations = apps.get_model('quietquestapp', 'NoiseLocations_1')
+
+    # Create dummy data for Locations table
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.002614, lat=40.747031, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.002614, lat=40.747031, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.994052, lat=40.743439, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.994052, lat=40.743439, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.99675563, lat=40.74457668, count=0.8800000000000004))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.99675563, lat=40.74457668, count=0.8800000000000004))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.25))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.25))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.5))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.5))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.75))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.75))
+    noise_locations_objects.append(
+        noise_locations(long=-74.002614, lat=40.747031, weekday=1, weekend=0, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-74.002614, lat=40.747031, weekday=0, weekend=1, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-73.994052, lat=40.743439, weekday=1, weekend=0, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-73.994052, lat=40.743439, weekday=0, weekend=1, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.8800000000000004))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.8800000000000004))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.25))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.25))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.5))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.5))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.75))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.75))
+
+    # Bulk create the Locations objects
+    taxi_weekday_locations.objects.bulk_create(taxi_locations_objects)
+    noise_locations.objects.bulk_create(noise_locations_objects)
+
+    # Create a request factory
+    factory = RequestFactory()
+
+    # initialises time and day as current time and day
+    now = datetime(2100, 1, 5)
+    prediction_hour = "26"
+    prediction_date = str(now.date())
+
+    # Create a POST request with JSON payload
+    payload = {
+        "time": prediction_hour,
+        "date": prediction_date
+    }
+
+    request = factory.post('/combinedheatmap/', data=payload, content_type='application/json')
+
+    # Call the function being tested
+    response = combined_heatmap_view(request)
+
+    # Assert the expected behavior of the function
+    assert isinstance(response, JsonResponse)
+
+
+@pytest.mark.django_db
+def test_busyness_heatmap_view_no_model():
+    noise_locations_objects = []
+    taxi_locations_objects = []
+
+    taxi_weekday_locations = apps.get_model('quietquestapp', 'TaxiWeekdayLocations_1_1')
+
+    # Create dummy data for Locations table
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.002614, lat=40.747031, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.002614, lat=40.747031, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.994052, lat=40.743439, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.994052, lat=40.743439, count=0))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.99675563, lat=40.74457668, count=0.8800000000000004))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-73.99675563, lat=40.74457668, count=0.8800000000000004))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.25))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.25))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.5))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.5))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.75))
+    taxi_locations_objects.append(
+        taxi_weekday_locations(long=-74.000048, lat=40.745949, count=0.75))
+
+    # Bulk create the Locations objects
+    taxi_weekday_locations.objects.bulk_create(taxi_locations_objects)
+
+    # Create a request factory
+    factory = RequestFactory()
+
+    # initialises time and day as current time and day
+    now = datetime(2100, 1, 5)
+    prediction_hour = "26"
+    prediction_date = str(now.date())
+
+    # Create a POST request with JSON payload
+    payload = {
+        "time": prediction_hour,
+        "date": prediction_date
+    }
+
+    request = factory.post('/busynessheatmap/', data=payload, content_type='application/json')
+
+    # Call the function being tested
+    response = busyness_heatmap_view(request)
+
+    # Assert the expected behavior of the function
+    assert isinstance(response, JsonResponse)
+
+
+@pytest.mark.django_db
+def test_noise_heatmap_view_no_model():
+    noise_locations_objects = []
+    noise_locations = apps.get_model('quietquestapp', 'NoiseLocations_1')
+
+    # Create dummy data for Locations table
+    noise_locations_objects.append(
+        noise_locations(long=-74.002614, lat=40.747031, weekday=1, weekend=0, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-74.002614, lat=40.747031, weekday=0, weekend=1, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-73.994052, lat=40.743439, weekday=1, weekend=0, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-73.994052, lat=40.743439, weekday=0, weekend=1, count=0))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.8800000000000004))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.8800000000000004))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.25))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.25))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.5))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.5))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=1, weekend=0, count=0.75))
+    noise_locations_objects.append(
+        noise_locations(long=-74.000048, lat=40.745949, weekday=0, weekend=1, count=0.75))
+
+    # Bulk create the Locations objects
+    noise_locations.objects.bulk_create(noise_locations_objects)
+
+    # Create a request factory
+    factory = RequestFactory()
+
+    # initialises time and day as current time and day
+    now = datetime(2100, 1, 5)
+    prediction_hour = "26"
+    prediction_date = str(now.date())
+
+    # Create a POST request with JSON payload
+    payload = {
+        "time": prediction_hour,
+        "date": prediction_date
+    }
+
+    request = factory.post('/noiseheatmap/', data=payload, content_type='application/json')
+
+    # Call the function being tested
+    response = noise_heatmap_view(request)
+
+    # Assert the expected behavior of the function
+    assert isinstance(response, JsonResponse)
+
+
+@pytest.mark.django_db
+def test_home_page_view(client):
+    url = reverse(front_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_firebaseauth_page_view(client):
+    url = reverse(firebaseauth_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_account_page(client):
+    url = reverse(account_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_contact_page(client):
+    url = reverse(contact_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_feedback_page(client):
+    url = reverse(feedback_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_rating_page(client):
+    url = reverse(rating_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_resetpwd_page(client):
+    url = reverse(resetpwd_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_save_link_icon_page(client):
+    url = reverse(save_link_icon_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_weather_page(client):
+    url = reverse(weather_page)
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_error_page(client):
+    url = reverse(error_page)
+    response = client.get(url)
+    assert response.status_code == 200

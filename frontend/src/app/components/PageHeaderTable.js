@@ -13,11 +13,11 @@ const PageHeaderTable = ({}) => {
             <picture>
               <source
                   media="(max-width: 768px)"
-                  srcSet="/smallLogo1.png"
+                  srcSet="https://imagizer.imageshack.com/img922/686/WoPABY.png"
                   width="30"
                   height="20"/>
               <img
-              src="/logo1.png"
+              src="https://imagizer.imageshack.com/img922/9458/vax7kt.png"
               alt="QuietQuest Logo"
               width="145"
               height="40"
