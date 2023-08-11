@@ -59,12 +59,12 @@ def directions_view(request):
     # initialises time and day as current time and day
     now = datetime.now()
     prediction_hour = int(now.strftime("%H"))
-    prediction_day = now.weekday()
+    prediction_day = int(now.weekday())
 
     # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
     if request.data["time"] != "" and request.data["date"] != "":
-        prediction_hour = request.data["time"][0:2]
-        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
+        prediction_hour = int(request.data["time"][0:2])
+        prediction_day = int(pd.Timestamp(request.data["date"]).day_of_week)
 
     active_tab = request.data["tab"]
 
@@ -145,12 +145,12 @@ def noise_heatmap_view(request):
     # initialises time and day as current time and day
     now = datetime.now()
     prediction_hour = int(now.strftime("%H"))
-    prediction_day = now.weekday()
+    prediction_day = int(now.weekday())
 
     # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
     if request.data["time"] != "" and request.data["date"] != "":
-        prediction_hour = request.data["time"][0:2]
-        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
+        prediction_hour = int(request.data["time"][0:2])
+        prediction_day = int(pd.Timestamp(request.data["date"]).day_of_week)
 
     # filters through all the locations to match the current time and date
     if 0 <= prediction_day <= 4:
@@ -191,12 +191,12 @@ def busyness_heatmap_view(request):
     # initialises time and day as current time and day
     now = datetime.now()
     prediction_hour = int(now.strftime("%H"))
-    prediction_day = now.weekday()
+    prediction_day = int(now.weekday())
 
     # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
     if request.data["time"] != "" and request.data["date"] != "":
-        prediction_hour = request.data["time"][0:2]
-        prediction_day = pd.Timestamp(request.data["date"]).day_of_week
+        prediction_hour = int(request.data["time"][0:2])
+        prediction_day = int(pd.Timestamp(request.data["date"]).day_of_week)
 
     if 0 <= prediction_day <= 4:
         # filters through all the locations to match the current time and date
@@ -234,7 +234,7 @@ def combined_heatmap_view(request):
     # initialises time and day as current time and day
     now = datetime.now()
     prediction_hour = int(now.strftime("%H"))
-    prediction_day = now.weekday()
+    prediction_day = int(now.weekday())
 
     # when the values are empty, the datepicker frontend has not been changed, meaning it is the current time
     if request.data["time"] != "" and request.data["date"] != "":
