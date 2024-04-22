@@ -3,6 +3,8 @@
 ## Application Summary
 Navigating urban enviroments creates unique challenges for individuals with sensory sensitivities, such as visual difficulties and autism. This web application is designed to seamlessly aid this target group in finding a route through Manhattan that avoids busy and noisy areas. Alongside the application’s primary function of navigation assistance, it boasts advanced features such as heat maps highlighting predicted crowded zones and the ability to store favourited destinations in user accounts. Central to the development strategy of the application was its optimisation for both desktop and mobile platforms, a quality crucial for a travel companion tool.
 
+![QuietQuest routing image](https://github.com/pedro-morachacon/QuietQuest/blob/main/QuietQuest.jpg?raw=true)
+
 ## First Setup
 On the first run, you might have to install all the python packages. Inside the *backend* directory run:
 
